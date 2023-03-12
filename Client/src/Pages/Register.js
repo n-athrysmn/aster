@@ -50,7 +50,7 @@ function Register({ loggedin = false }) {
                         </div>
 
                         <div className="user-link-cad">
-                            {!loggedin && <Link to="/register">Register</Link>}
+                            {!loggedin && <Link to="/register" className="active-link">Register</Link>}
                         </div>
                     </div>
                     <Formik

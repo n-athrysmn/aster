@@ -48,7 +48,7 @@ function Login({ loggedin }) {
         <div className="card-login">
           <div className="user-links">
             <div className="user-link-home">
-              {!loggedin && <Link to="/">Login</Link>}
+              {!loggedin && <Link to="/" className="active-link">Login</Link>}
             </div>
 
             <div className="user-link-cad">
