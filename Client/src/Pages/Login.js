@@ -1,94 +1,76 @@
-import "../Styles/login.css"
+import "../Styles/login.css";
 import * as yup from "yup";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import Axios from "axios";
-import Img from "../Assets/result.svg"
-import { Link } from 'react-router-dom';
+import Img from "../Assets/result.svg";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login({logado=false}) {
-  const handleLogin = (values) => {
+function Login({ loggedin }) {
+  const navigate = useNavigate();
+
+  const handleLogin = (values, { setSubmitting }) => {
     Axios.post("http://localhost:3001/login", {
       email: values.email,
       password: values.password,
-    }).then((response) => {
-
-      const page = response.data;
-
-      if (page === true) {
-        localStorage.setItem('@user', JSON.stringify(response.config.data));
-        window.location.reload();
-      } else {
-        alert(response.data.msg);
-      }
-
-    });
-  };
-
-  const handleRegister = (values) => {
-    Axios.post("http://localhost:3001/register", {
-      email: values.email,
-      password: values.password,
-    }).then((response) => {
-      alert(response.data.msg);
-      console.log(response);
-    });
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem("@user", JSON.stringify(response.config.data));
+          navigate("/");
+          window.location.reload(); // auto reload the page
+        } else {
+          alert(response.data.msg);
+        }
+        setSubmitting(false); // set submitting to false to enable button again
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("An error occurred while logging in");
+        setSubmitting(false); // set submitting to false to enable button again
+      });
   };
 
   const validationsLogin = yup.object().shape({
-    email: yup
-      .string()
-      .email("email inválido")
-      .required("O email é obrigatório"),
+    email: yup.string().email("Invalid email").required("Email is required"),
     password: yup
       .string()
-      .min(8, "A senha deve ter pelo menos 8 caracteres")
-      .required("A senha é obrigatória"),
-  });
-
-  const validationsRegister = yup.object().shape({
-    email: yup
-      .string()
-      .email("email inválido")
-      .required("O email é obrigatório"),
-    password: yup
-      .string()
-      .min(8, "A senha deve ter pelo menos 8 caracteres")
-      .required("A senha é obrigatória"),
-    confirmation: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "As senhas são diferentes")
-      .required("A confirmação da senha é obrigatória"),
+      .min(8, "A password should be at least 8 characters")
+      .required("Password is required"),
   });
 
   return (
     <div className="body">
       <div className="left-login">
-        <img src={Img} alt="Pessoas olhando gráficos" className="chart" />
-
+        <img src={Img} alt="Picture" className="chart" />
       </div>
 
       <div className="right-login">
         <div className="card-login">
           <div className="user-links">
             <div className="user-link-home">
-              {!logado && <Link to="/">Home</Link>}
+              {!loggedin && <Link to="/">Login</Link>}
             </div>
 
             <div className="user-link-cad">
-              {!logado && <Link to="/cadastro">Cadastro</Link>}
+              {!loggedin && <Link to="/register">Register</Link>}
             </div>
           </div>
-          <h1>LOGIN</h1>
           <Formik
             initialValues={{}}
             onSubmit={handleLogin}
             validationSchema={validationsLogin}
           >
+          {(formikBag) => (
             <Form className="login-form">
               <div className="form-group">
-                <label form="email">Usuário</label>
+                <label form="email">Email</label>
 
-                <Field name="email" type='email' className="form-field" placeholder="Email" />
+                <Field
+                  name="email"
+                  type="email"
+                  className="form-field"
+                  placeholder="Email"
+                />
 
                 <ErrorMessage
                   component="span"
@@ -100,8 +82,13 @@ function Login({logado=false}) {
               {/*Outro campo*/}
 
               <div className="form-group">
-                <label form="email">Senha</label>
-                <Field name="password" type='password' className="form-field" placeholder="Senha" />
+                <label form="email">Password</label>
+                <Field
+                  name="password"
+                  type="password"
+                  className="form-field"
+                  placeholder="Password"
+                />
 
                 <ErrorMessage
                   component="span"
@@ -110,10 +97,11 @@ function Login({logado=false}) {
                 />
               </div>
 
-              <button className="button" type="submit">
-                ENTRAR
-              </button>
+                <button className="button" type="submit" disabled={formikBag.isSubmitting}>
+                    {formikBag.isSubmitting ? "Loading..." : "LOGIN"}
+                </button>
             </Form>
+          )}
           </Formik>
         </div>
       </div>

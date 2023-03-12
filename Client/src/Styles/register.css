@@ -34,7 +34,7 @@
     transform: scaleX(1);
   }
   
-  .left-cadastro {
+  .left-register {
     width: 50vw;
     height: 100vh;
     display: flex;
@@ -43,11 +43,11 @@
     flex-direction: column;
   }
   
-  .left-cadastro h1 {
+  .left-register h1 {
     color: #77ffc0;
   }
   
-  .right-cadastro {
+  .right-register {
     width: 50vw;
     height: 100vh;
     display: flex;
@@ -55,7 +55,7 @@
     align-items: center;
   }
   
-  .card-cadastro {
+  .card-register {
     width: 60%;
     display: flex;
     justify-content: center;
@@ -67,7 +67,7 @@
     box-shadow: 0px 10px 40px #00000056;
   }
   
-  .card-cadastro h1 {
+  .card-register h1 {
     color: #91B7D9;
     font-weight: 800;
     margin: 0;
@@ -139,7 +139,7 @@
   }
 
   @media (max-width: 950px){
-    .card-cadastro{
+    .card-register{
       width: 100%;
     }
   }
@@ -149,17 +149,17 @@
       flex-direction: column;
     }
   
-    .left-cadastro {
+    .left-register {
       width: 100%;
       height: auto;
     }
   
-    .right-cadastro {
+    .right-register {
       width: 100%;
       height: auto;
     }
   
-    .card-cadastro {
+    .card-register {
       width: 90%;
       
     }

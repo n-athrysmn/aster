@@ -15,7 +15,7 @@ function Header() {
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-100">
                 </ul>
                 <div class="col-md-3 text-end">
-                    <button onClick={logout} type="button" class="btn btn-primary">Sair</button>
+                    <button onClick={logout} type="button" class="btn btn-primary">Logout</button>
                 </div>
             </header>
         </div>

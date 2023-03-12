@@ -1,4 +1,4 @@
-import "../Styles/cadastro.css"
+import "../Styles/register.css"
 import Img from "../Assets/result.svg"
 import * as yup from "yup";
 import { ErrorMessage, Formik, Form, Field } from "formik";
@@ -6,10 +6,12 @@ import Axios from "axios";
 import { Link } from 'react-router-dom';
 
 
-function Cadastro({ logado = false }) {
+function Register({ loggedin = false }) {
 
     const handleRegister = (values) => {
         Axios.post("http://localhost:3001/register", {
+            firstName: values.firstName,
+            lastName: values.lastName,
             email: values.email,
             password: values.password,
         }).then((response) => {
@@ -22,36 +24,35 @@ function Cadastro({ logado = false }) {
     const validationsRegister = yup.object().shape({
         email: yup
             .string()
-            .email("E-mail inválido")
-            .required("O e-mail é obrigatório"),
+            .email("Invalid email")
+            .required("Email is required"),
         password: yup
             .string()
-            .min(8, "A senha deve ter pelo menos 8 caracteres")
-            .required("A senha é obrigatória"),
+            .min(8, "A password should be at least 8 characters")
+            .required("Password is required"),
         confirmation: yup
             .string()
-            .oneOf([yup.ref("password"), null], "As senhas são diferentes")
-            .required("A confirmação da senha é obrigatória"),
+            .oneOf([yup.ref("password"), null], "Passwords are different")
+            .required("Password re-type is required"),
     });
 
 
     return (
         <div className="body">
-            <div className="left-cadastro">
-                <img src={Img} alt="Pessoas olhando gráficos" className="chart" />
+            <div className="left-register">
+                <img src={Img} alt="Picture" className="chart" />
             </div>
-            <div className="right-cadastro">
-                <div className="card-cadastro">
+            <div className="right-register">
+                <div className="card-register">
                     <div className="user-links">
                         <div className="user-link-home">
-                            {!logado && <Link to="/">Home</Link>}
+                            {!loggedin && <Link to="/">Login</Link>}
                         </div>
 
                         <div className="user-link-cad">
-                            {!logado && <Link to="/cadastro">Cadastro</Link>}
+                            {!loggedin && <Link to="/register">Register</Link>}
                         </div>
                     </div>
-                    <h1>CADASTRO</h1>
                     <Formik
                         initialValues={{}}
                         onSubmit={handleRegister}
@@ -59,7 +60,21 @@ function Cadastro({ logado = false }) {
                     >
                         <Form className="login-form">
                             <div className="form-group">
-                                <label form="email">Usuário</label>
+                                <label form="firstName">First Name</label>
+
+                                <Field name="firstName" type='text' className="form-field" placeholder="First Name" />
+                                
+                            </div>
+
+                            <div className="form-group">
+                                <label form="lastName">Last Name</label>
+
+                                <Field name="lastName" type='text' className="form-field" placeholder="Last Name" />
+
+                            </div>
+
+                            <div className="form-group">
+                                <label form="email">Email</label>
 
                                 <Field name="email" type='email' className="form-field" placeholder="Email" />
 
@@ -70,11 +85,9 @@ function Cadastro({ logado = false }) {
                                 />
                             </div>
 
-                            {/*Outro campo*/}
-
                             <div className="form-group">
-                                <label form="email">Senha</label>
-                                <Field name="password" type='password' className="form-field" placeholder="Senha" />
+                                <label form="email">Password</label>
+                                <Field name="password" type='password' className="form-field" placeholder="Paswword" />
 
                                 <ErrorMessage
                                     component="span"
@@ -83,11 +96,9 @@ function Cadastro({ logado = false }) {
                                 />
                             </div>
 
-                            {/*Confirmação*/}
-
                             <div className="form-group">
-                                <label form="email">Confirme sua senha</label>
-                                <Field name="confirmation" type='password' className="form-field" placeholder="Senha" />
+                                <label form="email">Password Confirmation</label>
+                                <Field name="confirmation" type='password' className="form-field" placeholder="Re-type password" />
 
                                 <ErrorMessage
                                     component="span"
@@ -96,7 +107,7 @@ function Cadastro({ logado = false }) {
                                 />
                             </div>
                             <button className="button" type="submit">
-                                CADASTRAR
+                                Register
                             </button>
                         </Form>
                     </Formik>
@@ -106,4 +117,4 @@ function Cadastro({ logado = false }) {
     );
 }
 
-export default Cadastro;
+export default Register

@@ -3,20 +3,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import Login from "../Pages/Login"
 import Dashboard from "../Pages/Dashboard"
-import Cadastro from "../Pages/Cadastro";
+import Register from "../Pages/Register";
 
-const logado = localStorage.getItem('@user');
+const loggedin = localStorage.getItem('@user');
 
-const Rotas = () => {
+const WebRoute = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {logado && <Route path="/" exact element={<Dashboard />} />}
-                {!logado && <Route path="/" element={<Login logado={logado} />} />}
-                {!logado && <Route path="/cadastro" element={<Cadastro logado={logado} />} />}
+                {loggedin && <Route path="/" exact element={<Dashboard />} />}
+                {!loggedin && <Route path="/" element={<Login loggedin={loggedin} />} />}
+                {!loggedin && <Route path="/register" element={<Register loggedin={loggedin} />} />}
             </Routes>
         </BrowserRouter>
     );
 };
 
-export default Rotas;
+export default WebRoute
