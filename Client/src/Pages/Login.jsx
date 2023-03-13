@@ -1,13 +1,14 @@
-import "../Styles/login.css";
-import * as yup from "yup";
-import { ErrorMessage, Formik, Form, Field } from "formik";
-import Axios from "axios";
-import Img from "../Assets/result.svg";
-import { Link, useNavigate } from "react-router-dom";
+import React from 'react'
+import "../Styles/login.css"
+import * as yup from "yup"
+import { ErrorMessage, Formik, Form, Field } from "formik"
+import Axios from "axios"
+import Img from "../Assets/result.svg"
+import { Link, useNavigate } from "react-router-dom"
 
 function Login({ loggedin }) {
-  const navigate = useNavigate();
-
+  const navigate = useNavigate()
+  
   const handleLogin = (values, { setSubmitting }) => {
     Axios.post("http://localhost:3001/login", {
       email: values.email,
@@ -15,20 +16,24 @@ function Login({ loggedin }) {
     })
       .then((response) => {
         if (response.status === 200) {
-          localStorage.setItem("@user", JSON.stringify(response.config.data));
-          navigate("/");
-          window.location.reload(); // auto reload the page
+          localStorage.setItem("@user", JSON.stringify(response.config.data))
+          if (response.data.msg === "Email not registered") {
+            alert(response.data.msg)
+          } else {
+            navigate("/")
+            window.location.reload() // auto reload the page
+          }
         } else {
-          alert(response.data.msg);
+          alert(response.data.msg)
         }
-        setSubmitting(false); // set submitting to false to enable button again
+        setSubmitting(false) // set submitting to false to enable button again
       })
       .catch((error) => {
-        console.error(error);
-        alert("An error occurred while logging in");
-        setSubmitting(false); // set submitting to false to enable button again
-      });
-  };
+        console.error(error)
+        alert("An error occurred while logging in")
+        setSubmitting(false) // set submitting to false to enable button again
+      })
+  }
 
   const validationsLogin = yup.object().shape({
     email: yup.string().email("Invalid email").required("Email is required"),
@@ -36,7 +41,7 @@ function Login({ loggedin }) {
       .string()
       .min(8, "A password should be at least 8 characters")
       .required("Password is required"),
-  });
+  })
 
   return (
     <div className="body">
@@ -46,17 +51,20 @@ function Login({ loggedin }) {
 
       <div className="right-login">
         <div className="card-login">
-          <div className="user-links">
-            <div className="user-link-home">
+          <div className="login-user-links">
+            <div>
               {!loggedin && <Link to="/" className="active-link">Login</Link>}
             </div>
 
-            <div className="user-link-cad">
+            <div>
               {!loggedin && <Link to="/register">Register</Link>}
             </div>
           </div>
           <Formik
-            initialValues={{}}
+            initialValues={{
+              email: '',
+              password: '',
+            }}
             onSubmit={handleLogin}
             validationSchema={validationsLogin}
           >
@@ -69,7 +77,7 @@ function Login({ loggedin }) {
                   name="email"
                   type="email"
                   className="form-field"
-                  placeholder="Email"
+                  placeholder="Enter Email"
                 />
 
                 <ErrorMessage
@@ -79,15 +87,13 @@ function Login({ loggedin }) {
                 />
               </div>
 
-              {/*Outro campo*/}
-
               <div className="form-group">
                 <label form="email">Password</label>
                 <Field
                   name="password"
                   type="password"
                   className="form-field"
-                  placeholder="Password"
+                  placeholder="Enter Password"
                 />
 
                 <ErrorMessage
@@ -106,7 +112,7 @@ function Login({ loggedin }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

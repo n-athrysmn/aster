@@ -1,9 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./Styles/index.css";
+import React from "react"
+import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import "./Styles/index.css"
 
-import WebRoute from "./Routes/routes"
+import WebRoute from "./Routes/Routes"
 
-ReactDOM.render(<WebRoute/>, document.getElementById("root"));
+createRoot(document.getElementById("root")).render(<WebRoute />)
+
 
 

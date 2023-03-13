@@ -31,6 +31,7 @@
 
 .card-login {
   width: 60%;
+  max-height: 70vh; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,10 +105,22 @@
   background: #B3DAF2;
   color: black;
 }
+  
+.login-user-links{
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
 
 .active-link {
     text-decoration: underline;
   }
+
+  .active-link:hover {
+      text-decoration: none;
+    }
 
 @media (max-width: 950px){
   .card-login{
