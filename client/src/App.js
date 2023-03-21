@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import Parent from './pages/Parent'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
+import Books from './pages/Books'
 
 const Layout = () =>{
     return(
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
         {
           path: "/profile",
           element: <Profile/>,
+        },
+        {
+          path: "/books",
+          element: <Books/>,
         },
     ]
   },

@@ -2,55 +2,83 @@ import React from 'react'
 import '../style.scss'
 import Tabs from '../components/Tab';
 import { Link } from 'react-router-dom';
+import YouTube from 'react-youtube'
 
 const Books = () => {
 
-    const books = [
+    const questions = [
         {
             id: 1,
-            title: "Lorem ipsum",
-            desc: "Lorem ipsum",
-            img: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+            title: "Question 1",
+            url: "SG_IhpbfDe8"
         },
         {
             id: 2,
-            title: "Lorem ipsum2",
-            desc: "Lorem ipsum",
-            img: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+            title: "Question 2",
+            url: "oftmvDhLtEU"
         },
         {
             id: 3,
-            title: "Lorem ipsum3",
-            desc: "Lorem ipsum",
-            img: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+            title: "Question 3",
+            url: "BQioJUAtk2E"
         },
     ]
 
+    const mobileWidth = 320;
+    const mobileHeight = 240;
+    const tabletWidth = 300;
+    const tabletHeight = 700;
+    const desktopWidth = 720;
+    const desktopHeight = 690;
+
     const tabs = [
       {
-        title: 'Books',
+        title: 'Q1-Q50',
         content: 
         <div className="posts">
-            {books.map(book=>(
-                <div className="post" key={book.id}>
+            {questions.map(q=>(
+                <div className="post" key={q.id}>
                     <div className="img">
-                        <img src={book.img} alt="" />
+                        <div className="video-container">
+                            <YouTube videoId={q.url} opts={{
+                                height: mobileHeight,
+                                width: mobileWidth
+                            }}/>
+                        </div>
+                        <style>{`
+                            @media (min-width: 540px) {
+                                .video-container {
+                                    width: ${tabletWidth}px;
+                                    height: ${tabletHeight}px;
+                                }
+                                .video-container iframe {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                            @media (min-width: 720px) {
+                                .video-container {
+                                    width: ${desktopWidth}px;
+                                    height: ${desktopHeight}px;
+                                }
+                            }
+                        `}</style>
                     </div>
                     <div className="content">
-                        <Link to={`/books/${book.id}`} className='link'>
-                            <h1>{book.title}</h1>
-                            <p>{book.desc}</p>
+                        <Link to={`/questions/${q.id}`} className='link'>
+                            <h1>{q.title}</h1>
+                            <p>{q.desc}</p>
                         </Link>
                     </div>
                 </div>
             ))}
         </div>,
-      }
+      },
     ]
 
     return(
-        <div className='books'>
-            <Tabs tabs={tabs} />
+        <div className='home'>
+          <Tabs tabs={tabs} />
         </div>
     )
 }

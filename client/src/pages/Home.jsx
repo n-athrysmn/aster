@@ -84,7 +84,7 @@ const Home = () => {
                         <img src={book.img} alt="" />
                     </div>
                     <div className="content">
-                        <Link to={`/books/${book.id}`} className='link'>
+                        <Link to='/books' className='link'>
                             <h1>{book.title}</h1>
                             <p>{book.desc}</p>
                         </Link>
