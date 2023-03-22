@@ -21,6 +21,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (!inputs.email || !inputs.password) {
+      setError('Please enter both email and password');
+      return;
+    }
     try {
       await login(inputs)
       navigate("/dashboard");
@@ -31,7 +36,7 @@ const Login = () => {
   return (
     <div className="auth">
       <h1>Login</h1>
-      <form className="form-container">
+      <form className="form-container" onSubmit={handleSubmit}>
         <input
           required
           type="email"

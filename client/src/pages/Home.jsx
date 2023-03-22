@@ -1,21 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import avatar from '../assets/avatar.png'
 import Tabs from '../components/Tab';
 import Accordion from '../components/Accordion';
 import { BiSupport } from 'react-icons/bi'
+import { FaSchool, FaEnvelope, FaLeanpub, FaTrophy, FaBook, FaQuestion } from 'react-icons/fa';
 import { MdOutlineContactSupport, MdWhatsapp, MdOutlineQuestionAnswer, MdQuestionAnswer } from 'react-icons/md'
 
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-      if (!currentUser) {
-        navigate("/");
-      }
-    })
 
     const books = [
         {
@@ -75,7 +69,10 @@ const Home = () => {
 
     const tabs = [
       {
-        title: 'Books',
+        title: 
+        <div className="tab-title">
+          <div className="tab-icon"><FaBook/></div>Books
+        </div>,
         content: 
         <div className="posts">
             {books.map(book=>(
@@ -86,15 +83,18 @@ const Home = () => {
                     <div className="content">
                         <Link to='/books' className='link'>
                             <h1>{book.title}</h1>
-                            <p>{book.desc}</p>
                         </Link>
+                            <p>{book.desc}</p>
                     </div>
                 </div>
             ))}
         </div>,
       },
       {
-        title: 'Quizzes',
+        title: 
+        <div className="tab-title">
+          <div className="tab-icon"><FaQuestion/></div>Quizzes
+        </div>,
         content: 
         <div className="posts">
             {quizzes.map(quiz=>(
@@ -116,34 +116,50 @@ const Home = () => {
 
   return (
     <div className='home'>
-      <div className="profile-card">
-        <div className="avatar">
-          {currentUser?.studentName && (
-            <img src={currentUser?.studentPfp} alt={currentUser?.studentName} />
-          )}
-          {currentUser?.parentName && (
-            <img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
-          )}
-        </div>
-        <div className="info">
-          {currentUser?.studentName && (
-            <>
-              <h3>Hello, {currentUser.studentName}!</h3>
-              <p>Email: {currentUser.studentEmail}</p>
-              <p>School: {currentUser.studentSch}</p>
-              <p>Level: {currentUser.studentLevel}</p>
-            </>
-          )}
-          {currentUser?.parentName && (
-            <>
-              <h3>Hello, {currentUser.parentName}!</h3>
-              <p>Email: {currentUser.parentEmail}</p>
-              <p>Job: {currentUser.parentJob}</p>
-              <p>Salary range: {currentUser.parentSalary}</p>
-            </>
-          )}
-        </div>
+    <div className="profile-card">
+      <div className="avatar">
+        {/*{currentUser?.studentName && (
+          <img src={currentUser?.studentPfp} alt={currentUser?.studentName} />
+        )}
+        {currentUser?.parentName && (
+          <img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
+        )}*/}
+        <img src={avatar} alt="avatar"/>
       </div>
+      <div className="info">
+        {currentUser?.studentName && (
+          <>
+            <h3>Hello, {currentUser.studentName}!</h3>
+            <div className="info-cards">
+              <p className='info-card card1'>
+                <span className='info-title'><FaEnvelope/></span>
+                {currentUser.studentEmail}
+                </p>
+              <p className='info-card card2'>
+                <span className='info-title'><FaSchool/></span>
+                {currentUser.studentSch}
+              </p>
+              <p className='info-card card3'>
+                <span className='info-title'><FaLeanpub/></span>
+                {currentUser.studentLevel}
+              </p>
+              <p className='info-card card4'>
+                <span className='info-title'><FaTrophy/></span>
+                {currentUser.studentGrade}
+              </p>
+            </div>
+          </>
+        )}
+        {currentUser?.parentName && (
+          <>
+            <h3>Hello, {currentUser.parentName}!</h3>
+            <p>Email: {currentUser.parentEmail}</p>
+            <p>Job: {currentUser.parentJob}</p>
+            <p>Salary range: {currentUser.parentSalary}</p>
+          </>
+        )}
+      </div>
+    </div>
       <Tabs tabs={tabs} />
       <div className="accords">
         <Accordion

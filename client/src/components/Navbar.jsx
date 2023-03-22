@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Logo from '../assets/logo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import '../style.scss'
-import { AuthContext } from "../context/authContext";
+import { AuthContext } from "../context/authContext"
+import { FaTimes, FaBars } from 'react-icons/fa'
 
 const Navbar = () => {
     
@@ -14,6 +15,12 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const [isClicked, setIsClicked] = useState(false); 
+
+  const handleClick = () => {
+      setIsClicked(!isClicked);
+  }
+
   return (
     <div className='navbar'>
         <div className='container'>
@@ -22,14 +29,15 @@ const Navbar = () => {
                   <img src={Logo} alt='Aster Education'/>
                 </Link>
             </div>
-            <div className='links'>
-                <Link className='link' to='/books'>
+            <div className='toggler'><span onClick={handleClick}>{isClicked ? <FaTimes/> : <FaBars/> }</span></div>
+            <div className={isClicked ? 'links active' : 'links' }>
+                <Link className='nav-link' to='/books'>
                     Books
                 </Link>
-                <Link className='link' to='/profile'>
+                <Link className='nav-link' to='/profile'>
                   Profile
                 </Link>
-                <Link className='link' onClick={handleLogout}>
+                <Link className='nav-link' onClick={handleLogout}>
                     Logout
                 </Link>
             </div>
