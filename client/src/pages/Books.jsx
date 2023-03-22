@@ -24,13 +24,6 @@ const Books = () => {
         },
     ]
 
-    const mobileWidth = 320;
-    const mobileHeight = 240;
-    const tabletWidth = 300;
-    const tabletHeight = 700;
-    const desktopWidth = 720;
-    const desktopHeight = 690;
-
     const tabs = [
       {
         title: 'Q1-Q50',
@@ -40,29 +33,8 @@ const Books = () => {
                 <div className="post" key={q.id}>
                     <div className="img">
                         <div className="video-container">
-                            <YouTube videoId={q.url} opts={{
-                                height: mobileHeight,
-                                width: mobileWidth
-                            }}/>
+                            <YouTube videoId={q.url}/>
                         </div>
-                        <style>{`
-                            @media (min-width: 540px) {
-                                .video-container {
-                                    width: ${tabletWidth}px;
-                                    height: ${tabletHeight}px;
-                                }
-                                .video-container iframe {
-                                    width: 100%;
-                                    height: 100%;
-                                }
-                            }
-                            @media (min-width: 720px) {
-                                .video-container {
-                                    width: ${desktopWidth}px;
-                                    height: ${desktopHeight}px;
-                                }
-                            }
-                        `}</style>
                     </div>
                     <div className="content">
                         <Link to={`/questions/${q.id}`} className='link'>
