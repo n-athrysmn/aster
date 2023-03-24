@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import '../style.scss'
 
 const Tabs = ({ tabs}) => {
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState(0)
 
   return (
     <div className='tabs'>
@@ -19,9 +19,11 @@ const Tabs = ({ tabs}) => {
       </div>
       <div className="tab-content">
         {tabs[activeTab].content}
+
+        <button className='btn'>Got more books? Click here to add more</button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Tabs

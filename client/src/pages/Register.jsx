@@ -38,7 +38,7 @@ const Register = () => {
         e.preventDefault()
         try{
             await axios.post("/auth/register", inputs)
-            navigate("/");
+            navigate("/")
         }catch(err){
             setError(err.response.data)
         }
@@ -98,7 +98,7 @@ const Register = () => {
             <button onClick={handleSubmit}>Register</button>
             {err && <p>{err}</p>}
             <span>
-              Not a student? <Link to="/parent-register">Register as parent</Link>
+              Not a student? <Link to="/role">Change role here</Link>
             </span>
             <span>
               Already registered? <Link to="/">Login here</Link>

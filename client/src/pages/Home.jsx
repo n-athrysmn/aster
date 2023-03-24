@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from "../context/authContext";
+import { AuthContext } from "../context/authContext"
 import avatar from '../assets/avatar.png'
-import Tabs from '../components/Tab';
-import Accordion from '../components/Accordion';
+import Tabs from '../components/Tab'
+import Accordion from '../components/Accordion'
 import { BiSupport } from 'react-icons/bi'
-import { FaSchool, FaEnvelope, FaLeanpub, FaTrophy, FaBook, FaQuestion } from 'react-icons/fa';
+import { FaSchool, FaEnvelope, FaLeanpub, FaTrophy, FaBook, FaQuestion, FaBullhorn } from 'react-icons/fa'
 import { MdOutlineContactSupport, MdWhatsapp, MdOutlineQuestionAnswer, MdQuestionAnswer } from 'react-icons/md'
+import Announcement from '../components/Announcements'
 
 const Home = () => {
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext)
 
     const books = [
         {
@@ -65,7 +66,7 @@ const Home = () => {
         answer: 'We ship all orders within 1-2 business days. Shipping time varies based on your location.',
       },
       // Add more FAQs here as needed
-    ]);
+    ])
 
     const tabs = [
       {
@@ -93,7 +94,7 @@ const Home = () => {
       {
         title: 
         <div className="tab-title">
-          <div className="tab-icon"><FaQuestion/></div>Quizzes
+          <div className="tab-icon"><FaQuestion/></div>Knowledge Library
         </div>,
         content: 
         <div className="posts">
@@ -112,54 +113,111 @@ const Home = () => {
             ))}
         </div>,
       },
-    ];
+    ]
+
+    const today = new Date();
+    const dayOfMonth = today.getDate();
+    
+    const cells = document.getElementsByClassName('date');
+    for (let i = 0; i < cells.length; i++) {
+      const cell = cells[i];
+      if (cell.innerHTML == dayOfMonth) {
+        cell.style.backgroundColor = '#bb944f';
+      }
+    }
+    
 
   return (
     <div className='home'>
-    <div className="profile-card">
-      <div className="avatar">
-        {/*{currentUser?.studentName && (
-          <img src={currentUser?.studentPfp} alt={currentUser?.studentName} />
-        )}
-        {currentUser?.parentName && (
-          <img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
-        )}*/}
-        <img src={avatar} alt="avatar"/>
+      <div className="announce">
+        <div className="ann-icon"><div className="icon"><FaBullhorn/></div></div>
+        <div className="ann-text"> Hello everyone, welcome to Aster's dashboard. We will be updating lives and quizes, look forward to it!</div>
+        
       </div>
-      <div className="info">
-        {currentUser?.studentName && (
-          <>
-            <h3>Hello, {currentUser.studentName}!</h3>
-            <div className="info-cards">
-              <p className='info-card card1'>
-                <span className='info-title'><FaEnvelope/></span>
-                {currentUser.studentEmail}
-                </p>
-              <p className='info-card card2'>
-                <span className='info-title'><FaSchool/></span>
-                {currentUser.studentSch}
-              </p>
-              <p className='info-card card3'>
-                <span className='info-title'><FaLeanpub/></span>
-                {currentUser.studentLevel}
-              </p>
-              <p className='info-card card4'>
-                <span className='info-title'><FaTrophy/></span>
-                {currentUser.studentGrade}
-              </p>
-            </div>
-          </>
-        )}
-        {currentUser?.parentName && (
-          <>
-            <h3>Hello, {currentUser.parentName}!</h3>
-            <p>Email: {currentUser.parentEmail}</p>
-            <p>Job: {currentUser.parentJob}</p>
-            <p>Salary range: {currentUser.parentSalary}</p>
-          </>
-        )}
+      <div className="top-part">
+      <div className="profile-card">
+        <div className="avatar">
+          {/*{currentUser?.studentName && (
+            <img src={currentUser?.studentPfp} alt={currentUser?.studentName} />
+          )}
+          {currentUser?.parentName && (
+            <img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
+          )}*/}
+          <img src={avatar} alt="avatar"/>
+        </div>
+        <div className="info">
+          {currentUser?.studentName && (
+            <>
+              <h3>Hello, {currentUser.studentName}!</h3>
+            </>
+          )}
+          {currentUser?.parentName && (
+            <>
+              <h3>Hello, {currentUser.parentName}!</h3>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+      <div className="calendar">
+        <h2>Month: March</h2>
+        <table>
+          <tr className='days'>
+            <td className='date'>Sun</td>
+            <td className='date'>Mon</td>
+            <td className='date'>Tue</td>
+            <td className='date'>Wed</td>
+            <td className='date'>Thu</td>
+            <td className='date'>Fri</td>
+            <td className='date'>Sat</td>
+          </tr>
+          <tr>
+            <td className='date'></td>
+            <td className='date'></td>
+            <td className='date'></td>
+            <td className='date'>1</td>
+            <td className='date'>2</td>
+            <td className='date'>3</td>
+            <td className='date'>4</td>
+          </tr>
+          <tr>
+            <td className='date'>5</td>
+            <td className='date'>6</td>
+            <td className='date'>7</td>
+            <td className='date'>8</td>
+            <td className='date'>9</td>
+            <td className='date'>10</td>
+            <td className='date'>11</td>
+          </tr>
+          <tr>
+            <td className='date'>12</td>
+            <td className='date'>13</td>
+            <td className='date'>14</td>
+            <td className='date'>15</td>
+            <td className='date'>16</td>
+            <td className='date'>17</td>
+            <td className='date'>18</td>
+          </tr>
+          <tr>
+            <td className='date'>19</td>
+            <td className='date'>20</td>
+            <td className='date'>21</td>
+            <td className='date'>22</td>
+            <td className='date'>23</td>
+            <td className='date'>24</td>
+            <td className='date'>25</td>
+          </tr>
+          <tr>
+            <td className='date'>26</td>
+            <td className='date'>27</td>
+            <td className='date'>28</td>
+            <td className='date'>29</td>
+            <td className='date'>30</td>
+            <td className='date'>31</td>
+            <td className='date'></td>
+          </tr>
+        </table>
+      </div>
+      </div>
       <Tabs tabs={tabs} />
       <div className="accords">
         <Accordion

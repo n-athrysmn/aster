@@ -7,10 +7,10 @@ import { FaUserGraduate, FaEnvelope, FaPhoneAlt, FaBirthdayCake, FaHome, FaSchoo
 
 const Profile = () => {
 
-    const { currentUser } = useContext(AuthContext);
-    const dateStr = currentUser.studentBirth;
-    const date = new Date(dateStr);
-    const formattedDate = date.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}).replace(/\//g, '/');
+    const { currentUser } = useContext(AuthContext)
+    const dateStr = currentUser.studentBirth
+    const date = new Date(dateStr)
+    const formattedDate = date.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}).replace(/\//g, '/')
   
     return (
       <div className='profile'>

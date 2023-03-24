@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/authContext"
 
-const Login = () => {
+const AdminLogin = () => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -12,7 +12,7 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const { login } = useContext(AuthContext)
+  const { admin } = useContext(AuthContext)
 
 
   const handleChange = (e) => {
@@ -27,15 +27,15 @@ const Login = () => {
       return
     }
     try {
-      await login(inputs)
-      navigate("/dashboard")
+      await admin(inputs)
+      navigate("/admin-dashboard")
     } catch (err) {
       setError(err.response.data)
     }
   }
   return (
     <div className="auth">
-      <h1>Login</h1>
+      <h1>Admin Login</h1>
       <form className="form-container" onSubmit={handleSubmit}>
         <input
           required
@@ -54,11 +54,11 @@ const Login = () => {
         <button onClick={handleSubmit}>Login</button>
         {err && <p>{err}</p>}
         <span>
-          New to Aster Education? <Link to="/role">Register here</Link>
+          No admin account? <Link to="/admin-register">Register here</Link>
         </span>
       </form>
     </div>
   )
 }
 
-export default Login
+export default AdminLogin

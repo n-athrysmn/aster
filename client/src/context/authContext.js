@@ -1,31 +1,37 @@
-import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import axios from "axios"
+import { createContext, useEffect, useState } from "react"
 
-export const AuthContext = createContext();
+export const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
-  );
+  )
   
   const login = async (inputs) => {
-    const res = await axios.post("/auth/login", inputs);
-    console.log("login response", res.data);
-    setCurrentUser(res.data);
-  };
+    const res = await axios.post("/auth/login", inputs)
+    console.log("login response", res.data)
+    setCurrentUser(res.data)
+  }
+  
+  const admin = async (inputs) => {
+    const res = await axios.post("/auth/admin-login", inputs)
+    console.log("login response", res.data)
+    setCurrentUser(res.data)
+  }
 
   const logout = async (inputs) => {
-    await axios.post("/auth/logout");
-    setCurrentUser(null);
-  };
+    await axios.post("/auth/logout")
+    setCurrentUser(null)
+  }
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
-  }, [currentUser]);
+    localStorage.setItem("user", JSON.stringify(currentUser))
+  }, [currentUser])
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, login, admin, logout }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

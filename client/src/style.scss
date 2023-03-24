@@ -38,7 +38,6 @@ html {
 
 body{
   color: #F9F9F9;
-  overflow-x: hidden;
   position: relative;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -50,6 +49,23 @@ body{
   
   .container {
     width: 100%;
+
+    .btn{
+      padding: 10px;
+      background-color: $primary;
+      border-radius: 3px;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      width: 50%;
+      border: 2px transparent solid;
+      
+      &:hover{
+        background-color: transparent;
+        color: $primary;
+        border: $primary 2px solid;
+      }
+    }
 
     .link {
       text-decoration: none;
@@ -169,6 +185,34 @@ body{
           text-align: center;
         }
       }
+
+      .roles{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+
+        .role-btn{
+          color: white;
+          background-color: $primary;
+          border: transparent 2px solid;
+          padding: 50px;
+          border-radius: 4px;
+          width: 100%;
+          margin-top: 50px;
+  
+          &:hover{
+            background-color: transparent;
+            color: $primary;
+            border: $primary 2px solid;
+          }
+        }
+
+      }
+
+      .log{
+        padding-top: 50px;
+      }
     }
 
     //NAVBAR
@@ -243,58 +287,103 @@ body{
     .home {
       padding: 50px 200px;
 
-      .profile-card{    
+      .top-part{
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: $main;
-        border-radius: 3px;
-        padding: 20px;
-        gap: 50px;
-
-        .avatar{
-          padding: 5px;
-            img{
-                width: 150px;
+        flex-direction: row;
+        gap: 20px;
+        
+        .profile-card{    
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background-color: $main;
+          border-radius: 3px;
+          padding: 20px;
+          gap: 50px;
+          width: 30%;
+  
+          .avatar{
+            padding: 5px;
+              img{
+                  width: 150px;
+              }
+          }
+  
+          .info {
+            display: flex;
+            justify-content: center;     
+            flex-direction: column;    
+            align-items: center;
+            gap: 30px;
+  
+          .info-cards{
+            display: flex;
+            flex-direction: row;
+  
+            .info-card{
+              background-color: #333232;
+              padding: 15px;
+              margin: 10px;
+              font-size: 14px;
+              border: $primary 1px dashed;
+              border-radius: 4px;
+              color: white;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 10px;
+              min-width: 200px;
+  
+              .info-title{
+                font-size: 22px;
+  
+              }
+  
             }
+  
+          }
+          }
+  
         }
 
-        .info {
+        .calendar{
+          background-color: $main;
+          width: 70%;
+          padding: 30px;
+          border-radius: 3px;
           display: flex;
-          justify-content: center;     
-          flex-direction: column;    
+          flex-direction: column;
+          justify-content: center;
           align-items: center;
           gap: 30px;
 
-        .info-cards{
-          display: flex;
-          flex-direction: row;
+          table{
+            width: 100%;
+            height: 100%;
 
-          .info-card{
-            background-color: #333232;
-            padding: 15px;
-            margin: 10px;
-            font-size: 14px;
-            border: $primary 1px dashed;
-            border-radius: 4px;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            min-width: 200px;
-
-            .info-title{
-              font-size: 22px;
-
+            tr, td{
+              display: grid;
+              border: $primary 1px solid;
+              border-top: none;
+              grid-template-columns: repeat(7, 1fr);
             }
 
+            .days{
+              background-color: $primary;
+              padding: 10px;
+              font-size: 20px;
+            }
+
+            .date{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 10px;
+            }
           }
 
         }
-        }
-
       }
 
       .tabs{
@@ -353,72 +442,74 @@ body{
             padding: 30px;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: space-around;
+            gap: 100px;
+            align-items: center;
           }
           
       }
 
-    .accords{
-      margin-top: 40px;
-      
-      hr {
-        border: none;
-        border-top: 1px solid #ccc;
-        margin: 1em 0;
-      }
+      .accords{
+        margin-top: 40px;
+        
+        hr {
+          border: none;
+          border-top: 1px solid #ccc;
+          margin: 1em 0;
+        }
 
-      .accordion{
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        overflow: hidden;
-        background-color: $main;
-        padding: 15px;
-        margin-top: 10px;
-      }
+        .accordion{
+          width: 100%;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          overflow: hidden;
+          background-color: $main;
+          padding: 15px;
+          margin-top: 10px;
+        }
 
-      .accordion-content {
-        background-color: $main;
-        border-bottom: 1px solid #ddd;
-        color: white;
-        margin-top: 15px;
-      }
-      
-      .accordion-content:last-child {
-        border-bottom: none;
-      }
-      
-      .accordion-title {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        font-size: 20px;
-        color: white;
-        background-color: $main;
-        font-weight: bold;
-      }
-      
-      .accordion-item-title:focus {
-        outline: none;
-      }
-      
-      .accordion-item-title svg {
-        margin-right: 8px;
-      }
-      
-      .accordion-item-title-text {
-        flex-grow: 1;
-        font-weight: 500;
-      }
-      
-      .accordion-item-content {
-        padding: 16px;
-        font-size: 14px;
-        line-height: 1.5;
-      }
+        .accordion-content {
+          background-color: $main;
+          border-bottom: 1px solid #ddd;
+          color: white;
+          margin-top: 15px;
+        }
+        
+        .accordion-content:last-child {
+          border-bottom: none;
+        }
+        
+        .accordion-title {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          font-size: 20px;
+          color: white;
+          background-color: $main;
+          font-weight: bold;
+        }
+        
+        .accordion-item-title:focus {
+          outline: none;
+        }
+        
+        .accordion-item-title svg {
+          margin-right: 8px;
+        }
+        
+        .accordion-item-title-text {
+          flex-grow: 1;
+          font-weight: 500;
+        }
+        
+        .accordion-item-content {
+          padding: 16px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
 
-    }
+      }
 
       .posts {
         margin-top: 50px;
@@ -457,6 +548,57 @@ body{
               font-size: 18px;
             }
           }
+        }
+      }
+
+      .announce{
+        width: 100%;
+        padding: 30px;
+        background-color: #fbe8c5;
+        border: $primary 1px dashed;
+        margin-bottom: 20px;
+        font-size: 20px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: row;
+        color: $primary;
+        overflow: hidden; /* Add this line to clip the overflowing content */
+
+        .icon{
+          position: absolute;
+          left: 20px;
+        }
+
+        .ann-icon{
+          margin-right: 30px;
+          position: absolute;
+          z-index: 1000;
+        }
+
+        .ann-icon:before {
+          display: table;
+          content: "";
+          width: 100px;
+          min-height: 50px;
+          position: absolute;
+          left: -30px;
+          background: linear-gradient(to right,  #fbe8c5 0%, #fbe8c5 84%, #fbe8c5 91%, #fbe8c5 96%,rgba(59,211,224,0) 100%);
+        }
+
+        .ann-text{
+          -webkit-animation: scrolling-right 20s linear infinite;
+          animation: scrolling-right 20s linear infinite;
+        }
+
+        @keyframes scrolling-right {
+          0% {
+              transform: translateX(-100%);
+              -webkit-transform: translateX(-100%);
+            }
+          100% {
+                transform: translateX(180%);
+                -webkit-transform: translateX(180%);
+              }
         }
       }
     }
@@ -629,11 +771,17 @@ body{
 
           .tab-buttons button:first-child {
             border-top-left-radius: 4px;
+          }
+
+          .tab-buttons button:nth-child(4) {
+            border-top-right-radius: 4px;
+          }
+
+          .tab-buttons button:nth-child(9) {
             border-bottom-left-radius: 4px;
           }
           
           .tab-buttons button:last-child {
-            border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
           }
           
@@ -660,7 +808,6 @@ body{
         display: flex;
         flex-direction: column;
         gap: 50px;
-        height: 100vh;
 
         .answer {
           display: flex;
@@ -669,25 +816,15 @@ body{
           // define padding-bottom based on aspect ratio
           $padding-bottom: calc(#{$aspect-ratio} * 100%);
           
-          // define container styles
-          .video-container {
-            width: 50%;
-            height: 0;
-            padding-bottom: $padding-bottom;
-            display: grid;
-            place-items: center;
-            
-            // style video element
-            video {
-              width: 50%;
-              height: 50%;
-              object-fit: cover;
-            }
-          }
-          
           .vid {
             flex: 2;
             position: relative;
+
+            .videos{
+              height: 500px;
+              width:700px;
+              border-radius: 4px;
+            }
 
           }
 
@@ -697,6 +834,32 @@ body{
             flex-direction: column;
             justify-content: space-between;
             gap: 30px;
+            height: 500px;
+            overflow: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #999 #f5f5f5;
+            padding: 10px;
+            
+            .vid-links::-webkit-scrollbar {
+              width: 6px;
+            }
+            
+            .vid-links::-webkit-scrollbar-track {
+              background: #f5f5f5;
+              border-radius: 3px;
+            }
+            
+            /* Create a custom scroll bar thumb */
+            .vid-links::-webkit-scrollbar-thumb {
+              background-color: #999;
+              border-radius: 3px;
+              border: 1px solid #f5f5f5;
+            }
+            
+            /* Change the appearance of the thumb on hover */
+            .vid-links::-webkit-scrollbar-thumb:hover {
+              background-color: #666;
+            }
 
             h1 {
               font-size: 48px;
@@ -705,6 +868,10 @@ body{
             p {
               font-size: 18px;
             }
+          }
+
+          .link.active{
+            color: $primary;
           }
         }
       }

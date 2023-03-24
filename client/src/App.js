@@ -12,13 +12,18 @@ import Parent from './pages/Parent'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Books from './pages/Books'
+import Role from './pages/Role'
+import Teacher from './pages/Teacher'
+import AdminLogin from './pages/Admin'
+import AdminRegister from './pages/AdminRegister'
+import AdminHome from './pages/AdminHome'
 
 const Layout = () =>{
     return(
         <>
-            <Navbar/>
-            <Outlet/>
-            <Footer/>
+          <Navbar/>
+          <Outlet/>
+          <Footer/>
         </>
     )
 }
@@ -37,6 +42,22 @@ const router = createBrowserRouter([
     element: <Parent/>,
   },
   {
+    path: "/teacher-register",
+    element: <Teacher/>,
+  },
+  {
+    path: "/role",
+    element: <Role/>,
+  },
+  {
+    path: "/admin",
+    element: <AdminLogin/>,
+  },
+  {
+    path: "/admin-register",
+    element: <AdminRegister/>,
+  },
+  {
     path: "/",
     element: <Layout/>,
     children: [
@@ -52,9 +73,13 @@ const router = createBrowserRouter([
           path: "/books",
           element: <Books/>,
         },
+        {
+          path: "/admin-dashboard",
+          element: <AdminHome/>,
+        },
     ]
   },
-]);
+])
 
 function App() {
   return (

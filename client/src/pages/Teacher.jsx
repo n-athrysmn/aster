@@ -3,12 +3,12 @@ import '../style.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const Parent = () => {
+const Teacher = () => {
 
     const [inputs, setInputs] = useState({
         name:"",
         number:"",
-        job:"",
+        school:"",
         address:"",
         salary:"",
         pfp:"",
@@ -26,7 +26,7 @@ const Parent = () => {
     const handleSubmit = async e => {
         e.preventDefault()
         try{
-            await axios.post("/auth/parent-register", inputs)
+            await axios.post("/auth/teacher-register", inputs)
             navigate("/")
         }catch(err){
             setError(err.response.data)
@@ -42,12 +42,12 @@ const Parent = () => {
 
     return (
       <div className='auth'>
-          <h1>Parent Registration</h1>
+          <h1>Teacher Registration</h1>
           <div className="form-container">
             <form>
                 <input type={"text"} name={"name"} onChange={handleChange} placeholder={"Enter full name"} />
                 <input type={"tel"} name={"number"} onChange={handleChange} placeholder={"Enter phone number"} />
-                <input type={"text"} name={"job"} onChange={handleChange} placeholder={"Enter your job title"} />
+                <input type={"text"} name={"school"} onChange={handleChange} placeholder={"Enter your school name"} />
                 <textarea placeholder={"Enter address"} name={"address"} onChange={handleChange} />
                 <select name="salary" onChange={handleChange}>
                     <option value="">Select salary range</option>
@@ -71,7 +71,7 @@ const Parent = () => {
                 <button onClick={handleSubmit}>Register</button>
                 {err && <p>{err}</p>}
                 <span>
-                    Not a parent? <Link to="/role">Change role here</Link>
+                    Not a teacher? <Link to="/role">Change role here</Link>
                 </span>
                 <span>Already registered? <Link to="/">Login here</Link></span>
             </form>
@@ -80,4 +80,4 @@ const Parent = () => {
     )
 }
 
-export default Parent
+export default Teacher

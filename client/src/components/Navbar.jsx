@@ -7,18 +7,18 @@ import { FaTimes, FaBars } from 'react-icons/fa'
 
 const Navbar = () => {
     
-  const navigate = useNavigate();
-  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate()
+  const { logout } = useContext(AuthContext)
 
   const handleLogout = async () => {
-    await logout();
-    navigate('/');
-  };
+    await logout()
+    navigate('/')
+  }
 
-  const [isClicked, setIsClicked] = useState(false); 
+  const [isClicked, setIsClicked] = useState(false) 
 
   const handleClick = () => {
-      setIsClicked(!isClicked);
+      setIsClicked(!isClicked)
   }
 
   return (

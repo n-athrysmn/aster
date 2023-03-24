@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import '../style.scss'
 
 const Accordion = ({ title, content }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   return (
     <div className="accordion">
@@ -15,7 +15,7 @@ const Accordion = ({ title, content }) => {
       </div>
       {isOpen && <div className="accordion-content">{content}</div>}
     </div>
-  );
-};
+  )
+}
 
 export default Accordion
