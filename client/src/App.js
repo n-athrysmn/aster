@@ -17,6 +17,9 @@ import Teacher from './pages/Teacher'
 import AdminLogin from './pages/Admin'
 import AdminRegister from './pages/AdminRegister'
 import AdminHome from './pages/AdminHome'
+import AdminNav from './components/AdminNav'
+import OneSignalComponent from './components/OneSignal'
+import AdminProfile from './pages/AdminProfile'
 
 const Layout = () =>{
     return(
@@ -26,6 +29,16 @@ const Layout = () =>{
           <Footer/>
         </>
     )
+}
+
+const AdminLayout = () =>{
+  return(
+    <>
+    <AdminNav/>
+    <Outlet/>
+    <Footer/>
+    </>
+  )
 }
 
 const router = createBrowserRouter([
@@ -73,19 +86,31 @@ const router = createBrowserRouter([
           path: "/books",
           element: <Books/>,
         },
+    ]
+  },
+  {
+    path: "/",
+    element: <AdminLayout/>,
+    children: [
         {
-          path: "/admin-dashboard",
-          element: <AdminHome/>,
+            path: "/admin-dashboard",
+            element: <AdminHome/>,
+        },
+        {
+          path: "/admin-profile",
+          element: <AdminProfile/>,
         },
     ]
   },
 ])
 
+
 function App() {
   return (
     <div className="app">
         <div className='container'>
-            <RouterProvider router={router} />
+          <RouterProvider router={router} />
+          <OneSignalComponent />
         </div>    
     </div>
   )

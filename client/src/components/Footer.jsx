@@ -1,13 +1,15 @@
-import React from 'react'
-import Logo from '../assets/logo.png'
+import React from 'react';
+import Logo from '../assets/dark-logo.png';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  
   return (
     <footer>
-        <img src={Logo} alt='Aster Education'/>
-        <span>2023 &copy; Aster Education</span>
+      <p></p>
+      <span>{currentYear} &copy; Aster Education</span>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

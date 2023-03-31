@@ -123,7 +123,7 @@ export const admins = (req, res) => {
   const q1 = "SELECT * FROM students WHERE studentEmail = ?"
   const q2 = "SELECT * FROM parents WHERE parentEmail = ?"
   const q3 = "SELECT * FROM teachers WHERE teacherEmail = ?"
-  const q4 = "SELECT * FROM admins WHERE email = ?"
+  const q4 = "SELECT * FROM admins WHERE adminEmail = ?"
 
   db.query(q1, [req.body.email], (err, data) => {
     if (err) return res.status(500).json(err)
@@ -148,7 +148,7 @@ export const admins = (req, res) => {
           const salt = bcrypt.genSaltSync(10)
           const hash = bcrypt.hashSync(req.body.password, salt)
       
-          const q = "INSERT INTO admins (`name`, `email`, `staffId`, `pfp`, `password`) VALUES (?)"
+          const q = "INSERT INTO admins (`adminName`, `adminEmail`, `staffId`, `adminPfp`, `adminPass`) VALUES (?)"
           const values = [req.body.name, req.body.email, req.body.staff, req.body.pfp, hash]
       
           db.query(q, [values], (err, data) => {
@@ -226,16 +226,16 @@ export const login = (req, res) => {
               // User found in 'teachers' table
               const isPasswordCorrect = bcrypt.compareSync(
                 req.body.password,
-                data[0].teacherPass // corrected
+                data[0].teacherPass
               )
               if (!isPasswordCorrect) {
                 return res.status(400).json("Wrong email or password!")
               }
               const token = jwt.sign(
-                { id: data[0].id, type: "teacher" }, // corrected
+                { id: data[0].id, type: "teacher" },
                 "jwtkey"
               )
-              const { teacherPass, ...other } = data[0] // corrected
+              const { teacherPass, ...other } = data[0]
               return res
                 .cookie("access_token", token, {
                   httpOnly: true,
@@ -256,16 +256,14 @@ export const login = (req, res) => {
 //admin login
 export const adminlogin = (req, res) => {
   //CHECK USER
-  const q = "SELECT * FROM admins WHERE email = ?"
-
-  // Try to find the user in the 'students' table
+  const q = "SELECT * FROM admins WHERE adminEmail = ?"
+  
   db.query(q, [req.body.email], (err, data) => {
     if (err) return res.status(500).json(err)
     if (data.length > 0) {
-      // User found in 'students' table
       const isPasswordCorrect = bcrypt.compareSync(
         req.body.password,
-        data[0].password
+        data[0].adminPass
       )
       if (!isPasswordCorrect) {
         return res.status(400).json("Wrong email or password!")
@@ -274,7 +272,7 @@ export const adminlogin = (req, res) => {
         { id: data[0].id, type: "admin" },
         "jwtkey"
       )
-      const { studentPass, ...other } = data[0]
+      const { adminPass, ...other } = data[0]
       return res
         .cookie("access_token", token, {
           httpOnly: true,

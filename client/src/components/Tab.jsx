@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import '../style.scss'
+import BookModal from './BookModal'
 
-const Tabs = ({ tabs}) => {
-    const [activeTab, setActiveTab] = useState(0)
+const Tabs = ({ tabs, isDashboard }) => {
+  const [activeTab, setActiveTab] = useState(0)
+
+  const isBooksTabActive = activeTab === tabs.findIndex(tab => tab.id === 1)
 
   return (
     <div className='tabs'>
@@ -20,7 +22,7 @@ const Tabs = ({ tabs}) => {
       <div className="tab-content">
         {tabs[activeTab].content}
 
-        <button className='btn'>Got more books? Click here to add more</button>
+        {isDashboard && isBooksTabActive && <BookModal/>}
       </div>
     </div>
   )

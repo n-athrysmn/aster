@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
-import Logo from '../assets/logo.png'
+import Logo from '../assets/dark-logo.png'
 import { Link, useNavigate } from 'react-router-dom'
-import '../style.scss'
 import { AuthContext } from "../context/authContext"
-import { FaTimes, FaBars } from 'react-icons/fa'
+import { FaTimes, FaBars, FaUserCog } from 'react-icons/fa'
+import { HiOutlineLogout } from 'react-icons/hi'
+import { IoIosAlbums } from 'react-icons/io'
 
 const Navbar = () => {
     
@@ -31,14 +32,14 @@ const Navbar = () => {
             </div>
             <div className='toggler'><span onClick={handleClick}>{isClicked ? <FaTimes/> : <FaBars/> }</span></div>
             <div className={isClicked ? 'links active' : 'links' }>
-                <Link className='nav-link' to='/books'>
-                    Books
+                <Link to='/books'>
+                  <IoIosAlbums/>
                 </Link>
-                <Link className='nav-link' to='/profile'>
-                  Profile
+                <Link to='/profile'>
+                  <FaUserCog/>
                 </Link>
-                <Link className='nav-link' onClick={handleLogout}>
-                    Logout
+                <Link onClick={handleLogout}>
+                    <HiOutlineLogout/>
                 </Link>
             </div>
         </div>

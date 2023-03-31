@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import '../style.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Logo from '../assets/dark-logo.png'
+import Reg from '../assets/register.svg'
 
 const AdminRegister = () => {
 
@@ -41,6 +43,13 @@ const AdminRegister = () => {
   
     return (
       <div className="auth">
+      <div className="top-left">
+          <img className='logo' src={Logo} alt='Aster Education'/>
+          <img className='media' src={Reg} alt='Aster Education'/>
+          <h2 className='reg-text'>Learning Made Simple</h2>
+          <p className='reg-text'>Your one-stop destination for easy, convenient, and effective learning. Achieve your goals with our user-friendly LMS designed for students, employees, and lifelong learners.</p>
+      </div>
+        <div className="auth-form">
         <h1>Admin Register</h1>
         <div className="form-container">
           <form>
@@ -61,10 +70,13 @@ const AdminRegister = () => {
             <input name={"password"} onChange={handleChange} type={"password"} placeholder={"Enter password"} />
             <button onClick={handleSubmit}>Admin Register</button>
             {err && <p>{err}</p>}
-            <span>
-              Already registered? <Link to="/admin-login">Login here</Link>
-            </span>
           </form>
+        </div>
+          <div className="reg-foot">
+            <span>
+              Already registered? <Link className='link' to="/admin">Login here</Link>
+            </span>
+          </div>
         </div>
       </div>
     )

@@ -1,37 +1,55 @@
-import axios from "axios"
-import { createContext, useEffect, useState } from "react"
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
-  )
-  
-  const login = async (inputs) => {
-    const res = await axios.post("/auth/login", inputs)
-    console.log("login response", res.data)
-    setCurrentUser(res.data)
-  }
-  
-  const admin = async (inputs) => {
-    const res = await axios.post("/auth/admin-login", inputs)
-    console.log("login response", res.data)
-    setCurrentUser(res.data)
-  }
+  );
 
-  const logout = async (inputs) => {
-    await axios.post("/auth/logout")
-    setCurrentUser(null)
-  }
+  const [currentAdmin, setCurrentAdmin] = useState(
+    JSON.parse(localStorage.getItem("admin")) || null
+  );
+
+  const isLoggedIn = !!currentUser || !!currentAdmin;
+
+  const login = async (inputs) => {
+    const { data } = await axios.post("/auth/login", inputs);
+    setCurrentUser(data);
+  };
+
+  const admin = async (inputs) => {
+    const { data } = await axios.post("/auth/admin-login", inputs);
+    setCurrentAdmin(data);
+  };
+
+  const logout = async () => {
+    await axios.post("/auth/logout");
+    setCurrentUser(null);
+    setCurrentAdmin(null);
+  };
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser))
-  }, [currentUser])
+    localStorage.setItem("user", JSON.stringify(currentUser));
+  }, [currentUser]);
+
+  useEffect(() => {
+    localStorage.setItem("admin", JSON.stringify(currentAdmin));
+  }, [currentAdmin]);
+
+  const contextValue = { 
+    currentUser, 
+    currentAdmin, 
+    isLoggedIn, 
+    login, 
+    admin, 
+    logout 
+  };
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, admin, logout }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};

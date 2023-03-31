@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import '../style.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Logo from '../assets/dark-logo.png'
+import Reg from '../assets/register.svg'
 
 const Parent = () => {
 
@@ -42,6 +44,13 @@ const Parent = () => {
 
     return (
       <div className='auth'>
+        <div className="top-left">
+          <img className='logo' src={Logo} alt='Aster Education'/>
+          <img className='media' src={Reg} alt='Aster Education'/>
+          <h2 className='reg-text'>Learning Made Simple</h2>
+          <p className='reg-text'>Your one-stop destination for easy, convenient, and effective learning. Achieve your goals with our user-friendly LMS designed for students, employees, and lifelong learners.</p>
+          </div>
+        <div className="auth-form">
           <h1>Parent Registration</h1>
           <div className="form-container">
             <form>
@@ -70,11 +79,14 @@ const Parent = () => {
                 <input type={"password"} name={"password"} onChange={handleChange} placeholder={"Enter password"} />
                 <button onClick={handleSubmit}>Register</button>
                 {err && <p>{err}</p>}
-                <span>
-                    Not a parent? <Link to="/role">Change role here</Link>
-                </span>
-                <span>Already registered? <Link to="/">Login here</Link></span>
             </form>
+          </div>
+          <div className="reg-foot">
+                <span>
+                    Not a parent? <Link className='link' to="/role">Change role here</Link>
+                </span>
+                <span>Already registered? <Link className='link' to="/">Login here</Link></span>
+                </div>
           </div>
       </div>
     )
