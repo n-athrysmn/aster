@@ -20,6 +20,7 @@ import AdminHome from './pages/AdminHome'
 import AdminNav from './components/AdminNav'
 import OneSignalComponent from './components/OneSignal'
 import AdminProfile from './pages/AdminProfile'
+import UsersList from './pages/UsersList'
 
 const Layout = () =>{
     return(
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
         {
           path: "/admin-profile",
           element: <AdminProfile/>,
+        },
+        {
+          path: "/user-list",
+          element: <UsersList/>,
         },
     ]
   },
