@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import avatar from '../assets/avatar.png'
@@ -15,11 +15,58 @@ import {
 import Calendar from '../components/Calendar'
 import { MdCelebration } from 'react-icons/md'
 import Announcement from '../components/Announcements'
+import axios from 'axios'
 
 const Home = () => {
 	const { currentUser } = useContext(AuthContext)
 
-	const books = [
+	const [books, setBooks] = useState([])
+	const [videos, setVideos] = useState([])
+
+	let userId
+
+	if (currentUser.studentId) {
+		userId = currentUser.studentId
+	} else if (currentUser.parentId) {
+		userId = currentUser.parentId
+	} else if (currentUser.teacherId) {
+		userId = currentUser.teacherId
+	}
+
+	useEffect(() => {
+		async function fetchBooks() {
+			try {
+				console.log('Fetching books…')
+				const response = await axios.get(`/books/get-owned/${userId}`)
+				console.log('Response:', response)
+				const data = response.data
+				console.log('Data:', data)
+				setBooks(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchBooks()
+	}, [userId])
+
+	useEffect(() => {
+		async function fetchVideos() {
+			try {
+				console.log('Fetching videos…')
+				const response = await axios.get('/others/get-videos')
+				console.log('Response:', response)
+				const data = response.data
+				console.log('Data:', data)
+				setVideos(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+		fetchVideos()
+	}, [])
+
+	/*const books = [
 		{
 			id: 1,
 			title: 'Math Power',
@@ -59,7 +106,7 @@ const Home = () => {
 			desc: 'Lorem ipsum',
 			img: 'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
 		},
-	]
+	]*/
 
 	const tabs = [
 		{
@@ -81,9 +128,9 @@ const Home = () => {
 							</div>
 							<div className='content'>
 								<Link to='/books' className='link'>
-									<h1>{book.title}</h1>
+									<h2>{book.name}</h2>
 								</Link>
-								<p>{book.desc}</p>
+								<h3>{book.desc}</h3>
 							</div>
 						</div>
 					))}
@@ -101,17 +148,21 @@ const Home = () => {
 				</div>
 			),
 			content: (
-				<div className='posts'>
+				<div className='answers row'>
 					{videos.map((video) => (
-						<div className='post' key={video.id}>
-							<div className='img'>
-								<img src={video.img} alt='' />
+						<div className='answer mb20' key={video.id}>
+							<div className='vid mb20'>
+								<iframe
+									title={video.title}
+									className='videos'
+									src={video.link}
+									allowFullScreen={true}
+								/>
 							</div>
 							<div className='content'>
-								<Link to={`/books/${video.id}`} className='link'>
-									<h1>{video.title}</h1>
+								<Link to={video.link} className='link'>
+									<h3>{video.title}</h3>
 								</Link>
-								<p>{video.desc}</p>
 							</div>
 						</div>
 					))}
@@ -140,22 +191,30 @@ const Home = () => {
 			<Announcement />
 			<div className='top-part'>
 				<div className='profile-card'>
-					<h2>
-						Hello <MdCelebration />
-					</h2>
 					<div className='avatar'>
-						{/*{currentUser?.studentName && (
-            <img src={currentUser?.studentPfp} alt={currentUser?.studentName} />
-          )}
-          {currentUser?.parentName && (
-            <img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
-          )}*/}
-						<img src={avatar} alt='avatar' />
+						{currentUser?.studentName && (
+							<img
+								src={currentUser?.studentPfp}
+								alt={currentUser?.studentName}
+							/>
+						)}
+						{currentUser?.parentName && (
+							<img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
+						)}
+						{currentUser?.teacherName && (
+							<img
+								src={currentUser?.teacherPfp}
+								alt={currentUser?.teacherName}
+							/>
+						)}
 					</div>
 					<div className='info'>
 						{currentUser?.studentName && (
 							<>
 								<div className='tag info-tag'>
+									<h2 className='small'>
+										Hello <MdCelebration />
+									</h2>
 									<h3>{currentUser.studentName}!</h3>
 								</div>
 							</>
@@ -163,6 +222,9 @@ const Home = () => {
 						{currentUser?.parentName && (
 							<>
 								<div className='tag primary-tag'>
+									<h2 className='small'>
+										Hello <MdCelebration />
+									</h2>
 									<h3>{currentUser.parentName}!</h3>
 								</div>
 							</>
@@ -170,6 +232,9 @@ const Home = () => {
 						{currentUser?.teacherName && (
 							<>
 								<div className='tag primary-tag'>
+									<h2 className='small'>
+										Hello <MdCelebration />
+									</h2>
 									<h3>{currentUser.teacherName}!</h3>
 								</div>
 							</>

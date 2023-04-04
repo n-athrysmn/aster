@@ -1,16 +1,50 @@
-import { db } from "../db.js";
-import jwt from "jsonwebtoken";
+import { db } from '../db.js'
 
-export const getBarcode = (req, res) => {
-    
-  const barcode = req.params.barcode;
+//get owned books
+export const ownedBooks = (req, res) => {
+	const { userId } = req.params // Get the user id from the request parameters
+	console.log('userId:', userId)
 
-  const q = "SELECT * FROM books WHERE isbn = ?";
-  db.query(q, [barcode], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (!data.length) return res.status(404).json("Book not found.");
+	let q = ''
+	let values = []
 
-    return res.status(200).json(data[0]);
-    
-  });
+	if (userId) {
+		// Use the userId from the request parameters instead of currentUser
+		q = `SELECT books.*, ownedbooks.* FROM ownedbooks JOIN books ON ownedbooks.isbn = books.isbn WHERE ownedbooks.studentId = ? OR ownedbooks.parentId = ? OR ownedbooks.teacherId = ?`
+		values = [userId, userId, userId]
+	}
+
+	console.log('values:', values)
+
+	db.query(q, values, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
+//get all books
+export const getBooks = (req, res) => {
+	const q = 'SELECT * FROM books'
+
+	db.query(q, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
+//add more books - user dashboard
+export const addBooks = (req, res) => {
+	const q =
+		'INSERT INTO ownedbooks(`isbn`,`studentId`, `teacherId`, `parentId`) VALUES (?, ?, ?, ?)'
+	const values = [
+		req.body.isbn,
+		req.body.studentId,
+		req.body.teacherId,
+		req.body.parentId,
+	]
+
+	db.query(q, values, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json('Book added.')
+	})
 }

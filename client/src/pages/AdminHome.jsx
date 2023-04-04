@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/authContext'
 import avatar from '../assets/avatar.png'
 import { FaUpload, FaBullhorn, FaCalendarAlt } from 'react-icons/fa'
@@ -31,27 +31,93 @@ const AdminHome = () => {
 		setShowEvent(true)
 		setActiveBtn('event')
 	}
+
+	const [books, setBooks] = useState([])
+
+	useEffect(() => {
+		async function fetchBooks() {
+			try {
+				console.log('Fetching books…')
+				const response = await axios.get('/books/get-books')
+				console.log('Response:', response)
+				const data = response.data
+				console.log('Data:', data)
+				setBooks(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchBooks()
+	}, [])
+
 	const [inputs, setInputs] = useState({
 		announceTitle: '',
 		announce: '',
 		vidTitle: '',
-		url: '',
-		eventTitle: '',
-		date: '',
+		vidUrl: '',
+		book: '',
+		eveTitle: '',
+		eveDate: '',
 	})
+
 	const [err, setError] = useState(null)
+	const [successMsg, setSuccessMsg] = useState('')
 	console.log(inputs)
 
 	const handleChange = (e) => {
-		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+		const value =
+			e.target.name === 'book' && e.target.value === 'null'
+				? null
+				: e.target.value
+		setInputs((prev) => ({ ...prev, [e.target.name]: value }))
 	}
 
 	const handleAnnounceSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/others/announce', inputs)
+			await axios.post('/others/announce', {
+				...inputs,
+				adminId: currentAdmin.id,
+			})
+			setSuccessMsg('Announcement has been created!')
+			setTimeout(() => {
+				setSuccessMsg('')
+				window.location.reload()
+			}, 3000)
 		} catch (err) {
-			setError(err.response.data)
+			setError(`Error: ${err.message}`)
+			console.log(err)
+		}
+	}
+
+	const handleUploadSubmit = async (e) => {
+		e.preventDefault()
+		try {
+			await axios.post('/others/upload', inputs)
+			setSuccessMsg('Video has been uploaded!')
+			setTimeout(() => {
+				setSuccessMsg('')
+				window.location.reload()
+			}, 3000)
+		} catch (err) {
+			setError(`Error: ${err.message}`)
+			console.log(err)
+		}
+	}
+
+	const handleEventSubmit = async (e) => {
+		e.preventDefault()
+		try {
+			await axios.post('/others/event', inputs)
+			setSuccessMsg('Event has been created!')
+			setTimeout(() => {
+				setSuccessMsg('')
+				window.location.reload()
+			}, 3000)
+		} catch (err) {
+			setError(`Error: ${err.message}`)
+			console.log(err)
 		}
 	}
 
@@ -130,17 +196,16 @@ const AdminHome = () => {
 							</span>
 							<p className='mb10'>Write announcement in the box</p>
 							<textarea
-								className='textarea-field'
+								className='textarea-field mb20'
+								onChange={handleChange}
 								placeholder='Ex: Announcement text goes here...'
 								name='announce'
 							/>
+							{err && <p className='txt-danger'>{err}</p>}
+							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
-							<button
-								type='button'
-								onChange={handleChange}
-								className='danger-btn'
-							>
+							<button type='button' className='danger-btn'>
 								Cancel
 							</button>
 							<button
@@ -164,19 +229,40 @@ const AdminHome = () => {
 							<input
 								type={'text'}
 								className='mb20 input-field'
+								onChange={handleChange}
 								placeholder='Ex: How to score A+ in Maths?'
+								name='vidTitle'
 							/>
 							<p className='mb10'>Enter video url</p>
 							<input
 								type={'url'}
-								className='0 input-field'
+								className='input-field'
+								onChange={handleChange}
 								placeholder='Ex: https://www.youtube.com/embed/video-id-here'
-								name='url'
+								name='vidUrl'
 							/>
-							<span className='small'>
-								You must follow the video link format as stated in the input
-								box! Otherwise error will occur.
+							<span className='small mb20'>
+								You must follow this format{' '}
+								<span className='txt-danger'>
+									https://www.youtube.com/embed/video-id-here
+								</span>{' '}
+								! Otherwise error will occur.
 							</span>
+							<p className='mb10'>Select book (if any)</p>
+							<select
+								className='mb20 select-field'
+								name='book'
+								onChange={handleChange}
+							>
+								<option value={null}>No book</option>
+								{books.map((book) => (
+									<option key={book.id} value={book.id}>
+										{book.name} ({book.isbn})
+									</option>
+								))}
+							</select>
+							{err && <p className='txt-danger'>{err}</p>}
+							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
 							<button type='button' className='danger-btn'>
@@ -185,6 +271,7 @@ const AdminHome = () => {
 							<button
 								type='button'
 								className='success-btn'
+								onClick={handleUploadSubmit}
 								//className={`primary-btn ${isEditing ? 'success-btn' : ''}`} //if button have different styles
 							>
 								Save Changes
@@ -202,10 +289,19 @@ const AdminHome = () => {
 							<input
 								type={'text'}
 								className='mb20 input-field'
+								onChange={handleChange}
 								placeholder='Ex: Live Session with Tutor Amira'
+								name='eveTitle'
 							/>
 							<p className='mb10'>Enter event date</p>
-							<input type={'date'} className='mb20 input-field' />
+							<input
+								type={'date'}
+								onChange={handleChange}
+								className='mb20 input-field'
+								name='eveDate'
+							/>
+							{err && <p className='txt-danger'>{err}</p>}
+							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
 							<button type='button' className='danger-btn'>
@@ -214,6 +310,7 @@ const AdminHome = () => {
 							<button
 								type='button'
 								className='success-btn'
+								onClick={handleEventSubmit}
 								//className={`primary-btn ${isEditing ? 'success-btn' : ''}`} //if button have different styles
 							>
 								Save Changes

@@ -1,28 +1,64 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { AuthContext } from '../context/authContext'
 
 function BookModal({ setBooks }) {
+	const { currentUser } = useContext(AuthContext)
 	const [showModal, setShowModal] = useState(false)
-	const [barcodeNumber, setBarcodeNumber] = useState('')
 
-	function fetchBooks(barcode) {
-		axios
-			.get(`/api/books/${barcode}`)
-			.then((response) => {
-				setBooks(response.data)
-			})
-			.catch((error) => {
-				console.log(error)
-			})
+	const [inputs, setInputs] = useState({
+		isbn: '',
+		studentId: null,
+		parentId: null,
+		teacherId: null,
+	})
+
+	useEffect(() => {
+		if (currentUser.studentName) {
+			setInputs((prevInputs) => ({
+				...prevInputs,
+				studentId: currentUser.studentId,
+				teacherId: null,
+				parentId: null,
+			}))
+		} else if (currentUser.parentName) {
+			setInputs((prevInputs) => ({
+				...prevInputs,
+				parentId: currentUser.parentId,
+				studentId: null,
+				teacherId: null,
+			}))
+		} else if (currentUser.teacherName) {
+			setInputs((prevInputs) => ({
+				...prevInputs,
+				teacherId: currentUser.teacherId,
+				studentId: null,
+				parentId: null,
+			}))
+		}
+	}, [currentUser])
+
+	const handleChange = (e) => {
+		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 	}
 
-	function handleAddBook() {
-		fetchBooks(barcodeNumber)
-		setShowModal(false)
-	}
+	const [err, setError] = useState(null)
+	const [successMsg, setSuccessMsg] = useState('')
+	console.log(inputs)
 
-	function handleBarcodeNumberChange(event) {
-		setBarcodeNumber(event.target.value)
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		try {
+			await axios.post('/books/add-book', inputs)
+			setSuccessMsg('Your book has been added successfully!')
+			setTimeout(() => {
+				setSuccessMsg('')
+				window.location.reload()
+			}, 3000)
+		} catch (err) {
+			setError(`Error: ${err.message}`)
+			console.log(err)
+		}
 	}
 
 	return (
@@ -47,13 +83,14 @@ function BookModal({ setBooks }) {
 							<input
 								className='form-input'
 								type={'text'}
+								onChange={handleChange}
 								placeholder={
 									'Enter your 13-digit ISBN number. Ex: 9789672443710'
 								}
-								name='barcode'
-								value={barcodeNumber}
-								onChange={handleBarcodeNumberChange}
+								name='isbn'
 							/>
+							{err && <p className='txt-danger'>{err}</p>}
+							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='modal-footer'>
 							<button
@@ -62,7 +99,7 @@ function BookModal({ setBooks }) {
 							>
 								Cancel
 							</button>
-							<button className='success-btn' onClick={handleAddBook}>
+							<button className='success-btn' onClick={handleSubmit}>
 								Add Book
 							</button>
 						</div>

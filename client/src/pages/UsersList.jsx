@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import { CSVLink } from 'react-csv'
 import { FaChalkboardTeacher, FaUserGraduate, FaUserTie } from 'react-icons/fa'
 
 const UsersList = () => {
@@ -11,9 +12,10 @@ const UsersList = () => {
 	const [students, setStudents] = useState([])
 	const [parents, setParents] = useState([])
 	const [teachers, setTeachers] = useState([])
+	const [csvData, setCsvData] = useState([])
 
 	useEffect(() => {
-		async function fetchStudents() {
+		const fetchStudents = async () => {
 			try {
 				console.log('Fetching students…')
 				const response = await axios.get('/users/students')
@@ -26,7 +28,7 @@ const UsersList = () => {
 			}
 		}
 
-		async function fetchParents() {
+		const fetchParents = async () => {
 			try {
 				console.log('Fetching parents…')
 				const response = await axios.get('/users/parents')
@@ -39,7 +41,7 @@ const UsersList = () => {
 			}
 		}
 
-		async function fetchTeachers() {
+		const fetchTeachers = async () => {
 			try {
 				console.log('Fetching teachers…')
 				const response = await axios.get('/users/teachers')
@@ -57,7 +59,15 @@ const UsersList = () => {
 		fetchTeachers()
 	}, [])
 
-	console.log('Students:', students)
+	useEffect(() => {
+		if (showStudents) {
+			setCsvData(students)
+		} else if (showParents) {
+			setCsvData(parents)
+		} else if (showTeachers) {
+			setCsvData(teachers)
+		}
+	}, [showStudents, showParents, showTeachers, students, parents, teachers])
 
 	const handleStudentsClick = () => {
 		setShowStudents(true)
@@ -135,9 +145,13 @@ const UsersList = () => {
 						</table>
 					</div>
 					<div className='card-footer center'>
-						<button type='button' className='success-btn'>
-							Export to Excel
-						</button>
+						<CSVLink
+							data={csvData}
+							filename={'student-list.csv'}
+							className='success-btn'
+						>
+							Export students list to Excel
+						</CSVLink>
 					</div>
 				</div>
 			)}
@@ -168,9 +182,13 @@ const UsersList = () => {
 						</table>
 					</div>
 					<div className='card-footer center'>
-						<button type='button' className='success-btn'>
-							Export to Excel
-						</button>
+						<CSVLink
+							data={csvData}
+							filename={'parents-list.csv'}
+							className='success-btn'
+						>
+							Export parents list to Excel
+						</CSVLink>
 					</div>
 				</div>
 			)}
@@ -201,9 +219,13 @@ const UsersList = () => {
 						</table>
 					</div>
 					<div className='card-footer center'>
-						<button type='button' className='success-btn'>
+						<CSVLink
+							data={csvData}
+							filename={'teachers-list.csv'}
+							className='success-btn'
+						>
 							Export to Excel
-						</button>
+						</CSVLink>
 					</div>
 				</div>
 			)}
