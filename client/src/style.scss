@@ -140,6 +140,7 @@ body {
 			th {
 				color: #ffffff;
 				background: #324960;
+				font-weight: normal;
 			}
 
 			td {
@@ -193,7 +194,24 @@ body {
 			}
 		}
 
-		.danger-btn {
+		.btn-primary {
+			padding: 8px;
+			background-color: $primary;
+			border-radius: 10px;
+			color: white;
+			font-size: 14px;
+			width: auto;
+			border: 2px transparent solid;
+			letter-spacing: 1px;
+
+			&:hover {
+				background-color: transparent;
+				color: $primary;
+				border: $primary 2px solid;
+			}
+		}
+
+		.btn-danger {
 			padding: 8px;
 			background-color: $danger;
 			border-radius: 10px;
@@ -210,7 +228,7 @@ body {
 			}
 		}
 
-		.success-btn {
+		.btn-success {
 			padding: 8px;
 			background-color: $success;
 			border-radius: 10px;
@@ -278,6 +296,7 @@ body {
 					padding: 20px;
 					display: flex;
 					flex-direction: row;
+					font-weight: normal;
 
 					.right-header {
 						display: flex;
@@ -428,6 +447,11 @@ body {
 			display: flex;
 			flex-direction: row;
 			gap: 20px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.wrap {
 			flex-wrap: wrap;
 		}
 
@@ -456,6 +480,12 @@ body {
 
 		.toggle-btn.active {
 			border-bottom: 5px solid $primary;
+		}
+
+		.videos {
+			height: 200px;
+			width: 300px;
+			border-radius: 10px;
 		}
 
 		//LOGIN & REGISTER
@@ -671,7 +701,7 @@ body {
 
 				.links {
 					display: grid;
-					grid-template-columns: repeat(4, auto);
+					grid-template-columns: repeat(7, auto);
 					grid-gap: 40px;
 					list-style: none;
 					align-items: center;

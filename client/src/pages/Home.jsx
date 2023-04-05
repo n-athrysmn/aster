@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
-import avatar from '../assets/avatar.png'
 import Tabs from '../components/Tab'
 import Accordion from '../components/Accordion'
 import { BiSupport } from 'react-icons/bi'
@@ -23,18 +22,11 @@ const Home = () => {
 	const [books, setBooks] = useState([])
 	const [videos, setVideos] = useState([])
 
-	let userId
-
-	if (currentUser.studentId) {
-		userId = currentUser.studentId
-	} else if (currentUser.parentId) {
-		userId = currentUser.parentId
-	} else if (currentUser.teacherId) {
-		userId = currentUser.teacherId
-	}
+	const userId =
+		currentUser?.studentId || currentUser?.parentId || currentUser?.teacherId
 
 	useEffect(() => {
-		async function fetchBooks() {
+		const fetchBooks = async () => {
 			try {
 				console.log('Fetching books…')
 				const response = await axios.get(`/books/get-owned/${userId}`)
@@ -51,10 +43,10 @@ const Home = () => {
 	}, [userId])
 
 	useEffect(() => {
-		async function fetchVideos() {
+		const fetchVideos = async () => {
 			try {
 				console.log('Fetching videos…')
-				const response = await axios.get('/others/get-videos')
+				const response = await axios.get('/others/tab-videos')
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)
@@ -121,19 +113,27 @@ const Home = () => {
 			),
 			content: (
 				<div className='posts'>
-					{books.map((book) => (
-						<div className='post' key={book.id}>
-							<div className='img'>
-								<img src={book.img} alt='' />
+					{books.length > 0 ? (
+						books.map((book) => (
+							<div className='post' key={book.id}>
+								<div className='img'>
+									<img src={book.img} alt='' />
+								</div>
+								<div className='content'>
+									<Link to={`/books/${book.isbn}`} className='link'>
+										<h2>{book.name}</h2>
+									</Link>
+									<h3>{book.desc}</h3>
+								</div>
 							</div>
-							<div className='content'>
-								<Link to='/books' className='link'>
-									<h2>{book.name}</h2>
-								</Link>
-								<h3>{book.desc}</h3>
-							</div>
-						</div>
-					))}
+						))
+					) : (
+						<p className='txt-danger'>
+							You have not added any book yet, click the add book button below
+							to add your book. If you have not bought any book, please contact
+							our marketing team to get your copy.
+						</p>
+					)}
 				</div>
 			),
 		},
@@ -148,24 +148,35 @@ const Home = () => {
 				</div>
 			),
 			content: (
-				<div className='answers row'>
-					{videos.map((video) => (
-						<div className='answer mb20' key={video.id}>
-							<div className='vid mb20'>
-								<iframe
-									title={video.title}
-									className='videos'
-									src={video.link}
-									allowFullScreen={true}
-								/>
+				<div className='row wrap'>
+					{videos.length > 0 ? (
+						videos.map((video) => (
+							<div className='mb20' key={video.id}>
+								<div className='mb20'>
+									<iframe
+										title={video.title}
+										className='videos'
+										src={video.link}
+										allowFullScreen={true}
+									/>
+								</div>
+								<div className='vid-links'>
+									<Link to={video.link} className='link'>
+										<h3>
+											{video.title.length > 40
+												? `${video.title.substring(0, 30)}...`
+												: video.title}
+										</h3>
+									</Link>
+								</div>
 							</div>
-							<div className='content'>
-								<Link to={video.link} className='link'>
-									<h3>{video.title}</h3>
-								</Link>
-							</div>
-						</div>
-					))}
+						))
+					) : (
+						<p>
+							Nothing here yet, please look forward to the contents we will be
+							posting soon.
+						</p>
+					)}
 				</div>
 			),
 		},

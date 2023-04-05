@@ -54,7 +54,7 @@ const Parent = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h1>Parent Registration</h1>
+				<h2>Parent Registration</h2>
 				<div className='form-container'>
 					<form>
 						<input

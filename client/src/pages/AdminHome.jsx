@@ -205,14 +205,14 @@ const AdminHome = () => {
 							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
-							<button type='button' className='danger-btn'>
+							<button type='button' className='btn-danger'>
 								Cancel
 							</button>
 							<button
 								type='button'
-								className='success-btn'
+								className='btn-success'
 								onClick={handleAnnounceSubmit}
-								//className={`primary-btn ${isEditing ? 'success-btn' : ''}`} //if button have different styles
+								//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 							>
 								Post Announcement
 							</button>
@@ -265,14 +265,14 @@ const AdminHome = () => {
 							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
-							<button type='button' className='danger-btn'>
+							<button type='button' className='btn-danger'>
 								Cancel
 							</button>
 							<button
 								type='button'
-								className='success-btn'
+								className='btn-success'
 								onClick={handleUploadSubmit}
-								//className={`primary-btn ${isEditing ? 'success-btn' : ''}`} //if button have different styles
+								//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 							>
 								Save Changes
 							</button>
@@ -304,14 +304,14 @@ const AdminHome = () => {
 							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
-							<button type='button' className='danger-btn'>
+							<button type='button' className='btn-danger'>
 								Cancel
 							</button>
 							<button
 								type='button'
-								className='success-btn'
+								className='btn-success'
 								onClick={handleEventSubmit}
-								//className={`primary-btn ${isEditing ? 'success-btn' : ''}`} //if button have different styles
+								//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 							>
 								Save Changes
 							</button>

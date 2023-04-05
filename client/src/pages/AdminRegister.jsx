@@ -53,7 +53,7 @@ const AdminRegister = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h1>Admin Register</h1>
+				<h2>Admin Register</h2>
 				<div className='form-container'>
 					<form>
 						<input

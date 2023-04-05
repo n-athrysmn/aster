@@ -14,21 +14,21 @@ function BookModal({ setBooks }) {
 	})
 
 	useEffect(() => {
-		if (currentUser.studentName) {
+		if (currentUser && currentUser.studentName) {
 			setInputs((prevInputs) => ({
 				...prevInputs,
 				studentId: currentUser.studentId,
 				teacherId: null,
 				parentId: null,
 			}))
-		} else if (currentUser.parentName) {
+		} else if (currentUser && currentUser.parentName) {
 			setInputs((prevInputs) => ({
 				...prevInputs,
 				parentId: currentUser.parentId,
 				studentId: null,
 				teacherId: null,
 			}))
-		} else if (currentUser.teacherName) {
+		} else if (currentUser && currentUser.teacherName) {
 			setInputs((prevInputs) => ({
 				...prevInputs,
 				teacherId: currentUser.teacherId,
@@ -70,7 +70,7 @@ function BookModal({ setBooks }) {
 				<div className='modal'>
 					<div className='modal-content'>
 						<div className='modal-header'>
-							<h1>Add more book</h1>
+							<h2>Add more book</h2>
 							<p className='right-header' onClick={() => setShowModal(false)}>
 								X
 							</p>
@@ -94,12 +94,12 @@ function BookModal({ setBooks }) {
 						</div>
 						<div className='modal-footer'>
 							<button
-								className='danger-btn'
+								className='btn-danger'
 								onClick={() => setShowModal(false)}
 							>
 								Cancel
 							</button>
-							<button className='success-btn' onClick={handleSubmit}>
+							<button className='btn-success' onClick={handleSubmit}>
 								Add Book
 							</button>
 						</div>

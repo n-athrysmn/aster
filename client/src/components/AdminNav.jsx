@@ -2,8 +2,9 @@ import React, { useContext, useState } from 'react'
 import Logo from '../assets/dark-logo.png'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
-import { FaTimes, FaBars, FaUserCog, FaUsers } from 'react-icons/fa'
+import { FaTimes, FaBars, FaUserCog, FaUsers, FaBullhorn } from 'react-icons/fa'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { MdEditCalendar, MdLibraryBooks } from 'react-icons/md'
 
 const AdminNav = () => {
 	const navigate = useNavigate()
@@ -45,7 +46,65 @@ const AdminNav = () => {
 						{isClicked ? <FaTimes /> : <FaBars />}
 					</span>
 				</div>
+				{/*for large screens nav*/}
 				<div className='links'>
+					<Link
+						onMouseEnter={() => handleMouseEnter('manage-event')}
+						onMouseLeave={handleMouseLeave}
+						to='/manage-event'
+						className={
+							location.pathname === '/manage-event'
+								? 'nav-link active'
+								: 'nav-link'
+						}
+					>
+						<span>
+							<MdEditCalendar />
+						</span>
+						{activeLink === 'manage-event' && (
+							<div className='popover-content'>
+								<p>Event Management</p>
+							</div>
+						)}
+					</Link>
+					<Link
+						onMouseEnter={() => handleMouseEnter('manage-book')}
+						onMouseLeave={handleMouseLeave}
+						to='/manage-book'
+						className={
+							location.pathname === '/manage-book'
+								? 'nav-link active'
+								: 'nav-link'
+						}
+					>
+						<span>
+							<MdLibraryBooks />
+						</span>
+						{activeLink === 'manage-book' && (
+							<div className='popover-content'>
+								<p>Books Management</p>
+							</div>
+						)}
+					</Link>
+					<Link
+						onMouseEnter={() => handleMouseEnter('announcement')}
+						onMouseLeave={handleMouseLeave}
+						to='/announcement'
+						className={
+							location.pathname === '/announcement'
+								? 'nav-link active'
+								: 'nav-link'
+						}
+					>
+						<span>
+							<FaBullhorn />
+						</span>
+						{activeLink === 'announcement' && (
+							<div className='popover-content'>
+								<p>Announcement Management</p>
+							</div>
+						)}
+					</Link>
 					<Link
 						onMouseEnter={() => handleMouseEnter('user-list')}
 						onMouseLeave={handleMouseLeave}
@@ -100,7 +159,44 @@ const AdminNav = () => {
 						)}
 					</Link>
 				</div>
+				{/*for small screens nav*/}
 				<div className={isClicked ? 'small-links active' : 'small-links'}>
+					<Link
+						to='/manage-event'
+						className={
+							location.pathname === '/manage-event'
+								? 'nav-link active'
+								: 'nav-link'
+						}
+					>
+						<span>
+							<MdEditCalendar className='mr20' /> Event Management
+						</span>
+					</Link>
+					<Link
+						to='/manage-book'
+						className={
+							location.pathname === '/manage-book'
+								? 'nav-link active'
+								: 'nav-link'
+						}
+					>
+						<span>
+							<MdLibraryBooks className='mr20' /> Books Management
+						</span>
+					</Link>
+					<Link
+						to='/announcement'
+						className={
+							location.pathname === '/announcement'
+								? 'nav-link active'
+								: 'nav-link'
+						}
+					>
+						<span>
+							<FaBullhorn className='mr20' /> Announcement Management
+						</span>
+					</Link>
 					<Link
 						to='/user-list'
 						className={

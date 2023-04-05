@@ -48,3 +48,19 @@ export const addBooks = (req, res) => {
 		return res.status(200).json('Book added.')
 	})
 }
+
+//get book answers
+export const answers = (req, res) => {
+	const { bookIsbn } = req.params // Get the user id from the request parameters
+	console.log('bookIsbn:', bookIsbn)
+
+	const q =
+		'SELECT v.* FROM videos v JOIN books b ON v.bookId = b.id JOIN ownedbooks ob ON ob.isbn = b.isbn WHERE ob.isbn = ? GROUP BY v.id'
+
+	const values = [bookIsbn]
+
+	db.query(q, values, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}

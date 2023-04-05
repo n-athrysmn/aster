@@ -74,7 +74,7 @@ const AdminProfile = () => {
 
 	return (
 		<div className='profile'>
-			<h1>Profile Details</h1>
+			<h2>Profile Details</h2>
 			<div className='profile-card'>
 				<div className='info'>
 					<form className='form-profile' onSubmit={handleSubmit}>
@@ -150,15 +150,15 @@ const AdminProfile = () => {
 								{err && <p>{err}</p>}
 								<button
 									type='button'
-									className='success-btn'
-									//className={`primary-btn ${isEditing ? 'success-btn' : ''}`} //if button have different styles
+									className='btn-success'
+									//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 									onClick={handleToggleEditMode}
 								>
 									Save Changes
 								</button>
 								<button
 									type='button'
-									className='danger-btn'
+									className='btn-danger'
 									onClick={handleCancelEdit}
 								>
 									Cancel

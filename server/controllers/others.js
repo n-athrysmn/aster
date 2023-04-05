@@ -51,7 +51,27 @@ export const getVideos = (req, res) => {
 
 //get videos where book id is null
 export const dashVideos = (req, res) => {
-	const q = 'SELECT * FROM videos WHERE book_id IS NULL'
+	const q = 'SELECT * FROM videos WHERE bookId IS NULL'
+	db.query(q, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
+//get all events
+export const getEvents = (req, res) => {
+	const q = 'SELECT * FROM event'
+
+	db.query(q, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
+//get all announcements
+export const getAnnounce = (req, res) => {
+	const q = 'SELECT * FROM announce'
+
 	db.query(q, (err, data) => {
 		if (err) return res.status(500).json(err)
 		return res.status(200).json(data)

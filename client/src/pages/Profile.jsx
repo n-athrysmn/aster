@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -74,9 +74,6 @@ const Profile = () => {
 
 	const [isEditing, setIsEditing] = useState(false)
 
-	const [updatedProfileData, setUpdatedProfileData] = useState({})
-	const navigate = useNavigate()
-
 	const handleToggleEditMode = () => {
 		setIsEditing(!isEditing)
 		if (isEditing) {
@@ -87,7 +84,6 @@ const Profile = () => {
 			inputs.forEach((input) => {
 				updatedData[input.name] = input.value
 			})
-			setUpdatedProfileData(updatedData)
 		}
 	}
 
@@ -108,16 +104,6 @@ const Profile = () => {
 		}
 	}
 
-	const handleSubmit = async (e) => {
-		e.preventDefault()
-		try {
-			await axios.post('/auth/register', inputs)
-			navigate('/')
-		} catch (err) {
-			setError(err.response.data)
-		}
-	}
-
 	const [previewUrl, setPreviewUrl] = useState(null)
 
 	const handleFileInputChange = (e) => {
@@ -129,10 +115,10 @@ const Profile = () => {
 
 	return (
 		<div className='profile'>
-			<h1>Profile Details</h1>
+			<h2>Profile Details</h2>
 			<div className='profile-card'>
 				<div className='info'>
-					<form className='form-profile' onSubmit={handleSubmit}>
+					<form className='form-profile'>
 						{studentName && (
 							<>
 								<div className='avatar-row'>
@@ -474,15 +460,15 @@ const Profile = () => {
 								{err && <p>{err}</p>}
 								<button
 									type='button'
-									className='success-btn'
-									//className={`primary-btn ${isEditing ? 'success-btn' : ''}`} //if button have different styles
+									className='btn-success'
+									//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 									onClick={handleToggleEditMode}
 								>
 									Save Changes
 								</button>
 								<button
 									type='button'
-									className='danger-btn'
+									className='btn-danger'
 									onClick={handleCancelEdit}
 								>
 									Cancel

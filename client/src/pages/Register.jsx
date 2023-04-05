@@ -58,7 +58,7 @@ const Register = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h1>Register</h1>
+				<h2>Register</h2>
 				<div className='form-container'>
 					<form>
 						<input

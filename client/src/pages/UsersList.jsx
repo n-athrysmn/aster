@@ -148,7 +148,7 @@ const UsersList = () => {
 						<CSVLink
 							data={csvData}
 							filename={'student-list.csv'}
-							className='success-btn'
+							className='btn-success'
 						>
 							Export students list to Excel
 						</CSVLink>
@@ -185,7 +185,7 @@ const UsersList = () => {
 						<CSVLink
 							data={csvData}
 							filename={'parents-list.csv'}
-							className='success-btn'
+							className='btn-success'
 						>
 							Export parents list to Excel
 						</CSVLink>
@@ -222,7 +222,7 @@ const UsersList = () => {
 						<CSVLink
 							data={csvData}
 							filename={'teachers-list.csv'}
-							className='success-btn'
+							className='btn-success'
 						>
 							Export to Excel
 						</CSVLink>

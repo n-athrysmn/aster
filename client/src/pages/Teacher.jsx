@@ -54,7 +54,7 @@ const Teacher = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h1>Teacher Registration</h1>
+				<h2>Teacher Registration</h2>
 				<div className='form-container'>
 					<form>
 						<input
