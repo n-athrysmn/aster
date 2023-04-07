@@ -1,7 +1,12 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { CSVLink } from 'react-csv'
-import { FaChalkboardTeacher, FaUserGraduate, FaUserTie } from 'react-icons/fa'
+import {
+	FaChalkboardTeacher,
+	FaFileCsv,
+	FaUserGraduate,
+	FaUserTie,
+} from 'react-icons/fa'
 
 const UsersList = () => {
 	const [showStudents, setShowStudents] = useState(true)
@@ -120,9 +125,20 @@ const UsersList = () => {
 			</div>
 			{showStudents && (
 				<div className='card' id='students'>
-					<div className='card-title'>List of students</div>
+					<div className='card-header'>
+						<div className='card-title'>List of students</div>
+						<div className='card-tools'>
+							<CSVLink
+								data={csvData}
+								filename={'student-list.csv'}
+								className='btn-success'
+							>
+								<FaFileCsv /> Export students list to Excel
+							</CSVLink>
+						</div>
+					</div>
 					<div className='card-body'>
-						<table className='userTable'>
+						<table className='tables'>
 							<thead>
 								<tr>
 									<th>Id</th>
@@ -144,22 +160,24 @@ const UsersList = () => {
 							</tbody>
 						</table>
 					</div>
-					<div className='card-footer center'>
-						<CSVLink
-							data={csvData}
-							filename={'student-list.csv'}
-							className='btn-success'
-						>
-							Export students list to Excel
-						</CSVLink>
-					</div>
 				</div>
 			)}
 			{showParents && (
 				<div className='card' id='parents'>
-					<div className='card-title'>List of parents</div>
+					<div className='card-header'>
+						<div className='card-title'>List of parents</div>
+						<div className='card-tools'>
+							<CSVLink
+								data={csvData}
+								filename={'parents-list.csv'}
+								className='btn-success'
+							>
+								<FaFileCsv /> Export parents list to Excel
+							</CSVLink>
+						</div>
+					</div>
 					<div className='card-body'>
-						<table className='userTable'>
+						<table className='tables'>
 							<thead>
 								<tr>
 									<th>Id</th>
@@ -181,22 +199,24 @@ const UsersList = () => {
 							</tbody>
 						</table>
 					</div>
-					<div className='card-footer center'>
-						<CSVLink
-							data={csvData}
-							filename={'parents-list.csv'}
-							className='btn-success'
-						>
-							Export parents list to Excel
-						</CSVLink>
-					</div>
 				</div>
 			)}
 			{showTeachers && (
 				<div className='card' id='teachers'>
-					<div className='card-title'>List of teachers</div>
+					<div className='card-header'>
+						<div className='card-title'>List of teachers</div>
+						<div className='card-tools'>
+							<CSVLink
+								data={csvData}
+								filename={'teachers-list.csv'}
+								className='btn-success'
+							>
+								<FaFileCsv /> Export teachers list to Excel
+							</CSVLink>
+						</div>
+					</div>
 					<div className='card-body'>
-						<table className='userTable'>
+						<table className='tables'>
 							<thead>
 								<tr>
 									<th>Id</th>
@@ -217,15 +237,6 @@ const UsersList = () => {
 									))}
 							</tbody>
 						</table>
-					</div>
-					<div className='card-footer center'>
-						<CSVLink
-							data={csvData}
-							filename={'teachers-list.csv'}
-							className='btn-success'
-						>
-							Export to Excel
-						</CSVLink>
 					</div>
 				</div>
 			)}

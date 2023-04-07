@@ -86,7 +86,7 @@ const AdminHome = () => {
 				window.location.reload()
 			}, 3000)
 		} catch (err) {
-			setError(`Error: ${err.message}`)
+			setError(`Error: ${err.response.data}`)
 			console.log(err)
 		}
 	}
@@ -95,13 +95,12 @@ const AdminHome = () => {
 		e.preventDefault()
 		try {
 			await axios.post('/others/upload', inputs)
-			setSuccessMsg('Video has been uploaded!')
 			setTimeout(() => {
-				setSuccessMsg('')
+				setSuccessMsg('Video has been uploaded!')
 				window.location.reload()
 			}, 3000)
 		} catch (err) {
-			setError(`Error: ${err.message}`)
+			setError(`Error: ${err.response.data}`)
 			console.log(err)
 		}
 	}
@@ -116,7 +115,7 @@ const AdminHome = () => {
 				window.location.reload()
 			}, 3000)
 		} catch (err) {
-			setError(`Error: ${err.message}`)
+			setError(`Error: ${err.response.data}`)
 			console.log(err)
 		}
 	}
@@ -143,8 +142,10 @@ const AdminHome = () => {
 					</div>
 				</div>
 				<div className='card'>
-					<div className='card-title'>
-						{currentAdmin.adminName} tasks for today!
+					<div className='card-header'>
+						<div className='card-title'>
+							{currentAdmin.adminName} tasks for today!
+						</div>
 					</div>
 					<div className='card-body'>
 						<h2 className='center'>No available task</h2>
@@ -181,7 +182,9 @@ const AdminHome = () => {
 			{showAnnouncement && (
 				<div className='card' id='announcement'>
 					<form action='' className='form-control'>
-						<div className='card-title'>Post New Announcement</div>
+						<div className='card-header'>
+							<div className='card-title'>Post New Announcement</div>
+						</div>
 						<div className='card-body'>
 							<p className='mb10'>Enter announcement title</p>
 							<input
@@ -223,7 +226,9 @@ const AdminHome = () => {
 			{showUpload && (
 				<div className='card' id='upload'>
 					<form action='' className='form-control'>
-						<div className='card-title'>Upload new videos</div>
+						<div className='card-header'>
+							<div className='card-title'>Upload new videos</div>
+						</div>
 						<div className='card-body'>
 							<p className='mb10'>Enter video title</p>
 							<input
@@ -283,7 +288,9 @@ const AdminHome = () => {
 			{showEvent && (
 				<div className='card' id='event'>
 					<form action='' className='form-control'>
-						<div className='card-title'>Create new event</div>
+						<div className='card-header'>
+							<div className='card-title'>Create new event</div>
+						</div>
 						<div className='card-body'>
 							<p className='mb10'>Enter event title</p>
 							<input

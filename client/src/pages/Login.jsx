@@ -47,7 +47,7 @@ const Login = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h2>Login</h2>
+				<h2 className='mb20'>Login</h2>
 				<form className='form-container' onSubmit={handleSubmit}>
 					<input
 						required

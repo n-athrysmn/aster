@@ -1,4 +1,5 @@
 import { db } from '../db.js'
+import jwt from 'jsonwebtoken'
 
 //store announcement
 export const announce = (req, res) => {
@@ -75,5 +76,45 @@ export const getAnnounce = (req, res) => {
 	db.query(q, (err, data) => {
 		if (err) return res.status(500).json(err)
 		return res.status(200).json(data)
+	})
+}
+
+//edit event
+export const editEvent = (req, res) => {
+	const { id } = req.params // Get the event id from the request parameters
+	console.log('id:', id)
+
+	const q = 'UPDATE event SET `title`=?, `date`=? WHERE id = ?'
+
+	const values = [req.body.title, req.body.date]
+
+	db.query(q, [...values, id], (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
+//delete event
+export const delEvent = (req, res) => {
+	const token = req.cookies.access_token
+	if (!token) return res.status(401).json('Not authenticated!')
+
+	jwt.verify(token, 'jwtkey', (err, userInfo) => {
+		if (err) return res.status(403).json('Token is not valid!')
+		const { id } = req.params // Get the event id from the request parameters
+		console.log('id:', id)
+
+		const q = 'DELETE FROM event WHERE id = ?'
+
+		db.query(q, [id], (err, result) => {
+			if (err) {
+				console.error(err)
+				return res.status(500).json({ message: 'Error deleting event' })
+			}
+			if (result.affectedRows === 0) {
+				return res.status(404).json({ message: 'Event not found' })
+			}
+			return res.status(200).json({ message: 'Event deleted successfully' })
+		})
 	})
 }

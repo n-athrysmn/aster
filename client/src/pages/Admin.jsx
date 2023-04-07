@@ -47,7 +47,7 @@ const AdminLogin = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h2>Admin Login</h2>
+				<h2 className='mb20'>Admin Login</h2>
 				<form className='form-container' onSubmit={handleSubmit}>
 					<input
 						required
@@ -68,7 +68,7 @@ const AdminLogin = () => {
 				</form>
 				<div className='reg-foot'>
 					<span>
-						New to Aster Edu?{' '}
+						No account yet?{' '}
 						<Link className='link' to='/admin-register'>
 							Register here
 						</Link>

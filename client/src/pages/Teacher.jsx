@@ -12,11 +12,11 @@ const Teacher = () => {
 		school: '',
 		address: '',
 		salary: '',
-		pfp: '',
 		email: '',
 		password: '',
 	})
 	const [err, setError] = useState(null)
+	const [successMsg, setSuccessMsg] = useState('')
 	console.log(inputs)
 
 	const navigate = useNavigate()
@@ -26,9 +26,18 @@ const Teacher = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		if (!Object.values(inputs).every((value) => value)) {
+			setError('Form cannot be empty')
+			return
+		}
 		try {
 			await axios.post('/auth/teacher-register', inputs)
-			navigate('/')
+			setSuccessMsg('Registration successful')
+			setError('') // Clear error message
+			setTimeout(() => {
+				navigate('/')
+				setSuccessMsg('') // Clear success message
+			}, 3000)
 		} catch (err) {
 			setError(err.response.data)
 		}
@@ -54,8 +63,8 @@ const Teacher = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h2>Teacher Registration</h2>
-				<div className='form-container'>
+				<h2 className='mb20'>Teacher Registration</h2>
+				<div className='form-container mb20'>
 					<form>
 						<input
 							type={'text'}
@@ -87,17 +96,6 @@ const Teacher = () => {
 							<option value='B40'>B40</option>
 						</select>
 						<input
-							type={'file'}
-							id={'file'}
-							style={{ display: 'none' }}
-							onChange={(event) => {
-								handleFileSelect(event)
-								handleChange(event)
-							}}
-							name={'pfp'}
-						/>
-						<label htmlFor='file'>{fileName}</label>
-						<input
 							type={'email'}
 							name={'email'}
 							onChange={handleChange}
@@ -110,9 +108,10 @@ const Teacher = () => {
 							placeholder={'Enter password'}
 						/>
 						<button onClick={handleSubmit}>Register</button>
-						{err && <p>{err}</p>}
 					</form>
 				</div>
+				{err && <p className='txt-danger'>{err}</p>}
+				{successMsg && <p className='txt-success'>{successMsg}</p>}
 				<div className='reg-foot'>
 					<span>
 						Not a teacher?{' '}

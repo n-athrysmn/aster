@@ -9,11 +9,12 @@ const AdminRegister = () => {
 	const [inputs, setInputs] = useState({
 		staff: '',
 		name: '',
-		pfp: '',
 		email: '',
 		password: '',
 	})
 	const [err, setError] = useState(null)
+	const [successMsg, setSuccessMsg] = useState('')
+
 	console.log(inputs)
 
 	const navigate = useNavigate()
@@ -32,9 +33,18 @@ const AdminRegister = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		if (!Object.values(inputs).every((value) => value)) {
+			setError('Form cannot be empty')
+			return
+		}
 		try {
 			await axios.post('auth/admin-register', inputs)
-			navigate('/admin')
+			setSuccessMsg('Registration successful')
+			setError('') // Clear error message
+			setTimeout(() => {
+				navigate('/admin')
+				setSuccessMsg('') // Clear success message
+			}, 3000)
 		} catch (err) {
 			setError(err.response.data)
 		}
@@ -53,8 +63,8 @@ const AdminRegister = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h2>Admin Register</h2>
-				<div className='form-container'>
+				<h2 className='mb20'>Admin Register</h2>
+				<div className='form-container mb20'>
 					<form>
 						<input
 							name={'name'}
@@ -69,17 +79,6 @@ const AdminRegister = () => {
 							placeholder={'Enter staff ID'}
 						/>
 						<input
-							type={'file'}
-							id={'file'}
-							style={{ display: 'none' }}
-							onChange={(event) => {
-								handleFileSelect(event)
-								handleChange(event)
-							}}
-							name={'pfp'}
-						/>
-						<label htmlFor='file'>{fileName}</label>
-						<input
 							name={'email'}
 							onChange={handleChange}
 							type={'email'}
@@ -92,9 +91,10 @@ const AdminRegister = () => {
 							placeholder={'Enter password'}
 						/>
 						<button onClick={handleSubmit}>Admin Register</button>
-						{err && <p>{err}</p>}
 					</form>
 				</div>
+				{err && <p className='txt-danger'>{err}</p>}
+				{successMsg && <p className='txt-success'>{successMsg}</p>}
 				<div className='reg-foot'>
 					<span>
 						Already registered?{' '}

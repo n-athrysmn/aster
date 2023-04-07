@@ -48,7 +48,7 @@ const Announce = () => {
 				window.location.reload()
 			}, 3000)
 		} catch (err) {
-			setError(`Error: ${err.message}`)
+			setError(`Error: ${err.response.data}`)
 			console.log(err)
 		}
 	}
@@ -56,9 +56,11 @@ const Announce = () => {
 	return (
 		<div className='home'>
 			<div className='card' id='students'>
-				<div className='card-title'>List of Announcements</div>
+				<div className='card-header'>
+					<div className='card-title'>List of Announcements</div>
+				</div>
 				<div className='card-body'>
-					<table className='userTable'>
+					<table className='tables'>
 						<thead>
 							<tr>
 								<th>Id</th>
@@ -71,7 +73,7 @@ const Announce = () => {
 						<tbody>
 							{announcements.length > 0 &&
 								announcements.map((announcement) => {
-									const date = new Date(announcement.date)
+									const date = new Date(announcement.createdAt)
 									const formattedDate = date
 										.toLocaleDateString('en-GB', {
 											day: 'numeric',
@@ -87,9 +89,6 @@ const Announce = () => {
 											<td>{formattedDate}</td>
 											<td>
 												<div className='row'>
-													<button className='btn btn-success'>
-														<FaEye /> View
-													</button>
 													<button
 														className='btn btn-primary'
 														onClick={() => setShowModal(true)}

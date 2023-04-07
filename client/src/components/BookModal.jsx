@@ -56,7 +56,7 @@ function BookModal({ setBooks }) {
 				window.location.reload()
 			}, 3000)
 		} catch (err) {
-			setError(`Error: ${err.message}`)
+			setError(`Error: ${err.response.data}`)
 			console.log(err)
 		}
 	}

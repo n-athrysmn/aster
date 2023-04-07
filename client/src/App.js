@@ -20,6 +20,7 @@ import UsersList from './pages/UsersList'
 import Event from './pages/Event'
 import AdminBook from './pages/AdminBooks'
 import Announce from './pages/Announce'
+import BookDetails from './pages/BookDetails'
 
 const Layout = () => {
 	return (
@@ -79,10 +80,6 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: '/profile',
-				element: <Profile />,
-			},
-			{
 				path: '/profile/:id',
 				element: <Profile />,
 			},
@@ -115,6 +112,10 @@ const router = createBrowserRouter([
 			{
 				path: '/manage-book',
 				element: <AdminBook />,
+			},
+			{
+				path: '/book-details/:id',
+				element: <BookDetails />,
 			},
 			{
 				path: '/announcement',

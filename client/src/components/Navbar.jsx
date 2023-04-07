@@ -10,7 +10,12 @@ import { MdAddToHomeScreen } from 'react-icons/md'
 
 const Navbar = () => {
 	const navigate = useNavigate()
-	const { logout } = useContext(AuthContext)
+	const { logout, currentUser } = useContext(AuthContext)
+
+	const userId =
+		currentUser?.studentEmail ||
+		currentUser?.parentEmail ||
+		currentUser?.teacherEmail
 
 	const handleLogout = async () => {
 		await logout()
@@ -76,7 +81,7 @@ const Navbar = () => {
 					<Link
 						onMouseEnter={() => handleMouseEnter('profile')}
 						onMouseLeave={handleMouseLeave}
-						to='/profile'
+						to={`/profile/${userId}`}
 						className={
 							location.pathname === '/profile' ? 'nav-link active' : 'nav-link'
 						}
@@ -125,7 +130,7 @@ const Navbar = () => {
 						/>
 					)}
 					<Link
-						to='/profile'
+						to={`/profile/${userId}`}
 						className={
 							location.pathname === '/profile' ? 'nav-link active' : 'nav-link'
 						}

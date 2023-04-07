@@ -2,6 +2,8 @@ import express from 'express'
 import {
 	announce,
 	dashVideos,
+	delEvent,
+	editEvent,
 	event,
 	getAnnounce,
 	getEvents,
@@ -18,5 +20,7 @@ router.get('/get-videos', getVideos)
 router.get('/tab-videos', dashVideos)
 router.get('/get-events', getEvents)
 router.get('/get-announce', getAnnounce)
+router.put('/edit-event/:id', editEvent)
+router.delete('/delete-event/:id', delEvent)
 
 export default router
