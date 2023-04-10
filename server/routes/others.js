@@ -3,6 +3,7 @@ import {
 	announce,
 	dashVideos,
 	delEvent,
+	editAnnounce,
 	editEvent,
 	event,
 	getAnnounce,
@@ -22,5 +23,6 @@ router.get('/get-events', getEvents)
 router.get('/get-announce', getAnnounce)
 router.put('/edit-event/:id', editEvent)
 router.delete('/delete-event/:id', delEvent)
+router.put('/edit-announce/:id', editAnnounce)
 
 export default router
