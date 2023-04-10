@@ -102,7 +102,7 @@ const AdminBook = () => {
 	const handleDelete = async () => {
 		try {
 			await axios.delete(`/books/delete/${selectedBook.id}`)
-			setSuccessMsg('Your book has been deleted successfully!')
+			setSuccessMsg('The book has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
 				window.location.reload()

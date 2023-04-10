@@ -22,27 +22,61 @@ const Announce = () => {
 		fetchAnnouncements()
 	}, [])
 
-	const [showModal, setShowModal] = useState(false)
+	const [showEditModal, setShowEditModal] = useState(false)
+	const [showDeleteModal, setShowDeleteModal] = useState(false)
+	const [selected, setSelected] = useState(null)
 
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
 
 	const [inputs, setInputs] = useState({
-		isbn: '',
-		studentId: null,
-		parentId: null,
-		teacherId: null,
+		title: selected ? selected.title : '',
+		announce: selected ? selected.announce : '',
 	})
+
+	useEffect(() => {
+		if (selected) {
+			setInputs({
+				title: selected.title,
+				announce: selected.announce,
+			})
+		}
+	}, [selected])
+
+	const handleCancelEdit = () => {
+		setShowEditModal(false)
+		setInputs({
+			title: selected.title,
+			announce: selected.announce,
+		})
+	}
+
+	const [formChanged, setFormChanged] = useState(false)
 
 	const handleChange = (e) => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+		setFormChanged(true)
 	}
 
-	const handleSubmit = async (e) => {
+	const handleEdit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/books/add-book', inputs)
-			setSuccessMsg('Your book has been added successfully!')
+			await axios.put(`/others/edit-announce/${selected.id}`, inputs)
+			setSuccessMsg('The announcement has been edited successfully!')
+			setTimeout(() => {
+				setSuccessMsg('')
+				window.location.reload()
+			}, 3000)
+		} catch (err) {
+			setError(`Error: ${err.response.data}`)
+			console.log(err)
+		}
+	}
+
+	const handleDelete = async () => {
+		try {
+			await axios.delete(`/books/delete/${selected.id}`)
+			setSuccessMsg('Your book has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
 				window.location.reload()
@@ -91,7 +125,7 @@ const Announce = () => {
 												<div className='row'>
 													<button
 														className='btn btn-primary'
-														onClick={() => setShowModal(true)}
+														onClick={() => setShowEditModal(true)}
 													>
 														<FaEdit /> Edit
 													</button>
@@ -107,12 +141,96 @@ const Announce = () => {
 					</table>
 				</div>
 			</div>
-			{showModal ? (
+			{/*edit modal*/}
+			{showEditModal ? (
 				<div className='modal'>
 					<div className='modal-content'>
 						<div className='modal-header'>
-							<h2>Edit announcement</h2>
-							<p className='right-header' onClick={() => setShowModal(false)}>
+							<h2>Edit book</h2>
+							<p
+								className='right-header'
+								onClick={() => setShowEditModal(false)}
+							>
+								X
+							</p>
+						</div>
+						<form className='form-control'>
+							<div className='modal-body'>
+								<div className='form-row'>
+									<div className='form-label'>Book Name</div>
+									<input
+										type='text'
+										className='input-field'
+										onChange={handleChange}
+										value={inputs.name}
+										name='name'
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book Image</div>
+									<input
+										type='url'
+										className='input-field'
+										onChange={handleChange}
+										value={inputs.img}
+										name='img'
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book Description</div>
+									<input
+										type='text'
+										className='input-field'
+										onChange={handleChange}
+										value={inputs.desc}
+										name='desc'
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book ISBN</div>
+									<input
+										type='text'
+										className='input-field'
+										onChange={handleChange}
+										value={inputs.isbn}
+										name='isbn'
+									/>
+								</div>
+								{err && <p className='txt-danger'>{err}</p>}
+								{successMsg && <p className='txt-success'>{successMsg}</p>}
+							</div>
+							<div className='modal-footer'>
+								<button
+									className='btn-danger'
+									onClick={() => {
+										handleCancelEdit()
+										setShowEditModal(false)
+									}}
+								>
+									Cancel
+								</button>
+								<button
+									className='btn-success'
+									onClick={handleEdit}
+									disabled={!formChanged}
+								>
+									Edit book
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			) : null}
+			{/*delete modal*/}
+			{showDeleteModal ? (
+				<div className='modal'>
+					<div className='modal-content'>
+						<div className='modal-header'>
+							<h2>Delete book</h2>
+							<p
+								className='right-header'
+								onClick={() => setShowDeleteModal(false)}
+							>
 								X
 							</p>
 						</div>
@@ -123,12 +241,12 @@ const Announce = () => {
 						<div className='modal-footer'>
 							<button
 								className='btn-danger'
-								onClick={() => setShowModal(false)}
+								onClick={() => setShowDeleteModal(false)}
 							>
-								Cancel
+								No, cancel
 							</button>
-							<button className='btn-success' onClick={handleSubmit}>
-								Add Book
+							<button className='btn-success' onClick={handleDelete}>
+								Yes, delete book
 							</button>
 						</div>
 					</div>
