@@ -2,19 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import Tabs from '../components/Tab'
-import Accordion from '../components/Accordion'
-import { BiSupport } from 'react-icons/bi'
 import { FaBook, FaChalkboardTeacher } from 'react-icons/fa'
-import {
-	MdOutlineContactSupport,
-	MdWhatsapp,
-	MdOutlineQuestionAnswer,
-	MdQuestionAnswer,
-} from 'react-icons/md'
 import Calendar from '../components/Calendar'
 import { MdCelebration } from 'react-icons/md'
 import Announcement from '../components/Announcements'
 import axios from 'axios'
+import Accords from '../components/Accords'
 
 const Home = () => {
 	const { currentUser } = useContext(AuthContext)
@@ -182,27 +175,12 @@ const Home = () => {
 		},
 	]
 
-	const [faqs] = useState([
-		{
-			id: 1,
-			question: 'How can I buy the books?',
-			answer: 'You can buy our books at any bookstores.',
-		},
-		{
-			id: 2,
-			question: 'How long does shipping take?',
-			answer:
-				'We ship all orders within 1-2 business days. Shipping time varies based on your location.',
-		},
-		// Add more FAQs here as needed
-	])
-
 	return (
 		<div className='home'>
 			<Announcement />
 			<div className='top-part'>
 				<div className='profile-card'>
-					<div className='avatar'>
+					{/*<div className='avatar'>
 						{currentUser?.studentName && (
 							<img
 								src={currentUser?.studentPfp}
@@ -218,35 +196,35 @@ const Home = () => {
 								alt={currentUser?.teacherName}
 							/>
 						)}
-					</div>
+						</div>*/}
 					<div className='info'>
 						{currentUser?.studentName && (
 							<>
-								<div className='tag info-tag'>
+								<div>
 									<h2 className='small'>
 										Hello <MdCelebration />
 									</h2>
-									<h3>{currentUser.studentName}!</h3>
+									<h3 className='mt20 uppercase'>{currentUser.studentName}!</h3>
 								</div>
 							</>
 						)}
 						{currentUser?.parentName && (
 							<>
-								<div className='tag primary-tag'>
+								<div>
 									<h2 className='small'>
 										Hello <MdCelebration />
 									</h2>
-									<h3>{currentUser.parentName}!</h3>
+									<h3 className='mt20 uppercase'>{currentUser.parentName}!</h3>
 								</div>
 							</>
 						)}
 						{currentUser?.teacherName && (
 							<>
-								<div className='tag primary-tag'>
+								<div>
 									<h2 className='small'>
 										Hello <MdCelebration />
 									</h2>
-									<h3>{currentUser.teacherName}!</h3>
+									<h3 className='mt20 uppercase'>{currentUser.teacherName}!</h3>
 								</div>
 							</>
 						)}
@@ -255,45 +233,7 @@ const Home = () => {
 				<Calendar />
 			</div>
 			<Tabs tabs={tabs} isDashboard={true} />
-			<div className='accords'>
-				<Accordion
-					title={
-						<span>
-							<BiSupport /> Support
-						</span>
-					}
-					content={
-						<p>
-							Need immediate support?{' '}
-							<Link className='link' to='https://wa.me/60192549717'>
-								Contact us here <MdWhatsapp />
-							</Link>
-						</p>
-					}
-				/>
-				<Accordion
-					title={
-						<span>
-							<MdOutlineContactSupport /> FAQ
-						</span>
-					}
-					content={
-						<div>
-							{faqs.map((faq) => (
-								<div key={faq.id}>
-									<p>
-										<MdOutlineQuestionAnswer /> {faq.question}
-									</p>
-									<p>
-										<MdQuestionAnswer /> {faq.answer}
-									</p>
-									<hr /> {/* Add a horizontal line separator */}
-								</div>
-							))}
-						</div>
-					}
-				/>
-			</div>
+			<Accords />
 		</div>
 	)
 }

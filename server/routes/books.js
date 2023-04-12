@@ -5,7 +5,9 @@ import {
 	answers,
 	bookDetails,
 	deleteBook,
+	deleteVideo,
 	editBook,
+	editVideo,
 	getBooks,
 	ownedBooks,
 } from '../controllers/books.js'
@@ -20,5 +22,7 @@ router.get('/details/:bookId', bookDetails)
 router.post('/add/', addBook) //admin side
 router.put('/edit/:id', editBook)
 router.delete('/delete/:id', deleteBook)
+router.put('/edit-video/:id', editVideo) //book details page
+router.delete('/delete-video/:id', deleteVideo) //book details page
 
 export default router

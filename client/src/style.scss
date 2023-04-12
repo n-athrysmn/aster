@@ -1,15 +1,29 @@
 $main: #212121;
 $primary: #bb944f;
 $primary-bg: #f8ecd1;
-$secondary: #fff;
-$danger: red;
-$success: #5fb751;
-$warning: yellow;
-$info: blue;
+$primary-active: #5014d0;
+$primary-light: #f9f9f9;
+$secondary: #7239ea;
+$secondary-active: #5014d0;
+$secondary-light: #f9f9f9;
+$danger: #f1416c;
+$danger-active: #d9214e;
+$danger-light: #fff5f8;
+$success: #50cd89;
+$success-active: #47be7d;
+$success-light: #e8fff3;
+$warning: #ffc700;
+$warning-active: #f1bc00;
+$warning-light: #fff8dd;
+$info: #009ef7;
+$info-active: #0095e8;
+$info-light: #f1faff;
 $info-bg: #bdd5ea;
 $light: #f9f9f9;
 $dark: #181c32;
 $gray: #7e8299;
+$gray-active: #3f4254;
+$gray-light: #e1e3ea;
 $grad: linear-gradient(
 	315deg,
 	hsl(38deg 93% 52%) 0%,
@@ -92,6 +106,10 @@ body {
 			margin-bottom: 10px;
 		}
 
+		.mr3 {
+			margin-right: 3px;
+		}
+
 		.mr20 {
 			margin-right: 20px;
 		}
@@ -104,6 +122,18 @@ body {
 			color: $danger;
 		}
 
+		.txt-info {
+			color: $info;
+		}
+
+		.txt-secondary {
+			color: $secondary;
+		}
+
+		.uppercase {
+			text-transform: uppercase;
+		}
+
 		.tag {
 			text-transform: uppercase;
 			letter-spacing: 2px;
@@ -113,19 +143,51 @@ body {
 			padding: 20px;
 			border-radius: 10px;
 			box-shadow: 0 0 20px 0px rgba(76, 87, 125, 0.5);
-			min-width: 300px;
+			width: 300px;
 			align-items: center;
 			text-align: center;
 		}
 
-		.primary-tag {
-			background: $primary-bg;
+		.small-tag {
+			width: auto;
+			font-size: 11px !important;
+			padding: 5px;
+			box-shadow: none;
+		}
+
+		.tag-primary {
+			background: $primary-light;
 			color: $primary;
 		}
 
-		.info-tag {
-			background: $info-bg;
+		.tag-secondary {
+			background: $secondary-light;
+			color: $primary;
+		}
+
+		.tag-info {
+			background: $info-light;
 			color: $dark;
+		}
+
+		.tag-danger {
+			background-color: $danger-light;
+			color: $danger;
+		}
+
+		.tag-warning {
+			background-color: $warning-light;
+			color: $warning;
+		}
+
+		.tag-success {
+			background-color: $success-light;
+			color: $success;
+		}
+
+		.untag {
+			background-color: $gray;
+			color: $light;
 		}
 
 		.tables {
@@ -135,21 +197,16 @@ body {
 			td,
 			th {
 				padding: 8px;
+				border-bottom: dashed 1px #e1e3ea;
 			}
 
 			th {
-				color: #ffffff;
-				background: #324960;
-				font-weight: normal;
+				letter-spacing: 1px;
+				text-transform: uppercase;
 			}
 
-			td {
-				border-right: 1px solid $light;
+			tr {
 				font-size: 12px;
-			}
-
-			tr:nth-child(even) {
-				background: $light;
 			}
 
 			.tbl-img {
@@ -188,7 +245,7 @@ body {
 			border: transparent 2px solid;
 			padding: 10px;
 			border-radius: 10px;
-			width: 250px;
+			width: 100%;
 			font-size: 18px;
 
 			&:hover {
@@ -198,15 +255,15 @@ body {
 			}
 		}
 
-		.btn-primary {
-			padding: 8px;
-			background-color: $primary;
-			border-radius: 10px;
-			color: white;
-			font-size: 14px;
+		.btn-sm {
 			width: auto;
-			border: 2px transparent solid;
+			padding: 5px 10px;
+			font-size: 14px;
 			letter-spacing: 1px;
+		}
+
+		.btn-primary {
+			background-color: $primary;
 
 			&:hover {
 				background-color: transparent;
@@ -215,15 +272,18 @@ body {
 			}
 		}
 
-		.btn-danger {
-			padding: 8px;
+		.btn-secondary {
 			background-color: $danger;
-			border-radius: 10px;
-			color: white;
-			font-size: 14px;
-			width: auto;
-			border: 2px transparent solid;
-			letter-spacing: 1px;
+
+			&:hover {
+				background-color: transparent;
+				color: $danger;
+				border: $danger 2px solid;
+			}
+		}
+
+		.btn-info {
+			background-color: $danger;
 
 			&:hover {
 				background-color: transparent;
@@ -233,19 +293,32 @@ body {
 		}
 
 		.btn-success {
-			padding: 8px;
 			background-color: $success;
-			border-radius: 10px;
-			color: white;
-			font-size: 14px;
-			width: auto;
-			border: 2px transparent solid;
-			letter-spacing: 1px;
 
 			&:hover {
 				background-color: transparent;
 				color: $success;
 				border: $success 2px solid;
+			}
+		}
+
+		.btn-danger {
+			background-color: $danger;
+
+			&:hover {
+				background-color: transparent;
+				color: $danger;
+				border: $danger 2px solid;
+			}
+		}
+
+		.btn-warning {
+			background-color: $warning;
+
+			&:hover {
+				background-color: transparent;
+				color: $warning;
+				border: $warning 2px solid;
 			}
 		}
 
@@ -265,7 +338,11 @@ body {
 		.link {
 			text-decoration: none;
 			position: relative;
-			color: $primary;
+			color: $main;
+
+			&:hover {
+				color: $primary;
+			}
 
 			&::after {
 				content: '';
@@ -392,7 +469,7 @@ body {
 				flex-direction: row;
 				align-items: center;
 				justify-content: space-between;
-				border-bottom: #d8d8d8 1px solid;
+				border-bottom: $gray-light 1px solid;
 				padding: 20px;
 
 				.card-title {
@@ -440,7 +517,27 @@ body {
 				text-transform: uppercase;
 			}
 
-			.input-field {
+			.input-field:disabled,
+			.select-field:disabled {
+				padding: 10px;
+				border: 1px solid #d6d6d6;
+				border-radius: 5px;
+				width: 100%;
+				background: #d6d6d6;
+			}
+
+			.textarea-field:disabled {
+				height: 250px;
+				width: 100%;
+				resize: none;
+				padding: 30px;
+				border: 1px solid #d6d6d6;
+				border-radius: 5px;
+				background: #d6d6d6;
+			}
+
+			.input-field,
+			.select-field {
 				padding: 10px;
 				border: 1px solid #ddd;
 				border-radius: 5px;
@@ -458,22 +555,9 @@ body {
 				background: #f8f8ff;
 			}
 
-			.select-field {
-				padding: 10px;
-				border: 1px solid #ddd;
-				border-radius: 5px;
-				width: 100%;
-				background: #f8f8ff;
-			}
-
-			select {
-				-webkit-appearance: none;
-				-moz-appearance: none;
-				appearance: none;
-			}
-
 			input:disabled,
-			textarea:disabled {
+			textarea:disabled,
+			select:disabled {
 				background: #dcdcdc;
 				cursor: no-drop;
 			}
@@ -493,7 +577,7 @@ body {
 		.row {
 			display: flex;
 			flex-direction: row;
-			gap: 20px;
+			gap: 5px;
 			align-items: center;
 			justify-content: center;
 		}
@@ -748,8 +832,7 @@ body {
 				}
 
 				.links {
-					display: grid;
-					grid-template-columns: repeat(7, auto);
+					display: flex;
 					grid-gap: 40px;
 					list-style: none;
 					align-items: center;
@@ -853,6 +936,11 @@ body {
 					gap: 30px;
 					box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.02);
 
+					.month {
+						text-transform: uppercase;
+						letter-spacing: 2px;
+					}
+
 					table {
 						width: 100%;
 						height: auto;
@@ -860,17 +948,22 @@ body {
 						tr,
 						td {
 							display: grid;
-							border: $primary 1px solid;
-							border-top: none;
 							grid-template-columns: repeat(7, 1fr);
 						}
 
-						tr:first-child {
-							border-top: 2px solid $primary;
+						tr {
+							border-bottom: $gray 1px dashed;
+						}
+
+						td {
+							border-right: #fff 3px solid;
+						}
+
+						td:last-child {
+							border-right: none;
 						}
 
 						.days {
-							background-color: $primary;
 							padding: 10px;
 						}
 
@@ -879,6 +972,8 @@ body {
 							align-items: center;
 							justify-content: center;
 							padding: 10px;
+							font-weight: 700;
+							letter-spacing: 1px;
 						}
 					}
 				}
@@ -1088,20 +1183,27 @@ body {
 				}
 
 				.ann-text {
-					-webkit-animation: scrolling-right 20s linear infinite;
-					animation: scrolling-right 20s linear infinite;
+					animation: scrolling-left 10s linear infinite;
 					white-space: nowrap;
 				}
 
-				@keyframes scrolling-right {
+				@keyframes scrolling-left {
 					0% {
-						transform: translateX(180%);
-						-webkit-transform: translateX(180%);
-					}
-					100% {
 						transform: translateX(-100%);
 						-webkit-transform: translateX(-100%);
 					}
+					100% {
+						transform: translateX(500%);
+						-webkit-transform: translateX(500%);
+					}
+				}
+			}
+
+			.addbook {
+				display: flex;
+
+				.right {
+					justify-content: flex-end;
 				}
 			}
 		}
@@ -1469,7 +1571,6 @@ body {
 			.row {
 				display: flex;
 				flex-direction: column;
-				gap: 20px;
 			}
 
 			.toggle-btn {

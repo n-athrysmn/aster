@@ -1,7 +1,25 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { FaBullhorn } from 'react-icons/fa'
 
 const Announcement = () => {
+	const [announcement, setAnnouncement] = useState(null)
+
+	useEffect(() => {
+		const fetchAnnouncement = async () => {
+			try {
+				console.log('Fetching announcement…')
+				const { data } = await axios.get(`/others/get-announce`)
+				console.log('Announcement:', data)
+				setAnnouncement(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchAnnouncement()
+	}, [])
+
 	return (
 		<div className='announce mb20'>
 			<div className='ann-icon'>
@@ -9,10 +27,9 @@ const Announcement = () => {
 					<FaBullhorn />
 				</div>
 			</div>
-			<div className='ann-text'>
-				Hello everyone, welcome to Aster's dashboard. We will be updating lives
-				and quizzes, look forward to it!
-			</div>
+			{announcement && (
+				<div className='ann-text'>{announcement.announcement}</div>
+			)}
 		</div>
 	)
 }

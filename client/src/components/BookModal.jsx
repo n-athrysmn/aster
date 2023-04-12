@@ -62,8 +62,11 @@ function BookModal({ setBooks }) {
 	}
 
 	return (
-		<div>
-			<button className='btn right' onClick={() => setShowModal(true)}>
+		<div className='addbook'>
+			<button
+				className='btn btn-success right'
+				onClick={() => setShowModal(true)}
+			>
 				Add Book
 			</button>
 			{showModal ? (
@@ -94,12 +97,12 @@ function BookModal({ setBooks }) {
 						</div>
 						<div className='modal-footer'>
 							<button
-								className='btn-danger'
+								className='btn btn-sm btn-danger'
 								onClick={() => setShowModal(false)}
 							>
 								Cancel
 							</button>
-							<button className='btn-success' onClick={handleSubmit}>
+							<button className='btn btn-sm btn-success' onClick={handleSubmit}>
 								Add Book
 							</button>
 						</div>

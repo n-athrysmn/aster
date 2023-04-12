@@ -81,13 +81,17 @@ const Event = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
+			setTimeout(() => {
+				setError('')
+				window.location.reload()
+			}, 3000)
 			console.log(err)
 		}
 	}
 
 	return (
 		<div className='home'>
-			<div className='card' id='students'>
+			<div className='card'>
 				<div className='card-header'>
 					<div className='card-title'>List of Events</div>
 				</div>
@@ -120,22 +124,24 @@ const Event = () => {
 											<td>
 												<div className='row'>
 													<button
-														className='btn btn-primary'
+														className='btn btn-sm btn-warning'
 														onClick={() => {
 															setSelectedEvent(event)
 															setShowEditModal(true)
 														}}
+														title='Edit'
 													>
-														<FaEdit /> Edit
+														<FaEdit />
 													</button>
 													<button
-														className='btn btn-danger'
+														className='btn btn-sm btn-danger'
 														onClick={() => {
 															setSelectedEvent(event)
 															setShowDeleteModal(true)
 														}}
+														title='Delete'
 													>
-														<FaTrash /> Delete
+														<FaTrash />
 													</button>
 												</div>
 											</td>
@@ -171,7 +177,7 @@ const Event = () => {
 										onChange={handleChange}
 									/>
 								</div>
-								<div className='form-row'>
+								{/*<div className='form-row'>
 									<div className='form-label'>Date</div>
 									<input
 										type='date'
@@ -180,18 +186,21 @@ const Event = () => {
 										value={newDate}
 										onChange={handleChange}
 									/>
-								</div>
+								</div>*/}
 								{err && <p className='txt-danger'>{err}</p>}
 								{successMsg && <p className='txt-success'>{successMsg}</p>}
 							</div>
 							<div className='modal-footer'>
 								<button
-									className='btn-danger'
+									className='btn btn-sm btn-danger'
 									onClick={() => setShowEditModal(false)}
 								>
 									Cancel
 								</button>
-								<button className='btn-success' onClick={handleSubmit}>
+								<button
+									className='btn btn-sm btn-success'
+									onClick={handleSubmit}
+								>
 									Edit event
 								</button>
 							</div>
@@ -221,7 +230,6 @@ const Event = () => {
 									<input
 										type='text'
 										className='input-field'
-										placeholder='Enter event title'
 										name='title'
 										value={inputs.title}
 										disabled
@@ -242,12 +250,15 @@ const Event = () => {
 							</div>
 							<div className='modal-footer'>
 								<button
-									className='btn-danger'
+									className='btn btn-sm btn-danger'
 									onClick={() => setShowDeleteModal(false)}
 								>
 									No, cancel
 								</button>
-								<button className='btn-success' onClick={handleDelete}>
+								<button
+									className='btn btn-sm btn-success'
+									onClick={handleDelete}
+								>
 									Yes, proceed
 								</button>
 							</div>

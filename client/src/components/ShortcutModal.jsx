@@ -11,10 +11,10 @@ const ShortcutModal = ({ title, message, onConfirm, onCancel }) => {
 					<p>{message}</p>
 				</div>
 				<div className='modal-footer'>
-					<button className='btn-danger' onClick={onCancel}>
+					<button className='btn btn-sm btn-danger' onClick={onCancel}>
 						No, cancel
 					</button>
-					<button className='btn-success' onClick={onConfirm}>
+					<button className='btn btn-sm btn-success' onClick={onConfirm}>
 						Yes, proceed
 					</button>
 				</div>

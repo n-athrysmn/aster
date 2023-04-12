@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/authContext'
 import avatar from '../assets/avatar.png'
-import { FaUpload, FaBullhorn, FaCalendarAlt } from 'react-icons/fa'
+import { FaUpload, FaBullhorn, FaCalendarAlt, FaPlus } from 'react-icons/fa'
 import axios from 'axios'
+import Tasks from '../components/Tasks'
+import { MdCelebration } from 'react-icons/md'
 
 const AdminHome = () => {
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
+	const adminId = currentAdmin?.id
+	console.log('admin id: ', adminId)
 	const [showAnnouncement, setShowAnnouncement] = useState(false)
 	const [showUpload, setShowUpload] = useState(false)
 	const [showEvent, setShowEvent] = useState(false)
@@ -78,7 +82,7 @@ const AdminHome = () => {
 		try {
 			await axios.post('/others/announce', {
 				...inputs,
-				adminId: currentAdmin.id,
+				adminId,
 			})
 			setSuccessMsg('Announcement has been created!')
 			setTimeout(() => {
@@ -95,8 +99,9 @@ const AdminHome = () => {
 		e.preventDefault()
 		try {
 			await axios.post('/others/upload', inputs)
+			setSuccessMsg('Video has been uploaded!')
 			setTimeout(() => {
-				setSuccessMsg('Video has been uploaded!')
+				setSuccessMsg('')
 				window.location.reload()
 			}, 3000)
 		} catch (err) {
@@ -127,30 +132,27 @@ const AdminHome = () => {
 	return (
 		<div className='home'>
 			<div className='top-part mb20'>
-				<div className='card'>
-					<div className='card-body center'>
+				<div className='profile-card'>
+					{/*
 						<div className='avatar mb20'>
 							<img src={avatar} alt='avatar' />
-						</div>
-						<div className='info'>
-							{currentAdmin ? (
-								<h3>Hello, {currentAdmin.adminName}!</h3>
-							) : (
-								<h3>Hello, Guest!</h3>
-							)}
-						</div>
+						</div>*/}
+					<div className='info'>
+						{currentAdmin ? (
+							<>
+								<div>
+									<h2 className='small'>
+										Hello <MdCelebration />
+									</h2>
+									<h3 className='mt20 uppercase'>{currentAdmin.adminName}!</h3>
+								</div>
+							</>
+						) : (
+							<h3>Hello, Guest!</h3>
+						)}
 					</div>
 				</div>
-				<div className='card'>
-					<div className='card-header'>
-						<div className='card-title'>
-							{currentAdmin.adminName} tasks for today!
-						</div>
-					</div>
-					<div className='card-body'>
-						<h2 className='center'>No available task</h2>
-					</div>
-				</div>
+				<Tasks />
 			</div>
 			<div className='mt30 mb30'>
 				<h2>What would you like to do?</h2>
@@ -208,12 +210,12 @@ const AdminHome = () => {
 							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
-							<button type='button' className='btn-danger'>
+							<button type='button' className='btn btn-sm btn-danger'>
 								Cancel
 							</button>
 							<button
 								type='button'
-								className='btn-success'
+								className='btn btn-sm btn-success'
 								onClick={handleAnnounceSubmit}
 								//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 							>
@@ -262,7 +264,7 @@ const AdminHome = () => {
 								<option value={null}>No book</option>
 								{books.map((book) => (
 									<option key={book.id} value={book.id}>
-										{book.name} ({book.isbn})
+										{book.name} ({book.isbn}) - {book.desc}
 									</option>
 								))}
 							</select>
@@ -270,12 +272,12 @@ const AdminHome = () => {
 							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
-							<button type='button' className='btn-danger'>
+							<button type='button' className='btn btn-sm btn-danger'>
 								Cancel
 							</button>
 							<button
 								type='button'
-								className='btn-success'
+								className='btn btn-sm btn-success'
 								onClick={handleUploadSubmit}
 								//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 							>
@@ -311,12 +313,12 @@ const AdminHome = () => {
 							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>
 						<div className='card-footer'>
-							<button type='button' className='btn-danger'>
+							<button type='button' className='btn btn-sm btn-danger'>
 								Cancel
 							</button>
 							<button
 								type='button'
-								className='btn-success'
+								className='btn btn-sm btn-success'
 								onClick={handleEventSubmit}
 								//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 							>

@@ -282,7 +282,7 @@ const LaterProfile = () => {
 										{err && <p>{err}</p>}
 										<button
 											type='button'
-											className='btn-success'
+											className='btn btn-sm btn-success'
 											//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 											onClick={handleToggleEditMode}
 										>
@@ -290,7 +290,7 @@ const LaterProfile = () => {
 										</button>
 										<button
 											type='button'
-											className='btn-danger'
+											className='btn btn-sm btn-danger'
 											onClick={handleCancelEdit}
 										>
 											Cancel
@@ -410,7 +410,7 @@ const LaterProfile = () => {
 										{err && <p>{err}</p>}
 										<button
 											type='button'
-											className='btn-success'
+											className='btn btn-sm btn-success'
 											//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 											onClick={handleToggleEditMode}
 										>
@@ -418,7 +418,7 @@ const LaterProfile = () => {
 										</button>
 										<button
 											type='button'
-											className='btn-danger'
+											className='btn btn-sm btn-danger'
 											onClick={handleCancelEdit}
 										>
 											Cancel
@@ -541,7 +541,7 @@ const LaterProfile = () => {
 										{err && <p>{err}</p>}
 										<button
 											type='button'
-											className='btn-success'
+											className='btn btn-sm btn-success'
 											//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
 											onClick={handleToggleEditMode}
 										>
@@ -549,7 +549,7 @@ const LaterProfile = () => {
 										</button>
 										<button
 											type='button'
-											className='btn-danger'
+											className='btn btn-sm btn-danger'
 											onClick={handleCancelEdit}
 										>
 											Cancel

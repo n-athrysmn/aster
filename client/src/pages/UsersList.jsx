@@ -131,9 +131,9 @@ const UsersList = () => {
 							<CSVLink
 								data={csvData}
 								filename={'student-list.csv'}
-								className='btn-success'
+								className='btn btn-sm btn-success'
 							>
-								<FaFileCsv /> Export students list to Excel
+								<FaFileCsv /> Export
 							</CSVLink>
 						</div>
 					</div>
@@ -170,9 +170,9 @@ const UsersList = () => {
 							<CSVLink
 								data={csvData}
 								filename={'parents-list.csv'}
-								className='btn-success'
+								className='btn btn-sm btn-success'
 							>
-								<FaFileCsv /> Export parents list to Excel
+								<FaFileCsv /> Export
 							</CSVLink>
 						</div>
 					</div>
@@ -209,9 +209,9 @@ const UsersList = () => {
 							<CSVLink
 								data={csvData}
 								filename={'teachers-list.csv'}
-								className='btn-success'
+								className='btn btn-sm btn-success'
 							>
-								<FaFileCsv /> Export teachers list to Excel
+								<FaFileCsv /> Export
 							</CSVLink>
 						</div>
 					</div>

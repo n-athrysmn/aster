@@ -222,7 +222,10 @@ const Student = () => {
 						<button onClick={handleSaveClick} className='btn btn-success'>
 							Save
 						</button>
-						<button onClick={handleCancelClick} className='btn btn-danger'>
+						<button
+							onClick={handleCancelClick}
+							className='btn btn-sm btn-danger'
+						>
 							Cancel
 						</button>
 					</>

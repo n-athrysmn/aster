@@ -1,6 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { FaEnvelope, FaHome, FaPhoneAlt, FaUser } from 'react-icons/fa'
+import {
+	FaBriefcase,
+	FaEnvelope,
+	FaHome,
+	FaMoneyCheckAlt,
+	FaPhoneAlt,
+	FaUser,
+} from 'react-icons/fa'
 import { useLocation } from 'react-router-dom'
 
 const Parent = () => {
@@ -11,9 +18,8 @@ const Parent = () => {
 		parentEmail: '',
 		parentNumber: '',
 		parentAddr: '',
-		parentSch: '',
-		parentLevel: '',
-		parentGrade: '',
+		parentJob: '',
+		parentSalary: '',
 	})
 
 	useEffect(() => {
@@ -137,6 +143,40 @@ const Parent = () => {
 							</div>
 						</div>
 					</div>
+					<div className='form-row'>
+						<div className='form-label'>Job</div>
+						<div className='input-group input-group-icon'>
+							<input
+								type={'text'}
+								name='parentJob'
+								value={parent.parentJob}
+								onChange={handleChange}
+								disabled={isDisabled}
+							/>
+							<div className='input-icon'>
+								<FaBriefcase />
+							</div>
+						</div>
+					</div>
+					<div className='form-row'>
+						<div className='form-label'>Salary range</div>
+						<div className='input-group input-group-icon'>
+							<select
+								name='parentSalary'
+								value={parent.parentSalary}
+								disabled={isDisabled}
+								onChange={handleChange}
+							>
+								<option value=''>Select salary range</option>
+								<option value='T20'>T20</option>
+								<option value='M40'>M40</option>
+								<option value='B40'>B40</option>
+							</select>
+							<div className='input-icon'>
+								<FaMoneyCheckAlt />
+							</div>
+						</div>
+					</div>
 				</form>
 				{err && <p className='txt-danger'>{err}</p>}
 				{successMsg && <p className='txt-success'>{successMsg}</p>}
@@ -145,7 +185,10 @@ const Parent = () => {
 						<button onClick={handleSaveClick} className='btn btn-success'>
 							Save
 						</button>
-						<button onClick={handleCancelClick} className='btn btn-danger'>
+						<button
+							onClick={handleCancelClick}
+							className='btn btn-sm btn-danger'
+						>
 							Cancel
 						</button>
 					</>

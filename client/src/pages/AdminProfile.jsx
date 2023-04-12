@@ -1,180 +1,143 @@
-import React, { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import avatar from '../assets/avatar.png'
+import React, { useContext, useEffect, useState } from 'react'
+import { FaEnvelope, FaIdCard, FaUser } from 'react-icons/fa'
 import { AuthContext } from '../context/authContext'
-import { FaUser, FaEnvelope } from 'react-icons/fa'
-import { BsPersonVcard } from 'react-icons/bs'
 
 const AdminProfile = () => {
-	const [inputs, setInputs] = useState({
-		name: '',
-		email: '',
+	const { currentAdmin } = useContext(AuthContext)
+
+	const id = currentAdmin?.id
+	const [admin, setAdmin] = useState({
+		adminName: '',
+		adminEmail: '',
 		staffId: '',
-		pfp: null,
 	})
 
-	const [err, setError] = useState(null)
-	console.log(inputs)
+	useEffect(() => {
+		const fetchAdmin = async () => {
+			try {
+				console.log('Fetching admin…')
+				const res = await axios.get(`/users/admin/${id}`)
+				console.log('Response:', res)
+				const data = res.data
+				console.log('Data:', data)
+				setAdmin(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
 
-	const {
-		currentAdmin: { adminName, adminEmail, staffId, adminPfp },
-	} = useContext(AuthContext)
+		fetchAdmin()
+	}, [id])
 
+	const [isDisabled, setIsDisabled] = useState(true)
 	const [isEditing, setIsEditing] = useState(false)
 
-	const [updatedProfileData, setUpdatedProfileData] = useState({})
-	const navigate = useNavigate()
-
-	const [setAdminPfp] = useState(adminPfp || avatar)
-
-	const handleToggleEditMode = () => {
-		setIsEditing(!isEditing)
-		if (isEditing) {
-			const inputs = document.querySelectorAll(
-				'.form-profile input, .form-profile textarea'
-			)
-			const updatedData = {}
-			inputs.forEach((input) => {
-				updatedData[input.name] = input.value
-			})
-			setUpdatedProfileData(updatedData)
-		}
+	const handleEditClick = () => {
+		setIsDisabled(false)
+		setIsEditing(true)
 	}
 
-	const handleCancelEdit = () => {
+	const handleChange = (e) => {
+		setAdmin((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+	}
+
+	const handleSaveClick = async (e) => {
+		setSuccessMsg('')
+		setError(null)
+		setIsDisabled(true)
 		setIsEditing(false)
-		const inputs = document.querySelectorAll(
-			'.form-profile input, .form-profile textarea'
-		)
-		inputs.forEach((input) => {
-			input.value = input.defaultValue
-		})
-		setPreviewUrl(adminPfp) // set previewUrl back to the default avatar URL
-	}
-
-	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/auth/register', inputs)
-			navigate('/')
+			await axios.put(`/users/admin-edit/${id}`, admin)
+			setSuccessMsg('Your profile has been updated successfully!')
+			setError('')
+			setTimeout(() => {
+				setSuccessMsg('')
+				window.location.reload()
+			}, 3000)
 		} catch (err) {
-			setError(err.response.data)
+			setError(`Error: ${err.response.data}`)
+			console.log(err)
 		}
 	}
 
-	const [previewUrl, setPreviewUrl] = useState(null)
-
-	const handleFileInputChange = (e) => {
-		const file = e.target.files[0]
-		const imageUrl = URL.createObjectURL(file)
-		setInputs((prev) => ({ ...prev, [e.target.name]: file }))
-		setPreviewUrl(imageUrl)
+	const handleCancelClick = () => {
+		window.location.reload()
+		setIsDisabled(true)
+		setIsEditing(false)
 	}
+
+	const [err, setError] = useState(null)
+	const [successMsg, setSuccessMsg] = useState('')
 
 	return (
 		<div className='profile'>
-			<h2>Profile Details</h2>
 			<div className='profile-card'>
 				<div className='info'>
-					<form className='form-profile' onSubmit={handleSubmit}>
-						{adminName && (
-							<>
-								<div className='avatar-row'>
-									<div className='avatar mb20'>
-										<input
-											type='file'
-											id='file'
-											style={{ display: 'none' }}
-											onChange={handleFileInputChange}
-											name='pfp'
-										/>
-										{isEditing ? (
-											<label htmlFor='file'>
-												{previewUrl ? (
-													<img src={previewUrl} alt='avatar' />
-												) : (
-													<img src={adminPfp} alt='avatar' />
-												)}
-											</label>
-										) : (
-											<img src={adminPfp} alt='avatar' />
-										)}
-									</div>
-									{isEditing ? (
-										<div className='form-label'>
-											Click the image to change your picture
-										</div>
-									) : null}
+					<form className='form-profile'>
+						<div className='form-row'>
+							<div className='form-label'>Name</div>
+							<div className='input-group input-group-icon'>
+								<input
+									type={'text'}
+									value={admin.adminName}
+									name='adminName'
+									disabled={isDisabled}
+									onChange={handleChange}
+								/>
+								<div className='input-icon'>
+									<FaUser />
 								</div>
-								<div className='form-row'>
-									<div className='input-group input-group-icon'>
-										<input
-											type={'text'}
-											defaultValue={adminName}
-											disabled={!isEditing}
-										/>
-										<div className='input-icon'>
-											<FaUser />
-										</div>
-									</div>
-								</div>
-								<div className='form-row'>
-									<div className='input-group input-group-icon'>
-										<input
-											type={'text'}
-											defaultValue={adminEmail}
-											disabled={!isEditing}
-										/>
-										<div className='input-icon'>
-											<FaEnvelope />
-										</div>
-									</div>
-								</div>
-								<div className='form-row'>
-									<div className='input-group input-group-icon'>
-										<input
-											type={'text'}
-											defaultValue={staffId}
-											disabled={!isEditing}
-										/>
-										<div className='input-icon'>
-											<BsPersonVcard />
-										</div>
-									</div>
-								</div>
-							</>
-						)}
-						{isEditing && (
-							<div className='button-group'>
-								{err && <p>{err}</p>}
-								<button
-									type='button'
-									className='btn-success'
-									//className={`primary-btn ${isEditing ? 'btn-success' : ''}`} //if button have different styles
-									onClick={handleToggleEditMode}
-								>
-									Save Changes
-								</button>
-								<button
-									type='button'
-									className='btn-danger'
-									onClick={handleCancelEdit}
-								>
-									Cancel
-								</button>
 							</div>
-						)}
-						{!isEditing && (
-							<button
-								type='button'
-								className='primary-btn'
-								onClick={handleToggleEditMode}
-							>
-								Edit Profile
-							</button>
-						)}
+						</div>
+						<div className='form-row'>
+							<div className='form-label'>Email</div>
+							<div className='input-group input-group-icon'>
+								<input
+									type={'email'}
+									value={admin.adminEmail}
+									name='adminEmail'
+									disabled={isDisabled}
+									onChange={handleChange}
+								/>
+								<div className='input-icon'>
+									<FaEnvelope />
+								</div>
+							</div>
+						</div>
+						<div className='form-row'>
+							<div className='form-label'>Number</div>
+							<div className='input-group input-group-icon'>
+								<input
+									type={'tel'}
+									value={admin.staffId}
+									name='staffId'
+									disabled={isDisabled}
+									onChange={handleChange}
+								/>
+								<div className='input-icon'>
+									<FaIdCard />
+								</div>
+							</div>
+						</div>
 					</form>
+					{err && <p className='txt-danger'>{err}</p>}
+					{successMsg && <p className='txt-success'>{successMsg}</p>}
+					{isEditing ? (
+						<>
+							<button onClick={handleSaveClick} className='btn btn-success'>
+								Save
+							</button>
+							<button onClick={handleCancelClick} className='btn btn-danger'>
+								Cancel
+							</button>
+						</>
+					) : (
+						<button onClick={handleEditClick} className='btn btn-primary'>
+							Edit
+						</button>
+					)}
 				</div>
 			</div>
 		</div>

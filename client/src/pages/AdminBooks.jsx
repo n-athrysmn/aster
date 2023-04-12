@@ -88,7 +88,7 @@ const AdminBook = () => {
 		e.preventDefault()
 		try {
 			await axios.put(`/books/edit/${selectedBook.id}`, inputs)
-			setSuccessMsg('Your book has been edited successfully!')
+			setSuccessMsg('The book has been edited successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
 				window.location.reload()
@@ -120,7 +120,7 @@ const AdminBook = () => {
 					<div className='card-title'>List of book</div>
 					<div className='card-tools'>
 						<button
-							className='btn btn-primary'
+							className='btn btn-sm btn-primary'
 							onClick={() => setShowAddModal(true)}
 						>
 							Add book <FaPlus />
@@ -156,27 +156,27 @@ const AdminBook = () => {
 											<div className='row'>
 												<Link
 													to={`/book-details/${book.id}`}
-													className='btn btn-success'
+													className='btn btn-sm btn-success'
 												>
-													<FaEye /> View
+													<FaEye />
 												</Link>
 												<button
-													className='btn btn-primary'
+													className='btn btn-sm btn-warning'
 													onClick={() => {
 														setSelectedBook(book)
 														setShowEditModal(true)
 													}}
 												>
-													<FaEdit /> Edit
+													<FaEdit />
 												</button>
 												<button
-													className='btn btn-danger'
+													className='btn btn-sm btn-danger'
 													onClick={() => {
 														setSelectedBook(book)
 														setShowDeleteModal(true)
 													}}
 												>
-													<FaTrash /> Delete
+													<FaTrash />
 												</button>
 											</div>
 										</td>
@@ -210,7 +210,7 @@ const AdminBook = () => {
 										name='name'
 									/>
 								</div>
-								<div className='form-row'>
+								{/*<div className='form-row'>
 									<div className='form-label'>Book Image</div>
 									<input
 										type='file'
@@ -218,7 +218,7 @@ const AdminBook = () => {
 										onChange={handleChange}
 										name='img'
 									/>
-								</div>
+			</div>*/}
 								<div className='form-row'>
 									<div className='form-label'>Book Description</div>
 									<input
@@ -242,12 +242,12 @@ const AdminBook = () => {
 							</div>
 							<div className='modal-footer'>
 								<button
-									className='btn-danger'
+									className='btn btn-sm btn-danger'
 									onClick={() => setShowAddModal(false)}
 								>
 									Cancel
 								</button>
-								<button className='btn-success' onClick={handleAdd}>
+								<button className='btn btn-sm btn-success' onClick={handleAdd}>
 									Add Book
 								</button>
 							</div>
@@ -315,7 +315,7 @@ const AdminBook = () => {
 							</div>
 							<div className='modal-footer'>
 								<button
-									className='btn-danger'
+									className='btn btn-sm btn-danger'
 									onClick={() => {
 										handleCancelEdit()
 										setShowEditModal(false)
@@ -324,7 +324,7 @@ const AdminBook = () => {
 									Cancel
 								</button>
 								<button
-									className='btn-success'
+									className='btn btn-sm btn-success'
 									onClick={handleEdit}
 									disabled={!formChanged}
 								>
@@ -348,21 +348,74 @@ const AdminBook = () => {
 								X
 							</p>
 						</div>
-						<div className='modal-body'>
-							{err && <p className='txt-danger'>{err}</p>}
-							{successMsg && <p className='txt-success'>{successMsg}</p>}
-						</div>
-						<div className='modal-footer'>
-							<button
-								className='btn-danger'
-								onClick={() => setShowDeleteModal(false)}
-							>
-								No, cancel
-							</button>
-							<button className='btn-success' onClick={handleDelete}>
-								Yes, delete book
-							</button>
-						</div>
+						<form className='form-control'>
+							<div className='modal-body'>
+								<p className='txt-danger'>
+									Are you sure you want to delete the book below?
+								</p>
+								<div className='form-row'>
+									<div className='form-label'>Book Name</div>
+									<input
+										type='text'
+										className='input-field'
+										onChange={handleChange}
+										value={inputs.name}
+										name='name'
+										disabled
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book Image</div>
+									<input
+										type='url'
+										className='input-field'
+										onChange={handleChange}
+										value={inputs.img}
+										name='img'
+										disabled
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book Description</div>
+									<input
+										type='text'
+										className='input-field'
+										value={inputs.desc}
+										name='desc'
+										disabled
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book ISBN</div>
+									<input
+										type='text'
+										className='input-field'
+										value={inputs.isbn}
+										name='isbn'
+										disabled
+									/>
+								</div>
+								{err && <p className='txt-danger'>{err}</p>}
+								{successMsg && <p className='txt-success'>{successMsg}</p>}
+							</div>
+							<div className='modal-footer'>
+								<button
+									className='btn btn-sm btn-danger'
+									onClick={() => {
+										handleCancelEdit()
+										setShowDeleteModal(false)
+									}}
+								>
+									No, cancel
+								</button>
+								<button
+									className='btn btn-sm btn-success'
+									onClick={handleDelete}
+								>
+									Yes, delete
+								</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			) : null}

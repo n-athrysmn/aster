@@ -150,3 +150,67 @@ export const deleteBook = (req, res) => {
 		return res.status(200).json({ message: 'Book deleted successfully' })
 	})
 }
+
+//edit video
+export const editVideo = (req, res) => {
+	const { id } = req.params // Get the event id from the request parameters
+	console.log('id:', id)
+
+	const q = 'SELECT * FROM videos WHERE id = ?'
+	db.query(q, [id], (err, results) => {
+		if (err) return res.status(500).json(err)
+
+		if (results.length === 0) {
+			return res.status(404).json('Video not found')
+		}
+
+		const video = results[0]
+		const newVideo = {
+			title: req.body.title || video.title,
+			link: req.body.link || video.link,
+		}
+
+		const updatedFields = []
+		const values = []
+
+		// Check which fields have been updated
+		if (newVideo.title !== video.title) {
+			updatedFields.push('title = ?')
+			values.push(newVideo.title)
+		}
+		if (newVideo.link !== video.link) {
+			updatedFields.push('link = ?')
+			values.push(newVideo.link)
+		}
+
+		if (updatedFields.length === 0) {
+			return res.status(400).json('No fields updated')
+		}
+
+		const q = 'UPDATE videos SET ' + updatedFields.join(', ') + ' WHERE id = ?'
+
+		db.query(q, [...values, id], (err, data) => {
+			if (err) return res.status(500).json(err)
+			return res.status(200).json('Video data has been updated.')
+		})
+	})
+}
+
+//delete video
+export const deleteVideo = (req, res) => {
+	const { id } = req.params // Get the event id from the request parameters
+	console.log('id:', id)
+
+	const q = 'DELETE FROM videos WHERE id = ?'
+
+	db.query(q, [id], (err, result) => {
+		if (err) {
+			console.error(err)
+			return res.status(500).json({ message: 'Error deleting video' })
+		}
+		if (result.affectedRows === 0) {
+			return res.status(404).json({ message: 'Video not found' })
+		}
+		return res.status(200).json({ message: 'Video deleted successfully' })
+	})
+}

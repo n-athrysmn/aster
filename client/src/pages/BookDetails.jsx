@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const BookDetails = () => {
 	const location = useLocation()
@@ -26,27 +26,61 @@ const BookDetails = () => {
 		fetchVideos()
 	}, [bookId])
 
-	const [showModal, setShowModal] = useState(false)
+	const [showEditModal, setShowEditModal] = useState(false)
+	const [showDeleteModal, setShowDeleteModal] = useState(false)
+	const [selected, setSelected] = useState(null)
 
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
 
 	const [inputs, setInputs] = useState({
-		isbn: '',
-		studentId: null,
-		parentId: null,
-		teacherId: null,
+		title: selected ? selected.title : '',
+		link: selected ? selected.link : '',
 	})
+
+	useEffect(() => {
+		if (selected) {
+			setInputs({
+				title: selected.title,
+				link: selected.link,
+			})
+		}
+	}, [selected])
+
+	const handleCancelEdit = () => {
+		setShowEditModal(false)
+		setInputs({
+			title: selected.title,
+			announce: selected.announce,
+		})
+	}
+
+	const [formChanged, setFormChanged] = useState(false)
 
 	const handleChange = (e) => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+		setFormChanged(true)
 	}
 
-	const handleSubmit = async (e) => {
+	const handleEdit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/books/add-book', inputs)
-			setSuccessMsg('Your book has been added successfully!')
+			await axios.put(`/books/edit-video/${selected.id}`, inputs)
+			setSuccessMsg('The video has been edited successfully!')
+			setTimeout(() => {
+				setSuccessMsg('')
+				window.location.reload()
+			}, 3000)
+		} catch (err) {
+			setError(`Error: ${err.response.data}`)
+			console.log(err)
+		}
+	}
+
+	const handleDelete = async () => {
+		try {
+			await axios.delete(`/books/delete-video/${selected.id}`)
+			setSuccessMsg('The video has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
 				window.location.reload()
@@ -59,7 +93,7 @@ const BookDetails = () => {
 
 	return (
 		<div className='home'>
-			<div className='card' id='students'>
+			<div className='card'>
 				<div className='card-header'>
 					<div className='card-title'>List of Answers</div>
 				</div>
@@ -68,7 +102,6 @@ const BookDetails = () => {
 						<table className='tables'>
 							<thead>
 								<tr>
-									<th>Id</th>
 									<th>Title</th>
 									<th>Link</th>
 									<th>Actions</th>
@@ -77,27 +110,35 @@ const BookDetails = () => {
 							<tbody>
 								{videos.map((video) => (
 									<tr key={video.id}>
-										<td>{video.id}</td>
 										<td>{video.title}</td>
 										<td>{video.link}</td>
 										<td>
 											<div className='row'>
 												<a
 													href={video.link}
-													className='btn btn-success'
+													className='btn btn-sm btn-success'
 													target='_blank'
 													rel='noopener noreferrer'
 												>
-													<FaEye /> View
+													<FaEye />
 												</a>
 												<button
-													className='btn btn-primary'
-													onClick={() => setShowModal(true)}
+													className='btn btn-sm btn-warning'
+													onClick={() => {
+														setSelected(video)
+														setShowEditModal(true)
+													}}
 												>
-													<FaEdit /> Edit
+													<FaEdit />
 												</button>
-												<button className='btn btn-danger'>
-													<FaTrash /> Delete
+												<button
+													className='btn btn-sm btn-danger'
+													onClick={() => {
+														setSelected(video)
+														setShowDeleteModal(true)
+													}}
+												>
+													<FaTrash />
 												</button>
 											</div>
 										</td>
@@ -110,30 +151,123 @@ const BookDetails = () => {
 					)}
 				</div>
 			</div>
-			{showModal ? (
+			{/*edit modal*/}
+			{showEditModal ? (
 				<div className='modal'>
 					<div className='modal-content'>
 						<div className='modal-header'>
 							<h2>Edit video</h2>
-							<p className='right-header' onClick={() => setShowModal(false)}>
+							<p
+								className='right-header'
+								onClick={() => {
+									handleCancelEdit()
+									setShowEditModal(false)
+								}}
+							>
 								X
 							</p>
 						</div>
-						<div className='modal-body'>
-							{err && <p className='txt-danger'>{err}</p>}
-							{successMsg && <p className='txt-success'>{successMsg}</p>}
-						</div>
-						<div className='modal-footer'>
-							<button
-								className='btn btn-danger'
-								onClick={() => setShowModal(false)}
+						<form className='form-control'>
+							<div className='modal-body'>
+								<p className='mb10'>Enter video title</p>
+								<input
+									type={'text'}
+									onChange={handleChange}
+									className='input-field'
+									value={inputs.title}
+									name='title'
+								/>
+								<p className='mb10'>Enter video link</p>
+								<input
+									type={'url'}
+									onChange={handleChange}
+									className='input-field'
+									value={inputs.link}
+									name='link'
+								/>
+								{err && <p className='txt-danger'>{err}</p>}
+								{successMsg && <p className='txt-success'>{successMsg}</p>}
+							</div>
+							<div className='modal-footer'>
+								<button
+									className='btn btn-sm btn-danger'
+									onClick={() => {
+										handleCancelEdit()
+										setShowEditModal(false)
+									}}
+								>
+									Cancel
+								</button>
+								<button
+									className='btn btn-success'
+									onClick={handleEdit}
+									disabled={!formChanged}
+								>
+									Update
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			) : null}
+			{/*delete modal*/}
+			{showDeleteModal ? (
+				<div className='modal'>
+					<div className='modal-content'>
+						<div className='modal-header'>
+							<h2>Delete video</h2>
+							<p
+								className='right-header'
+								onClick={() => setShowDeleteModal(false)}
 							>
-								Cancel
-							</button>
-							<button className='btn btn-success' onClick={handleSubmit}>
-								Update
-							</button>
+								X
+							</p>
 						</div>
+						<form className='form-control'>
+							<div className='modal-body'>
+								<p className='txt-danger'>
+									Are you sure you want to delete the video below?
+								</p>
+								<div className='form-row'>
+									<div className='form-label'>Video Title</div>
+									<input
+										type='text'
+										className='input-field'
+										value={inputs.title}
+										name='title'
+										disabled
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Video Link</div>
+									<input
+										type='url'
+										className='input-field'
+										value={inputs.link}
+										name='link'
+										disabled
+									/>
+								</div>
+								{err && <p className='txt-danger'>{err}</p>}
+								{successMsg && <p className='txt-success'>{successMsg}</p>}
+							</div>
+							<div className='modal-footer'>
+								<button
+									className='btn btn-sm btn-danger'
+									onClick={() => {
+										setShowDeleteModal(false)
+									}}
+								>
+									No, cancel
+								</button>
+								<button
+									className='btn btn-sm btn-success'
+									onClick={handleDelete}
+								>
+									Yes, delete
+								</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			) : null}
