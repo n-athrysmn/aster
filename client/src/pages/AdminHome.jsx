@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/authContext'
-import avatar from '../assets/avatar.png'
-import { FaUpload, FaBullhorn, FaCalendarAlt, FaPlus } from 'react-icons/fa'
+import { FaUpload, FaBullhorn, FaCalendarAlt } from 'react-icons/fa'
 import axios from 'axios'
 import Tasks from '../components/Tasks'
 import { MdCelebration } from 'react-icons/md'

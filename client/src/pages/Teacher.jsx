@@ -43,13 +43,6 @@ const Teacher = () => {
 		}
 	}
 
-	const [fileName, setFileName] = useState('Upload profile picture')
-
-	const handleFileSelect = (event) => {
-		const selectedFile = event.target.files[0]
-		setFileName(selectedFile.name)
-	}
-
 	return (
 		<div className='auth'>
 			<div className='top-left'>

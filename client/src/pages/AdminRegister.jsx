@@ -22,15 +22,6 @@ const AdminRegister = () => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 	}
 
-	const [fileName, setFileName] = useState('Upload profile picture')
-
-	const handleFileSelect = (e) => {
-		const selectedFile = e.target.files[0]
-		if (selectedFile) {
-			setFileName(selectedFile.name)
-		}
-	}
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		if (!Object.values(inputs).every((value) => value)) {

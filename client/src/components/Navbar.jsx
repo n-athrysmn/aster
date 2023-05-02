@@ -4,7 +4,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import { FaTimes, FaBars, FaUserCog } from 'react-icons/fa'
 import { HiOutlineLogout } from 'react-icons/hi'
-import { IoIosAlbums } from 'react-icons/io'
 import ShortcutModal from './ShortcutModal'
 import { MdAddToHomeScreen } from 'react-icons/md'
 
