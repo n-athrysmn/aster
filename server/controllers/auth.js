@@ -292,24 +292,119 @@ export const adminlogin = (req, res) => {
 	db.query(q, [req.body.email], (err, data) => {
 		if (err) return res.status(500).json(err)
 		if (data.length > 0) {
-			const isPasswordCorrect = bcrypt.compareSync(
-				req.body.password,
-				data[0].adminPass
-			)
-			if (!isPasswordCorrect) {
-				return res.status(400).json('Wrong email or password!')
+			try {
+				const isPasswordCorrect = bcrypt.compareSync(
+					req.body.password,
+					data[0].adminPass
+				)
+				if (!isPasswordCorrect) {
+					return res.status(400).json('Wrong email or password!')
+				}
+				const token = jwt.sign({ id: data[0].id, type: 'admin' }, 'jwtkey')
+				const { adminPass, ...other } = data[0]
+				return res
+					.cookie('access_token', token, {
+						httpOnly: true,
+					})
+					.status(200)
+					.json(other)
+			} catch (error) {
+				return res.status(500).json('Error: ' + error)
 			}
-			const token = jwt.sign({ id: data[0].id, type: 'admin' }, 'jwtkey')
-			const { adminPass, ...other } = data[0]
-			return res
-				.cookie('access_token', token, {
-					httpOnly: true,
-				})
-				.status(200)
-				.json(other)
 		} else {
 			return res.status(404).json('User not found!')
 		}
+	})
+}
+
+//reset password
+export const reset = (req, res) => {
+	const { email } = req.params // Get the user email from the request parameters
+	console.log('email:', email)
+
+	// Check if the user exists in the students table
+	const q1 = 'SELECT * FROM students WHERE studentEmail = ?'
+	db.query(q1, [email], (err, data) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		if (data.length) {
+			// If the user is found in the students table, update their password
+			const salt = bcrypt.genSaltSync(10)
+			const hash = bcrypt.hashSync(req.body.password, salt)
+			const q = 'UPDATE students SET studentPass = ? WHERE studentEmail = ?'
+			db.query(q, [hash, email], (err, data) => {
+				if (err) {
+					return res.status(500).json(err)
+				}
+				return res.status(200).json('Student password updated.')
+			})
+			return
+		}
+
+		// If the user is not found in the students table, check the parents table
+		const q2 = 'SELECT * FROM parents WHERE parentEmail = ?'
+		db.query(q2, [email], (err, data) => {
+			if (err) {
+				return res.status(500).json(err)
+			}
+			if (data.length) {
+				// If the user is found in the parents table, update their password
+				const salt = bcrypt.genSaltSync(10)
+				const hash = bcrypt.hashSync(req.body.password, salt)
+				const q = 'UPDATE parents SET parentPass = ? WHERE parentEmail = ?'
+				db.query(q, [hash, email], (err, data) => {
+					if (err) {
+						return res.status(500).json(err)
+					}
+					return res.status(200).json('Parent password updated.')
+				})
+				return
+			}
+
+			// If the user is not found in the parents table, check the teachers table
+			const q3 = 'SELECT * FROM teachers WHERE teacherEmail = ?'
+			db.query(q3, [email], (err, data) => {
+				if (err) {
+					return res.status(500).json(err)
+				}
+				if (data.length) {
+					// If the user is found in the teachers table, update their password
+					const salt = bcrypt.genSaltSync(10)
+					const hash = bcrypt.hashSync(req.body.password, salt)
+					const q = 'UPDATE teachers SET teacherPass = ? WHERE teacherEmail = ?'
+					db.query(q, [hash, email], (err, data) => {
+						if (err) {
+							return res.status(500).json(err)
+						}
+						return res.status(200).json('Teacher password updated.')
+					})
+					return
+				}
+
+				// If the user is not found in the teachers table, check the admins table
+				const q4 = 'SELECT * FROM admins WHERE adminEmail = ?'
+				db.query(q4, [email], (err, data) => {
+					if (err) {
+						return res.status(500).json(err)
+					}
+					if (data.length) {
+						// If the user is found in the admins table, update their password
+						const salt = bcrypt.genSaltSync(10)
+						const hash = bcrypt.hashSync(req.body.password, salt)
+						const q = 'UPDATE admins SET adminPass = ? WHERE adminEmail = ?'
+						db.query(q, [hash, email], (err, data) => {
+							if (err) {
+								return res.status(500).json(err)
+							}
+							return res.status(200).json('Admin password updated.')
+						})
+						return
+					} // If the user is not found in any table, return an error message
+					return res.status(404).json('User not found.')
+				})
+			})
+		})
 	})
 }
 

@@ -21,6 +21,7 @@ import Event from './pages/Event'
 import AdminBook from './pages/AdminBooks'
 import Announce from './pages/Announce'
 import BookDetails from './pages/BookDetails'
+import ResetPassword from './pages/Reset'
 
 const Layout = () => {
 	return (
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
 	{
 		path: '/admin-register',
 		element: <AdminRegister />,
+	},
+	{
+		path: '/reset-password',
+		element: <ResetPassword />,
 	},
 	{
 		path: '/',

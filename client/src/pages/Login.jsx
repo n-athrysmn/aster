@@ -65,6 +65,12 @@ const Login = () => {
 					/>
 					<button onClick={handleSubmit}>Login</button>
 					{err && <p>{err}</p>}
+					<p>
+						Forgot password?{' '}
+						<Link className='link' to='/reset-password'>
+							Reset password
+						</Link>
+					</p>
 				</form>
 				<div className='reg-foot'>
 					<span>

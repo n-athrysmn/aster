@@ -1,20 +1,16 @@
 import React, { useState } from 'react'
-import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
 import Logo from '../assets/dark-logo.png'
 import Reg from '../assets/register.svg'
+import axios from 'axios'
 
-const AdminLogin = () => {
+const ResetPassword = () => {
 	const [inputs, setInputs] = useState({
 		email: '',
 		password: '',
 	})
+	console.log('Inputs: ', inputs)
 	const [err, setError] = useState(null)
-
-	const navigate = useNavigate()
-
-	const { admin } = useContext(AuthContext)
+	const [successMsg, setSuccessMsg] = useState('')
 
 	const handleChange = (e) => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -22,14 +18,17 @@ const AdminLogin = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-
-		if (!inputs.email || !inputs.password) {
-			setError('Please enter both email and password')
+		if (!Object.values(inputs).every((value) => value)) {
+			setError('Form cannot be empty')
 			return
 		}
 		try {
-			await admin(inputs)
-			navigate('/admin-dashboard')
+			await axios.put(`/auth/reset/${inputs.email}`, inputs)
+			setSuccessMsg('Password reset successful')
+			setError('') // Clear error message
+			setTimeout(() => {
+				setSuccessMsg('') // Clear success message
+			}, 3000)
 		} catch (err) {
 			setError(err.response.data)
 		}
@@ -47,7 +46,7 @@ const AdminLogin = () => {
 				</p>
 			</div>
 			<div className='auth-form'>
-				<h2 className='mb20'>Admin Login</h2>
+				<h2 className='mb20'>Reset Password</h2>
 				<form className='form-container' onSubmit={handleSubmit}>
 					<input
 						required
@@ -59,30 +58,17 @@ const AdminLogin = () => {
 					<input
 						required
 						type='password'
-						placeholder='Enter password'
+						placeholder='Enter new password'
 						name='password'
 						onChange={handleChange}
 					/>
-					<button onClick={handleSubmit}>Login</button>
+					<button onClick={handleSubmit}>Reset</button>
 					{err && <p>{err}</p>}
-					<p>
-						Forgot password?{' '}
-						<Link className='link' to='/reset-password'>
-							Reset password
-						</Link>
-					</p>
+					{successMsg && <p className='txt-success'>{successMsg}</p>}
 				</form>
-				<div className='reg-foot'>
-					<span>
-						No account yet?{' '}
-						<Link className='link' to='/admin-register'>
-							Register here
-						</Link>
-					</span>
-				</div>
 			</div>
 		</div>
 	)
 }
 
-export default AdminLogin
+export default ResetPassword
