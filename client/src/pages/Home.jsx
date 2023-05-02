@@ -106,7 +106,7 @@ const Home = () => {
 			),
 			content: (
 				<div className='posts'>
-					{books.length > 0 ? (
+					{Array.isArray(books) && books.length > 0 ? (
 						books.map((book) => (
 							<div className='post' key={book.id}>
 								<div className='img'>
@@ -142,7 +142,7 @@ const Home = () => {
 			),
 			content: (
 				<div className='row wrap'>
-					{videos.length > 0 ? (
+					{Array.isArray(videos) && videos.length > 0 ? (
 						videos.map((video) => (
 							<div className='mb20' key={video.id}>
 								<div className='mb20'>

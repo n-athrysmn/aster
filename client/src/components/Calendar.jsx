@@ -75,16 +75,17 @@ function Calendar() {
 							{[...Array(7).keys()].map((dayIndex) => {
 								const dateIndex = weekIndex * 7 + dayIndex
 								const date = dates[dateIndex]
-								const eventsOnDate = calendar
-									? calendar.filter((event) => {
-											const eventDate = new Date(event.date)
-											return (
-												eventDate.getDate() === date &&
-												eventDate.getMonth() === currentDate.getMonth() &&
-												eventDate.getFullYear() === currentDate.getFullYear()
-											)
-									  })
-									: []
+								const eventsOnDate =
+									calendar && Array.isArray(calendar) // check if calendar is an array before filtering
+										? calendar.filter((event) => {
+												const eventDate = new Date(event.date)
+												return (
+													eventDate.getDate() === date &&
+													eventDate.getMonth() === currentDate.getMonth() &&
+													eventDate.getFullYear() === currentDate.getFullYear()
+												)
+										  })
+										: []
 								return (
 									<td
 										className='date'

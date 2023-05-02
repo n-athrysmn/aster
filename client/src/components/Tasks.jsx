@@ -132,7 +132,7 @@ const Tasks = () => {
 			</div>
 
 			<div className='card-body'>
-				{tasks && tasks.length > 0 ? (
+				{Array.isArray(tasks) && tasks.length > 0 ? (
 					<table className='tables center'>
 						<thead>
 							<tr>

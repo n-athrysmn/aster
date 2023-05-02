@@ -16,13 +16,13 @@ export const AuthContextProvider = ({ children }) => {
 
 	const login = async (inputs) => {
 		const { data } = await axios.post('/auth/login', inputs)
-		setCurrentUser(data)
+		setCurrentUser('Current user', data)
 		console.log(data)
 	}
 
 	const admin = async (inputs) => {
 		const { data } = await axios.post('/auth/admin-login', inputs)
-		setCurrentAdmin(data)
+		setCurrentAdmin('Current admin', data)
 	}
 
 	const logout = async () => {
