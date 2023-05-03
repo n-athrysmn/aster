@@ -29,7 +29,10 @@ const AdminRegister = () => {
 			return
 		}
 		try {
-			await axios.post('auth/admin-register', inputs)
+			await axios.post(
+				`${process.env.REACT_APP_API_URL}auth/admin-register`,
+				inputs
+			)
 			setSuccessMsg('Registration successful')
 			setError('') // Clear error message
 			setTimeout(() => {

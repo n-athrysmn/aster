@@ -10,7 +10,9 @@ const AdminBook = () => {
 		const fetchBooks = async () => {
 			try {
 				console.log('Fetching books…')
-				const response = await axios.get('/books/get-books')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/books/get-books`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)
@@ -69,7 +71,7 @@ const AdminBook = () => {
 	const handleAdd = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/books/add', inputs)
+			await axios.post(`${process.env.REACT_APP_API_URL}/books/add`, inputs)
 			setSuccessMsg('Your book has been added successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')

@@ -28,11 +28,11 @@ export const AuthContextProvider = ({ children }) => {
 			`${process.env.REACT_APP_API_URL}/auth/admin-login`,
 			inputs
 		)
-		setCurrentAdmin('Current admin', data)
+		setCurrentAdmin(data)
 	}
 
 	const logout = async () => {
-		await axios.post('/auth/logout')
+		await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`)
 		setCurrentUser(null)
 		setCurrentAdmin(null)
 	}

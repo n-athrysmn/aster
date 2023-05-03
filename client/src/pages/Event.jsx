@@ -9,7 +9,9 @@ const Event = () => {
 		const fetchEvents = async () => {
 			try {
 				console.log('Fetching events…')
-				const response = await axios.get('/others/get-events')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/others/get-events`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)

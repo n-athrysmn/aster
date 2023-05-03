@@ -9,7 +9,9 @@ const Announce = () => {
 		const fetchAnnouncements = async () => {
 			try {
 				console.log('Fetching announcements…')
-				const response = await axios.get('/others/announce')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/others/announce`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)

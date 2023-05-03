@@ -23,7 +23,9 @@ const UsersList = () => {
 		const fetchStudents = async () => {
 			try {
 				console.log('Fetching students…')
-				const response = await axios.get('/users/students')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/users/students`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)
@@ -36,7 +38,9 @@ const UsersList = () => {
 		const fetchParents = async () => {
 			try {
 				console.log('Fetching parents…')
-				const response = await axios.get('/users/parents')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/users/parents`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)
@@ -49,7 +53,9 @@ const UsersList = () => {
 		const fetchTeachers = async () => {
 			try {
 				console.log('Fetching teachers…')
-				const response = await axios.get('/users/teachers')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/users/teachers`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)

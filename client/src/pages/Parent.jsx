@@ -31,7 +31,10 @@ const Parent = () => {
 			return
 		}
 		try {
-			await axios.post('/auth/parent-register', inputs)
+			await axios.post(
+				`${process.env.REACT_APP_API_URL}/auth/parent-register`,
+				inputs
+			)
 			setSuccessMsg('Registration successful')
 			setError('') // Clear error message
 			setTimeout(() => {

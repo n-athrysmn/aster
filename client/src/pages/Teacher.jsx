@@ -31,7 +31,10 @@ const Teacher = () => {
 			return
 		}
 		try {
-			await axios.post('/auth/teacher-register', inputs)
+			await axios.post(
+				`${process.env.REACT_APP_API_URL}/auth/teacher-register`,
+				inputs
+			)
 			setSuccessMsg('Registration successful')
 			setError('') // Clear error message
 			setTimeout(() => {

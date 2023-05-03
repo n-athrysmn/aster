@@ -34,7 +34,7 @@ const Register = () => {
 			return
 		}
 		try {
-			await axios.post('/auth/register', inputs)
+			await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, inputs)
 			setSuccessMsg('Registration successful')
 			setError('') // Clear error message
 			setTimeout(() => {

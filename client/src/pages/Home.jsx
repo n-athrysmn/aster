@@ -41,7 +41,9 @@ const Home = () => {
 		const fetchVideos = async () => {
 			try {
 				console.log('Fetching videos…')
-				const response = await axios.get('/others/tab-videos')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/others/tab-videos`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)

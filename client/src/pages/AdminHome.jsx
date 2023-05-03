@@ -41,7 +41,9 @@ const AdminHome = () => {
 		async function fetchBooks() {
 			try {
 				console.log('Fetching books…')
-				const response = await axios.get('/books/get-books')
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/books/get-books`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)
@@ -79,7 +81,7 @@ const AdminHome = () => {
 	const handleAnnounceSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/others/announce', {
+			await axios.post(`${process.env.REACT_APP_API_URL}/others/announce`, {
 				...inputs,
 				adminId,
 			})
@@ -97,7 +99,7 @@ const AdminHome = () => {
 	const handleUploadSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/others/upload', inputs)
+			await axios.post(`${process.env.REACT_APP_API_URL}/others/upload`, inputs)
 			setSuccessMsg('Video has been uploaded!')
 			setTimeout(() => {
 				setSuccessMsg('')
@@ -112,7 +114,7 @@ const AdminHome = () => {
 	const handleEventSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/others/event', inputs)
+			await axios.post(`${process.env.REACT_APP_API_URL}/others/event`, inputs)
 			setSuccessMsg('Event has been created!')
 			setTimeout(() => {
 				setSuccessMsg('')
