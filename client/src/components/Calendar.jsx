@@ -30,7 +30,7 @@ function Calendar() {
 		const fetchEvents = async () => {
 			try {
 				console.log('Fetching events…')
-				const response = await axios.post(
+				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/get-events`
 				)
 				console.log('Response:', response)

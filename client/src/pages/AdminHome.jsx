@@ -41,7 +41,7 @@ const AdminHome = () => {
 		async function fetchBooks() {
 			try {
 				console.log('Fetching books…')
-				const response = await axios.post(
+				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/get-books`
 				)
 				console.log('Response:', response)

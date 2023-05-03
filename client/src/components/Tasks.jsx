@@ -150,67 +150,68 @@ const Tasks = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{tasks.map((task) => {
-								const deadline = new Date(task.deadline)
-								const formattedDate = deadline.toLocaleDateString('en-GB', {
-									day: 'numeric',
-									month: 'numeric',
-									year: 'numeric',
-								})
+							{Array.isArray(tasks) &&
+								tasks.map((task) => {
+									const deadline = new Date(task.deadline)
+									const formattedDate = deadline.toLocaleDateString('en-GB', {
+										day: 'numeric',
+										month: 'numeric',
+										year: 'numeric',
+									})
 
-								let priorityClassName
-								switch (task.priority) {
-									case 'High':
-										priorityClassName = 'tag small-tag tag-danger'
-										break
-									case 'Medium':
-										priorityClassName = 'tag small-tag tag-warning'
-										break
-									case 'Low':
-										priorityClassName = 'tag small-tag tag-success'
-										break
-									default:
-										priorityClassName = 'tag small-tag untag'
-								}
+									let priorityClassName
+									switch (task.priority) {
+										case 'High':
+											priorityClassName = 'tag small-tag tag-danger'
+											break
+										case 'Medium':
+											priorityClassName = 'tag small-tag tag-warning'
+											break
+										case 'Low':
+											priorityClassName = 'tag small-tag tag-success'
+											break
+										default:
+											priorityClassName = 'tag small-tag untag'
+									}
 
-								return (
-									<tr key={task.id}>
-										<td>
-											<p>{task.title}</p>
-										</td>
-										<td>
-											<p className={priorityClassName}>{task.priority}</p>
-										</td>
-										<td>
-											<p>{formattedDate}</p>
-										</td>
-										<td>
-											<div className='row'>
-												<button
-													className='btn btn-sm btn-warning'
-													title='Edit'
-													onClick={() => {
-														setSelected(task)
-														setShowEditModal(true)
-													}}
-												>
-													<FaEdit />
-												</button>
-												<button
-													className='btn btn-sm btn-danger'
-													title='Delete'
-													onClick={() => {
-														setSelected(task)
-														setShowDeleteModal(true)
-													}}
-												>
-													<FaTrash />
-												</button>
-											</div>
-										</td>
-									</tr>
-								)
-							})}
+									return (
+										<tr key={task.id}>
+											<td>
+												<p>{task.title}</p>
+											</td>
+											<td>
+												<p className={priorityClassName}>{task.priority}</p>
+											</td>
+											<td>
+												<p>{formattedDate}</p>
+											</td>
+											<td>
+												<div className='row'>
+													<button
+														className='btn btn-sm btn-warning'
+														title='Edit'
+														onClick={() => {
+															setSelected(task)
+															setShowEditModal(true)
+														}}
+													>
+														<FaEdit />
+													</button>
+													<button
+														className='btn btn-sm btn-danger'
+														title='Delete'
+														onClick={() => {
+															setSelected(task)
+															setShowDeleteModal(true)
+														}}
+													>
+														<FaTrash />
+													</button>
+												</div>
+											</td>
+										</tr>
+									)
+								})}
 						</tbody>
 					</table>
 				) : (

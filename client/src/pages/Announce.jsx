@@ -9,7 +9,7 @@ const Announce = () => {
 		const fetchAnnouncements = async () => {
 			try {
 				console.log('Fetching announcements…')
-				const response = await axios.post(
+				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/announce`
 				)
 				console.log('Response:', response)
@@ -111,7 +111,8 @@ const Announce = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{announcements.length > 0 &&
+							{Array.isArray(announcements) &&
+								announcements.length > 0 &&
 								announcements.map((announcement) => {
 									const date = new Date(announcement.createdAt)
 									const formattedDate = date

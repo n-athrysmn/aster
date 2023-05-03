@@ -105,7 +105,7 @@ const BookDetails = () => {
 					<div className='card-title'>List of Answers</div>
 				</div>
 				<div className='card-body'>
-					{videos.length > 0 ? (
+					{Array.isArray(videos) && videos.length > 0 ? (
 						<table className='tables'>
 							<thead>
 								<tr>

@@ -19,7 +19,7 @@ export const AuthContextProvider = ({ children }) => {
 			`${process.env.REACT_APP_API_URL}/auth/login`,
 			inputs
 		)
-		setCurrentUser('Current user', data)
+		setCurrentUser(data)
 		console.log(data)
 	}
 

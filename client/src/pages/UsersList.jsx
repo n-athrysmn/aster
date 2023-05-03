@@ -23,7 +23,7 @@ const UsersList = () => {
 		const fetchStudents = async () => {
 			try {
 				console.log('Fetching students…')
-				const response = await axios.post(
+				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/students`
 				)
 				console.log('Response:', response)
@@ -38,7 +38,7 @@ const UsersList = () => {
 		const fetchParents = async () => {
 			try {
 				console.log('Fetching parents…')
-				const response = await axios.post(
+				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/parents`
 				)
 				console.log('Response:', response)
@@ -53,7 +53,7 @@ const UsersList = () => {
 		const fetchTeachers = async () => {
 			try {
 				console.log('Fetching teachers…')
-				const response = await axios.post(
+				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/teachers`
 				)
 				console.log('Response:', response)
@@ -154,7 +154,8 @@ const UsersList = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{students.length > 0 &&
+								{Array.isArray(students) &&
+									students.length > 0 &&
 									students.map((student) => (
 										<tr key={student.studentId}>
 											<td>{student.studentId}</td>
@@ -193,7 +194,8 @@ const UsersList = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{parents.length > 0 &&
+								{Array.isArray(parents) &&
+									parents.length > 0 &&
 									parents.map((parent) => (
 										<tr key={parent.parentId}>
 											<td>{parent.parentId}</td>
@@ -232,7 +234,8 @@ const UsersList = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{teachers.length > 0 &&
+								{Array.isArray(teachers) &&
+									teachers.length > 0 &&
 									teachers.map((teacher) => (
 										<tr key={teacher.teacherId}>
 											<td>{teacher.teacherId}</td>

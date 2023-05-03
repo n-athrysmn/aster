@@ -9,7 +9,7 @@ const Event = () => {
 		const fetchEvents = async () => {
 			try {
 				console.log('Fetching events…')
-				const response = await axios.post(
+				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/get-events`
 				)
 				console.log('Response:', response)
@@ -113,7 +113,8 @@ const Event = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{events.length > 0 &&
+							{Array.isArray(events) &&
+								events.length > 0 &&
 								events.map((event) => {
 									const date = new Date(event.date)
 									const formattedDate = date

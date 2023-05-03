@@ -49,17 +49,18 @@ const Accords = () => {
 				}
 				content={
 					<div>
-						{faqs.map((faq) => (
-							<div key={faq.id}>
-								<p>
-									<MdOutlineQuestionAnswer /> {faq.question}
-								</p>
-								<p>
-									<MdQuestionAnswer /> {faq.answer}
-								</p>
-								<hr />
-							</div>
-						))}
+						{Array.isArray(faqs) &&
+							faqs.map((faq) => (
+								<div key={faq.id}>
+									<p>
+										<MdOutlineQuestionAnswer /> {faq.question}
+									</p>
+									<p>
+										<MdQuestionAnswer /> {faq.answer}
+									</p>
+									<hr />
+								</div>
+							))}
 					</div>
 				}
 			/>
