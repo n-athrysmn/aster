@@ -12,6 +12,7 @@ export const db = mysql.createConnection({
 	connectTimeout: 300000, // 5 minutes
 	ssl: {
 		rejectUnauthorized: true,
+		ca: process.env.CACERT,
 	},
 	sslmode: 'REQUIRED',
 })
