@@ -1,6 +1,6 @@
 import mysql from 'mysql'
 import dotenv from 'dotenv'
-import fs from 'fs'
+
 dotenv.config()
 
 export const db = mysql.createConnection({
@@ -11,9 +11,9 @@ export const db = mysql.createConnection({
 	port: process.env.DB_PORT,
 	connectTimeout: 300000, // 5 minutes
 	ssl: {
-		cert: fs.readFileSync(__dirname + '/ca-certificate.crt'),
-		rejectUnauthorized: false,
+		rejectUnauthorized: true,
 	},
+	sslmode: 'REQUIRED',
 })
 
 db.connect((err) => {
