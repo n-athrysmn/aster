@@ -1,14 +1,19 @@
 import mysql from 'mysql'
 import dotenv from 'dotenv'
+import fs from 'fs'
 dotenv.config()
 
 export const db = mysql.createConnection({
-	host: 'asteredu-do-user-14006470-0.b.db.ondigitalocean.com',
-	port: '25060',
-	user: 'doadmin',
-	password: 'AVNS_xn_NMT87GBj6KMIcdwd',
-	database: 'defaultdb',
-	sslmode: 'REQUIRED',
+	host: process.env.HOST,
+	user: process.env.USER,
+	password: process.env.PASSWORD,
+	database: process.env.DB,
+	port: process.env.DB_PORT,
+	connectTimeout: 300000, // 5 minutes
+	ssl: {
+		cert: fs.readFileSync(__dirname + '/ca-certificate.crt'),
+		rejectUnauthorized: false,
+	},
 })
 
 db.connect((err) => {
