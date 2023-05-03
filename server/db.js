@@ -1,10 +1,7 @@
 import mysql from 'mysql'
 import dotenv from 'dotenv'
 import fs from 'fs'
-import path from 'path'
 dotenv.config()
-
-const certPath = path.join(__dirname, 'ca-certificate.crt')
 
 export const db = mysql.createConnection({
 	host: process.env.HOST,
@@ -14,7 +11,7 @@ export const db = mysql.createConnection({
 	port: process.env.DB_PORT,
 	connectTimeout: 300000, // 5 minutes
 	ssl: {
-		ca: fs.readFileSync(certPath),
+		cert: fs.readFileSync(__dirname + '/ca-certificate.crt'),
 		rejectUnauthorized: true,
 	},
 })
