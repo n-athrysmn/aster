@@ -7,6 +7,7 @@ export const db = mysql.createConnection({
 	user: process.env.USER,
 	password: process.env.PASSWORD,
 	database: process.env.DB,
+	port: process.env.DB_PORT,
 	connectTimeout: 300000, // 5 minutes
 })
 
