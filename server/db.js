@@ -11,7 +11,7 @@ export const db = mysql.createConnection({
 	port: process.env.DB_PORT,
 	connectTimeout: 300000, // 5 minutes
 	ssl: {
-		ca: fs.readFileSync(`${__dirname}/ca-certificate.crt`),
+		ca: fs.readFileSync(`/ca-certificate.crt`),
 		rejectUnauthorized: true,
 	},
 })
