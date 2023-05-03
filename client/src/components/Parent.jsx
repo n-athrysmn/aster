@@ -26,7 +26,9 @@ const Parent = () => {
 		const fetchParent = async () => {
 			try {
 				console.log('Fetching parent…')
-				const res = await axios.get(`/users/getParent/${email}`)
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/users/getParent/${email}`
+				)
 				console.log('Response:', res)
 				const data = res.data
 				console.log('Data:', data)
@@ -58,7 +60,10 @@ const Parent = () => {
 		setIsEditing(false)
 		e.preventDefault()
 		try {
-			await axios.put(`/users/parent-edit/${email}`, parent)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/users/parent-edit/${email}`,
+				parent
+			)
 			setSuccessMsg('Your profile has been updated successfully!')
 			setError('')
 			setTimeout(() => {

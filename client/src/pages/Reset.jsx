@@ -23,7 +23,10 @@ const ResetPassword = () => {
 			return
 		}
 		try {
-			await axios.put(`/auth/reset/${inputs.email}`, inputs)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/auth/reset/${inputs.email}`,
+				inputs
+			)
 			setSuccessMsg('Password reset successful')
 			setError('') // Clear error message
 			setTimeout(() => {

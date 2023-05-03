@@ -15,13 +15,19 @@ export const AuthContextProvider = ({ children }) => {
 	const isLoggedIn = !!currentUser || !!currentAdmin
 
 	const login = async (inputs) => {
-		const { data } = await axios.post('/auth/login', inputs)
+		const { data } = await axios.post(
+			`${process.env.REACT_APP_API_URL}/auth/login`,
+			inputs
+		)
 		setCurrentUser('Current user', data)
 		console.log(data)
 	}
 
 	const admin = async (inputs) => {
-		const { data } = await axios.post('/auth/admin-login', inputs)
+		const { data } = await axios.post(
+			`${process.env.REACT_APP_API_URL}/auth/admin-login`,
+			inputs
+		)
 		setCurrentAdmin('Current admin', data)
 	}
 

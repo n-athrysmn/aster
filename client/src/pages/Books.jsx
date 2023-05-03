@@ -13,7 +13,9 @@ const Books = () => {
 		const fetchVideos = async () => {
 			try {
 				console.log('Fetching videos…')
-				const res = await axios.get(`/books/answers/${bookIsbn}`)
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/books/answers/${bookIsbn}`
+				)
 				console.log('Response:', res)
 				const data = res.data
 				console.log('Data:', data)

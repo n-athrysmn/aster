@@ -56,7 +56,10 @@ const Event = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.put(`/others/edit-event/${selectedEvent.id}`, inputs)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/others/edit-event/${selectedEvent.id}`,
+				inputs
+			)
 			setSuccessMsg('Your event has been updated successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
@@ -73,7 +76,9 @@ const Event = () => {
 
 	const handleDelete = async () => {
 		try {
-			await axios.delete(`/others/delete-event/${selectedEvent.id}`)
+			await axios.delete(
+				`${process.env.REACT_APP_API_URL}/others/delete-event/${selectedEvent.id}`
+			)
 			setSuccessMsg('Your event has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')

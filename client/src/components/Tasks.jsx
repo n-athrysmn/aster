@@ -17,7 +17,9 @@ const Tasks = () => {
 		async function fetchTasks() {
 			try {
 				console.log('Fetching tasks…')
-				const response = await axios.get(`/others/get-tasks/${adminId}`)
+				const response = await axios.get(
+					`${process.env.REACT_APP_API_URL}/others/get-tasks/${adminId}`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)
@@ -71,7 +73,7 @@ const Tasks = () => {
 	const handleAdd = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/others/add-task', {
+			await axios.post(`${process.env.REACT_APP_API_URL}/others/add-task`, {
 				...inputs,
 				adminId,
 			})
@@ -89,7 +91,10 @@ const Tasks = () => {
 	const handleEdit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.put(`/others/edit-task/${selected.id}`, inputs)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/others/edit-task/${selected.id}`,
+				inputs
+			)
 			setSuccessMsg('The task has been edited successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
@@ -103,7 +108,9 @@ const Tasks = () => {
 
 	const handleDelete = async () => {
 		try {
-			await axios.delete(`/others/delete-task/${selected.id}`)
+			await axios.delete(
+				`${process.env.REACT_APP_API_URL}/others/delete-task/${selected.id}`
+			)
 			setSuccessMsg('The task has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')

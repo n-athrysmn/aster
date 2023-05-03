@@ -28,7 +28,9 @@ const Student = () => {
 		const fetchStudent = async () => {
 			try {
 				console.log('Fetching student…')
-				const res = await axios.get(`/users/getStudent/${email}`)
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/users/getStudent/${email}`
+				)
 				console.log('Response:', res)
 				const data = res.data
 				console.log('Data:', data)
@@ -60,7 +62,10 @@ const Student = () => {
 		setIsEditing(false)
 		e.preventDefault()
 		try {
-			await axios.put(`/users/student-edit/${email}`, student)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/users/student-edit/${email}`,
+				student
+			)
 			setSuccessMsg('Your profile has been updated successfully!')
 			setError('')
 			setTimeout(() => {

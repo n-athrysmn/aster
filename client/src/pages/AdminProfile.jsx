@@ -17,7 +17,9 @@ const AdminProfile = () => {
 		const fetchAdmin = async () => {
 			try {
 				console.log('Fetching admin…')
-				const res = await axios.get(`/users/admin/${id}`)
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/users/admin/${id}`
+				)
 				console.log('Response:', res)
 				const data = res.data
 				console.log('Data:', data)
@@ -49,7 +51,10 @@ const AdminProfile = () => {
 		setIsEditing(false)
 		e.preventDefault()
 		try {
-			await axios.put(`/users/admin-edit/${id}`, admin)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/users/admin-edit/${id}`,
+				admin
+			)
 			setSuccessMsg('Your profile has been updated successfully!')
 			setError('')
 			setTimeout(() => {

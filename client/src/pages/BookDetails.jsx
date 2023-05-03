@@ -13,7 +13,9 @@ const BookDetails = () => {
 		const fetchVideos = async () => {
 			try {
 				console.log('Fetching book details…')
-				const res = await axios.get(`/books/details/${bookId}`)
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/books/details/${bookId}`
+				)
 				console.log('Response:', res)
 				const data = res.data
 				console.log('Data:', data)
@@ -65,7 +67,10 @@ const BookDetails = () => {
 	const handleEdit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.put(`/books/edit-video/${selected.id}`, inputs)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/books/edit-video/${selected.id}`,
+				inputs
+			)
 			setSuccessMsg('The video has been edited successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
@@ -79,7 +84,9 @@ const BookDetails = () => {
 
 	const handleDelete = async () => {
 		try {
-			await axios.delete(`/books/delete-video/${selected.id}`)
+			await axios.delete(
+				`${process.env.REACT_APP_API_URL}/books/delete-video/${selected.id}`
+			)
 			setSuccessMsg('The video has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')

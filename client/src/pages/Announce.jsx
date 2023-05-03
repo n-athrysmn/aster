@@ -61,7 +61,10 @@ const Announce = () => {
 	const handleEdit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.put(`/others/edit-announce/${selected.id}`, inputs)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/others/edit-announce/${selected.id}`,
+				inputs
+			)
 			setSuccessMsg('The announcement has been edited successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
@@ -75,7 +78,9 @@ const Announce = () => {
 
 	const handleDelete = async () => {
 		try {
-			await axios.delete(`/others/delete-announce/${selected.id}`)
+			await axios.delete(
+				`${process.env.REACT_APP_API_URL}/others/delete-announce/${selected.id}`
+			)
 			setSuccessMsg('The announcement has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')

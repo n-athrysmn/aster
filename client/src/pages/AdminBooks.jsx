@@ -87,7 +87,10 @@ const AdminBook = () => {
 	const handleEdit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.put(`/books/edit/${selectedBook.id}`, inputs)
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/books/edit/${selectedBook.id}`,
+				inputs
+			)
 			setSuccessMsg('The book has been edited successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
@@ -101,7 +104,9 @@ const AdminBook = () => {
 
 	const handleDelete = async () => {
 		try {
-			await axios.delete(`/books/delete/${selectedBook.id}`)
+			await axios.delete(
+				`${process.env.REACT_APP_API_URL}/books/delete/${selectedBook.id}`
+			)
 			setSuccessMsg('The book has been deleted successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')

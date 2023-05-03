@@ -49,7 +49,10 @@ function BookModal({ setBooks }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post('/books/add-book', inputs)
+			await axios.post(
+				`${process.env.REACT_APP_API_URL}/books/add-book`,
+				inputs
+			)
 			setSuccessMsg('Your book has been added successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')

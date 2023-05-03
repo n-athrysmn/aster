@@ -22,7 +22,9 @@ const Home = () => {
 		const fetchBooks = async () => {
 			try {
 				console.log('Fetching books…')
-				const response = await axios.get(`/books/get-owned/${userId}`)
+				const response = await axios.get(
+					`${process.env.REACT_APP_API_URL}/books/get-owned/${userId}`
+				)
 				console.log('Response:', response)
 				const data = response.data
 				console.log('Data:', data)
