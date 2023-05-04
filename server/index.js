@@ -13,7 +13,7 @@ const port = process.env.PORT || 3001
 
 app.use(
 	cors({
-		origin: 'https://lms.aster.edu.my',
+		origin: ['https://lms.aster.edu.my', 'http://192.168.1.39:3000'],
 		credentials: true,
 	})
 )
