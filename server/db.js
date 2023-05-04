@@ -1,7 +1,9 @@
-import mysql from 'mysql'
+import mysql from 'mysql2'
 import dotenv from 'dotenv'
 
-dotenv.config()
+dotenv.config({
+	systemvars: true,
+})
 
 export const db = mysql.createConnection({
 	host: process.env.HOST,
@@ -11,10 +13,10 @@ export const db = mysql.createConnection({
 	port: process.env.DB_PORT,
 	connectTimeout: 300000, // 5 minutes
 	ssl: {
-		rejectUnauthorized: true,
-		ca: process.env.CACERT,
+		rejectUnauthorized: false,
+		ca: process.env.NODE_EXTRA_CA_CERTS,
 	},
-	sslmode: 'REQUIRED',
+	insecureAuth: true,
 })
 
 db.connect((err) => {
