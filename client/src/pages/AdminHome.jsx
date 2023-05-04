@@ -133,12 +133,12 @@ const AdminHome = () => {
 	return (
 		<div className='home'>
 			<div className='top-part mb20'>
-				<div className='profile-card'>
+				<div className='card'>
 					{/*
 						<div className='avatar mb20'>
 							<img src={avatar} alt='avatar' />
 						</div>*/}
-					<div className='info'>
+					<div className='card-body'>
 						{currentAdmin ? (
 							<>
 								<div>

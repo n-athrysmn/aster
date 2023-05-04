@@ -30,7 +30,7 @@ const AdminRegister = () => {
 		}
 		try {
 			await axios.post(
-				`${process.env.REACT_APP_API_URL}auth/admin-register`,
+				`${process.env.REACT_APP_API_URL}/auth/admin-register`,
 				inputs
 			)
 			setSuccessMsg('Registration successful')

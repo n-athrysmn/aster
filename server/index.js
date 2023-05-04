@@ -11,9 +11,11 @@ const app = express()
 
 const port = process.env.PORT || 3001
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',')
+
 app.use(
 	cors({
-		origin: ['https://lms.aster.edu.my', 'http://192.168.1.39:3000'],
+		origin: allowedOrigins,
 		credentials: true,
 	})
 )
