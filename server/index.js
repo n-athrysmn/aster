@@ -27,7 +27,7 @@ app.use('/api/others', othersRoutes)
 app.use('/api/books', booksRoutes)
 
 app.get('/test', (req, res) => {
-	res.json('It works!')
+	res.json('It works! YEAY')
 })
 
 app.listen(port, () => {
