@@ -8,11 +8,12 @@ export const register = (req, res) => {
 	const q1 = 'SELECT * FROM students WHERE studentEmail = ?'
 	const q2 = 'SELECT * FROM parents WHERE parentEmail = ?'
 	const q3 = 'SELECT * FROM teachers WHERE teacherEmail = ?'
+	const q4 = 'SELECT * FROM admins WHERE adminEmail = ?'
 
 	db.query(q1, [req.body.email], (err, data) => {
 		if (err) return res.status(500).json(err)
 		if (data.length)
-			return res.status(409).json('The email is used by a student!')
+			return res.status(409).json('The email is used by another student!')
 
 		// If the email is not found in the 'students' table, check the 'parents' table
 		db.query(q2, [req.body.email], (err, data) => {
@@ -26,27 +27,33 @@ export const register = (req, res) => {
 				if (data.length)
 					return res.status(409).json('The email is used by a teacher!')
 
-				//Hash the password and create a user
-				const salt = bcrypt.genSaltSync(10)
-				const hash = bcrypt.hashSync(req.body.password, salt)
-
-				const q =
-					'INSERT INTO students(`studentName`,`studentEmail`,`studentNumber`, `studentBirth`, `studentAddr`, `studentSch`, `studentLevel`, `studentGrade`, `studentPass`) VALUES (?)'
-				const values = [
-					req.body.name,
-					req.body.email,
-					req.body.number,
-					req.body.birthday,
-					req.body.address,
-					req.body.school,
-					req.body.level,
-					req.body.grade,
-					hash,
-				]
-
-				db.query(q, [values], (err, data) => {
+				//if email is not found in the 'teachers' table, check 'admins' table
+				db.query(q4, [req.body.email], (err, data) => {
 					if (err) return res.status(500).json(err)
-					return res.status(200).json('User has been created.')
+					if (data.length) return res.status(409).json('Cannot use this email!')
+
+					//Hash the password and create a user
+					const salt = bcrypt.genSaltSync(10)
+					const hash = bcrypt.hashSync(req.body.password, salt)
+
+					const q =
+						'INSERT INTO students(`studentName`,`studentEmail`,`studentNumber`, `studentBirth`, `studentAddr`, `studentSch`, `studentLevel`, `studentGrade`, `studentPass`) VALUES (?)'
+					const values = [
+						req.body.name,
+						req.body.email,
+						req.body.number,
+						req.body.birthday,
+						req.body.address,
+						req.body.school,
+						req.body.level,
+						req.body.grade,
+						hash,
+					]
+
+					db.query(q, [values], (err, data) => {
+						if (err) return res.status(500).json(err)
+						return res.status(200).json('User has been created.')
+					})
 				})
 			})
 		})
@@ -59,6 +66,7 @@ export const parent = (req, res) => {
 	const q1 = 'SELECT * FROM students WHERE studentEmail = ?'
 	const q2 = 'SELECT * FROM parents WHERE parentEmail = ?'
 	const q3 = 'SELECT * FROM teachers WHERE teacherEmail = ?'
+	const q4 = 'SELECT * FROM admins WHERE adminEmail = ?'
 
 	db.query(q1, [req.body.email], (err, data) => {
 		if (err) return res.status(500).json(err)
@@ -77,26 +85,32 @@ export const parent = (req, res) => {
 				if (data.length)
 					return res.status(409).json('The email is used by a teacher!')
 
-				//Hash the password and create a user
-				const salt = bcrypt.genSaltSync(10)
-				const hash = bcrypt.hashSync(req.body.password, salt)
-
-				const q =
-					'INSERT INTO parents (`parentName`, `parentEmail`, `parentNumber`, `parentJob`, `parentSalary`, `parentAddr`, `parentPfp`, `parentPass`) VALUES (?)'
-				const values = [
-					req.body.name,
-					req.body.email,
-					req.body.number,
-					req.body.job,
-					req.body.salary,
-					req.body.address,
-					req.body.pfp,
-					hash,
-				]
-
-				db.query(q, [values], (err, data) => {
+				//if email is not found in the 'teachers' table, check 'admins' table
+				db.query(q4, [req.body.email], (err, data) => {
 					if (err) return res.status(500).json(err)
-					return res.status(200).json('User has been created.')
+					if (data.length) return res.status(409).json('Cannot use this email!')
+
+					//Hash the password and create a user
+					const salt = bcrypt.genSaltSync(10)
+					const hash = bcrypt.hashSync(req.body.password, salt)
+
+					const q =
+						'INSERT INTO parents (`parentName`, `parentEmail`, `parentNumber`, `parentJob`, `parentSalary`, `parentAddr`, `parentPfp`, `parentPass`) VALUES (?)'
+					const values = [
+						req.body.name,
+						req.body.email,
+						req.body.number,
+						req.body.job,
+						req.body.salary,
+						req.body.address,
+						req.body.pfp,
+						hash,
+					]
+
+					db.query(q, [values], (err, data) => {
+						if (err) return res.status(500).json(err)
+						return res.status(200).json('User has been created.')
+					})
 				})
 			})
 		})
@@ -109,6 +123,7 @@ export const teacher = (req, res) => {
 	const q1 = 'SELECT * FROM students WHERE studentEmail = ?'
 	const q2 = 'SELECT * FROM parents WHERE parentEmail = ?'
 	const q3 = 'SELECT * FROM teachers WHERE teacherEmail = ?'
+	const q4 = 'SELECT * FROM admins WHERE adminEmail = ?'
 
 	db.query(q1, [req.body.email], (err, data) => {
 		if (err) return res.status(500).json(err)
@@ -127,26 +142,32 @@ export const teacher = (req, res) => {
 				if (data.length)
 					return res.status(409).json('The email is used by a teacher!')
 
-				//Hash the password and create a user
-				const salt = bcrypt.genSaltSync(10)
-				const hash = bcrypt.hashSync(req.body.password, salt)
-
-				const q =
-					'INSERT INTO teachers (`teacherName`, `teacherEmail`, `teacherNumber`, `teacherSch`, `teacherSalary`, `teacherAddr`, `teacherPfp`, `teacherPass`) VALUES (?)'
-				const values = [
-					req.body.name,
-					req.body.email,
-					req.body.number,
-					req.body.school,
-					req.body.salary,
-					req.body.address,
-					req.body.pfp,
-					hash,
-				]
-
-				db.query(q, [values], (err, data) => {
+				//if email is not found in the 'teachers' table, check 'admins' table
+				db.query(q4, [req.body.email], (err, data) => {
 					if (err) return res.status(500).json(err)
-					return res.status(200).json('User has been created.')
+					if (data.length) return res.status(409).json('Cannot use this email!')
+
+					//Hash the password and create a user
+					const salt = bcrypt.genSaltSync(10)
+					const hash = bcrypt.hashSync(req.body.password, salt)
+
+					const q =
+						'INSERT INTO teachers (`teacherName`, `teacherEmail`, `teacherNumber`, `teacherSch`, `teacherSalary`, `teacherAddr`, `teacherPfp`, `teacherPass`) VALUES (?)'
+					const values = [
+						req.body.name,
+						req.body.email,
+						req.body.number,
+						req.body.school,
+						req.body.salary,
+						req.body.address,
+						req.body.pfp,
+						hash,
+					]
+
+					db.query(q, [values], (err, data) => {
+						if (err) return res.status(500).json(err)
+						return res.status(200).json('User has been created.')
+					})
 				})
 			})
 		})
@@ -179,10 +200,10 @@ export const admins = (req, res) => {
 					return res.status(409).json('The email is used by a teacher!')
 
 				// If the email is not found in the 'teachers' table, check the 'admins' table
-				db.query(q3, [req.body.email], (err, data) => {
+				db.query(q4, [req.body.email], (err, data) => {
 					if (err) return res.status(500).json(err)
 					if (data.length)
-						return res.status(409).json('The email is used by an admin!')
+						return res.status(409).json('The email is used by another admin!')
 
 					//Hash the password and create a user
 					const salt = bcrypt.genSaltSync(10)
@@ -398,6 +419,90 @@ export const reset = (req, res) => {
 								return res.status(500).json(err)
 							}
 							return res.status(200).json('Admin password updated.')
+						})
+						return
+					} // If the user is not found in any table, return an error message
+					return res.status(404).json('User not found.')
+				})
+			})
+		})
+	})
+}
+
+//change email
+export const emailChange = (req, res) => {
+	const { email } = req.params // Get the user email from the request parameters
+	console.log('email:', email)
+
+	// Check if the user exists in the students table
+	const q1 = 'SELECT * FROM students WHERE studentEmail = ?'
+	db.query(q1, [email], (err, data) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		if (data.length) {
+			// If the user is found in the students table, update their email
+			const q = 'UPDATE students SET studentEmail = ? WHERE studentEmail = ?'
+			db.query(q, [email], (err, data) => {
+				if (err) {
+					return res.status(500).json(err)
+				}
+				return res.status(200).json('Student email updated.')
+			})
+			return
+		}
+
+		// If the user is not found in the students table, check the parents table
+		const q2 = 'SELECT * FROM parents WHERE parentEmail = ?'
+		db.query(q2, [email], (err, data) => {
+			if (err) {
+				return res.status(500).json(err)
+			}
+			if (data.length) {
+				// If the user is found in the parents table, update their email
+				const q = 'UPDATE parents SET parentEmail = ? WHERE parentEmail = ?'
+				db.query(q, [email], (err, data) => {
+					if (err) {
+						return res.status(500).json(err)
+					}
+					return res.status(200).json('Parent email updated.')
+				})
+				return
+			}
+
+			// If the user is not found in the parents table, check the teachers table
+			const q3 = 'SELECT * FROM teachers WHERE teacherEmail = ?'
+			db.query(q3, [email], (err, data) => {
+				if (err) {
+					return res.status(500).json(err)
+				}
+				if (data.length) {
+					// If the user is found in the teachers table, update their email
+					const q =
+						'UPDATE teachers SET teacherEmail = ? WHERE teacherEmail = ?'
+					db.query(q, [email], (err, data) => {
+						if (err) {
+							return res.status(500).json(err)
+						}
+						return res.status(200).json('Teacher email updated.')
+					})
+					return
+				}
+
+				// If the user is not found in the teachers table, check the admins table
+				const q4 = 'SELECT * FROM admins WHERE adminEmail = ?'
+				db.query(q4, [email], (err, data) => {
+					if (err) {
+						return res.status(500).json(err)
+					}
+					if (data.length) {
+						// If the user is found in the admins table, update their email
+						const q = 'UPDATE admins SET adminEmail = ? WHERE adminEmail = ?'
+						db.query(q, [req.body.email, email], (err, data) => {
+							if (err) {
+								return res.status(500).json(err)
+							}
+							return res.status(200).json('Admin email updated.')
 						})
 						return
 					} // If the user is not found in any table, return an error message
