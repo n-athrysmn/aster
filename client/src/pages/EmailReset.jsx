@@ -1,16 +1,22 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { FaEnvelope, FaIdCard, FaUser } from 'react-icons/fa'
+import { FaEnvelope } from 'react-icons/fa'
 import { AuthContext } from '../context/authContext'
+import { useNavigate } from 'react-router-dom'
 
 const AdminProfile = () => {
-	const { currentAdmin } = useContext(AuthContext)
+	const { currentAdmin, logout } = useContext(AuthContext)
+	const navigate = useNavigate()
+
+	const handleLogout = async () => {
+		await logout()
+		navigate('/admin')
+	}
 
 	const id = currentAdmin?.id
+
 	const [admin, setAdmin] = useState({
-		adminName: '',
 		adminEmail: '',
-		staffId: '',
 	})
 
 	useEffect(() => {
@@ -31,6 +37,8 @@ const AdminProfile = () => {
 
 		fetchAdmin()
 	}, [id])
+
+	console.log('admin email fetched: ', admin)
 
 	const [isDisabled, setIsDisabled] = useState(true)
 	const [isEditing, setIsEditing] = useState(false)
@@ -55,12 +63,15 @@ const AdminProfile = () => {
 				`${process.env.REACT_APP_API_URL}/users/admin-edit/${id}`,
 				admin
 			)
-			setSuccessMsg('Your profile has been updated successfully!')
+			setSuccessMsg(
+				'Your email has been updated successfully! Please log in again'
+			)
 			setError('')
 			setTimeout(() => {
-				setSuccessMsg('')
-				window.location.reload()
-			}, 3000)
+				setSuccessMsg('') // Clear success message
+				handleLogout() // Logout the user
+				navigate('/admin')
+			}, 5000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
 			console.log(err)
@@ -82,55 +93,20 @@ const AdminProfile = () => {
 				<div className='info'>
 					<form className='form-profile'>
 						<div className='form-row'>
-							<div className='form-label'>Name</div>
-							<div className='input-group input-group-icon'>
-								<input
-									type={'text'}
-									value={admin.adminName}
-									name='adminName'
-									disabled={isDisabled}
-									onChange={handleChange}
-								/>
-								<div className='input-icon'>
-									<FaUser />
-								</div>
-							</div>
-						</div>
-						<div className='form-row'>
 							<div className='form-label'>Email</div>
 							<div className='input-group input-group-icon'>
 								<input
 									type={'email'}
 									value={admin.adminEmail}
 									name='adminEmail'
-									disabled
+									disabled={isDisabled}
+									onChange={handleChange}
 								/>
 								<div className='input-icon'>
 									<FaEnvelope />
 								</div>
 							</div>
 						</div>
-						<div className='form-row'>
-							<div className='form-label'>Staff ID</div>
-							<div className='input-group input-group-icon'>
-								<input
-									type={'text'}
-									value={admin.staffId}
-									name='staffId'
-									disabled={isDisabled}
-									onChange={handleChange}
-								/>
-								<div className='input-icon'>
-									<FaIdCard />
-								</div>
-							</div>
-						</div>
-						<p>
-							Want to change email?{' '}
-							<a className='link' href={`/change-email/${admin.adminEmail}`}>
-								Reset email here
-							</a>
-						</p>
 					</form>
 					{err && <p className='txt-danger'>{err}</p>}
 					{successMsg && <p className='txt-success'>{successMsg}</p>}

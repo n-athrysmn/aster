@@ -5,7 +5,8 @@ dotenv.config({
 	systemvars: true,
 })
 
-export const db = mysql.createConnection({
+export const db = mysql.createPool({
+	connectionLimit: 10, // maximum number of connections
 	host: process.env.HOST,
 	user: process.env.USER,
 	password: process.env.PASSWORD,
@@ -19,10 +20,27 @@ export const db = mysql.createConnection({
 	insecureAuth: true,
 })
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
 	if (err) {
 		console.error('Error connecting to database:', err)
-		return
+	} else {
+		console.log('Successfully connected to database.')
+		connection.release()
 	}
-	console.log('Successfully connected to database.')
 })
+
+db.on('error', (err) => {
+	console.error('Database pool error:', err)
+})
+
+export const query = (sql, params) => {
+	return new Promise((resolve, reject) => {
+		db.query(sql, params, (err, results) => {
+			if (err) {
+				console.error('Database query error:', err)
+				return reject(err)
+			}
+			resolve(results)
+		})
+	})
+}

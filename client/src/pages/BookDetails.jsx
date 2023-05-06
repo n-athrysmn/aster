@@ -10,7 +10,7 @@ const BookDetails = () => {
 	const [videos, setVideos] = useState({})
 
 	useEffect(() => {
-		const fetchVideos = async () => {
+		const fetchBooks = async () => {
 			try {
 				console.log('Fetching book details…')
 				const res = await axios.get(
@@ -25,7 +25,7 @@ const BookDetails = () => {
 			}
 		}
 
-		fetchVideos()
+		fetchBooks()
 	}, [bookId])
 
 	const [showEditModal, setShowEditModal] = useState(false)

@@ -22,6 +22,7 @@ import AdminBook from './pages/AdminBooks'
 import Announce from './pages/Announce'
 import BookDetails from './pages/BookDetails'
 import ResetPassword from './pages/Reset'
+import ResetEmail from './pages/EmailReset'
 
 const Layout = () => {
 	return (
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
 	{
 		path: '/reset-password',
 		element: <ResetPassword />,
+	},
+	{
+		path: '/change-email/:email',
+		element: <ResetEmail />,
 	},
 	{
 		path: '/',
