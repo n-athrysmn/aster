@@ -91,7 +91,7 @@ function BookModal({ setBooks }) {
 								type={'text'}
 								onChange={handleChange}
 								placeholder={
-									'Enter your 13-digit ISBN number. Ex: 9789672443710'
+									'Enter your 13-digit ISBN number. Ex: 978-967-24437-1-0'
 								}
 								name='isbn'
 							/>

@@ -241,20 +241,21 @@ const AdminHome = () => {
 								placeholder='Ex: How to score A+ in Maths?'
 								name='vidTitle'
 							/>
-							<p className='mb10'>Enter video url</p>
+							<p className='mb10'>Enter video ID from the URL</p>
 							<input
 								type={'url'}
 								className='input-field'
 								onChange={handleChange}
-								placeholder='Ex: https://www.youtube.com/embed/video-id-here'
+								placeholder='Enter video ID here'
 								name='vidUrl'
 							/>
 							<span className='small mb20'>
-								You must follow this format{' '}
+								You can get the video ID from the link in the URL bar of your
+								browser{' '}
 								<span className='txt-danger'>
-									https://www.youtube.com/embed/video-id-here
-								</span>{' '}
-								! Otherwise error will occur.
+									Eg: https://www.youtube.com/video-id-here
+								</span>
+								.
 							</span>
 							<p className='mb10'>Select book (if any)</p>
 							<select

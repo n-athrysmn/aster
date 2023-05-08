@@ -294,14 +294,22 @@ const Books = () => {
 	const [activeQuestionTab11, setActiveQuestionTab11] = useState(501)
 	const [activeQuestionTab12, setActiveQuestionTab12] = useState(551)
 
-	const QuestionComponent = ({ vids }) => (
-		<iframe
-			title={vids.title}
-			className='videos'
-			src={vids.link}
-			allowFullScreen={true}
-		/>
-	)
+	const QuestionComponent = ({ vids }) => {
+		if (!vids) {
+			return null
+		}
+
+		console.log('vids:', vids)
+
+		return (
+			<iframe
+				title={vids.title}
+				className='videos'
+				src={vids.link}
+				allowFullScreen={true}
+			/>
+		)
+	}
 
 	const tabs = [
 		{

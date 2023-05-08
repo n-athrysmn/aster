@@ -24,10 +24,9 @@ db.getConnection((err, connection) => {
 	if (err) {
 		console.error('Error connecting to database:', err)
 	} else {
-		console.log('Successfully connected to database.')
+		console.log('Successfully connected to database 8/5/23')
 		connection.release()
 	}
-	console.log('Successfully connected to database 8/5/23')
 })
 
 export const query = (sql, params) => {

@@ -15,17 +15,29 @@ export const announce = (req, res) => {
 
 //store video links
 export const upload = (req, res) => {
-	const q = 'INSERT INTO videos(`title`,`link`,`bookId`) VALUES (?, ?, ?)'
+	const selectQuery = 'SELECT id FROM videos WHERE link = ?'
+	const insertQuery =
+		'INSERT INTO videos(`title`,`link`,`bookId`) VALUES (?, ?, ?)'
 	const bookId = Number.parseInt(req.body.book)
+	const vidUrl = 'https://www.youtube.com/embed/' + req.body.vidUrl
 	const values = [
 		req.body.vidTitle,
-		req.body.vidUrl,
+		vidUrl,
 		Number.isInteger(bookId) ? bookId : null,
 	]
 
-	db.query(q, values, (err, data) => {
+	db.query(selectQuery, [vidUrl], (err, data) => {
 		if (err) return res.status(500).json(err)
-		return res.status(200).json("Video's link stored.")
+		if (data.length > 0) {
+			// URL already exists, return error
+			return res.status(400).json('Video already exists.')
+		} else {
+			// URL does not exist, insert into database
+			db.query(insertQuery, values, (err, data) => {
+				if (err) return res.status(500).json(err)
+				return res.status(200).json("Video's link stored.")
+			})
+		}
 	})
 }
 
