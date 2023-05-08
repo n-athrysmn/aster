@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "pm2 start index.js --watch",
+    "start": "node index.js",
     "nodemon": "nodemon index.js"
   },
   "dependencies": {
