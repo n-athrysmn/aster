@@ -113,8 +113,7 @@ const Student = () => {
 								type={'email'}
 								value={student.studentEmail}
 								name='studentEmail'
-								disabled={isDisabled}
-								onChange={handleChange}
+								disabled
 							/>
 							<div className='input-icon'>
 								<FaEnvelope />
@@ -227,10 +226,7 @@ const Student = () => {
 						<button onClick={handleSaveClick} className='btn btn-success'>
 							Save
 						</button>
-						<button
-							onClick={handleCancelClick}
-							className='btn btn-sm btn-danger'
-						>
+						<button onClick={handleCancelClick} className='btn btn-danger'>
 							Cancel
 						</button>
 					</>

@@ -111,8 +111,7 @@ const Parent = () => {
 								type={'email'}
 								value={parent.parentEmail}
 								name='parentEmail'
-								disabled={isDisabled}
-								onChange={handleChange}
+								disabled
 							/>
 							<div className='input-icon'>
 								<FaEnvelope />
@@ -190,10 +189,7 @@ const Parent = () => {
 						<button onClick={handleSaveClick} className='btn btn-success'>
 							Save
 						</button>
-						<button
-							onClick={handleCancelClick}
-							className='btn btn-sm btn-danger'
-						>
+						<button onClick={handleCancelClick} className='btn btn-danger'>
 							Cancel
 						</button>
 					</>

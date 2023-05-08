@@ -71,7 +71,7 @@ const AdminBook = () => {
 	const handleAdd = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.get(`${process.env.REACT_APP_API_URL}/books/add`, inputs)
+			await axios.post(`${process.env.REACT_APP_API_URL}/books/add`, inputs)
 			setSuccessMsg('Your book has been added successfully!')
 			setTimeout(() => {
 				setSuccessMsg('')
@@ -217,15 +217,16 @@ const AdminBook = () => {
 										name='name'
 									/>
 								</div>
-								{/*<div className='form-row'>
-									<div className='form-label'>Book Image</div>
+								<div className='form-row'>
+									<div className='form-label'>Book Image URL</div>
 									<input
-										type='file'
+										type='url'
 										className='input-field'
 										onChange={handleChange}
 										name='img'
 									/>
-			</div>*/}
+								</div>
+
 								<div className='form-row'>
 									<div className='form-label'>Book Description</div>
 									<input
