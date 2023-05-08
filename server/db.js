@@ -24,5 +24,5 @@ db.connect((err) => {
 		console.error('Error connecting to database:', err)
 		return
 	}
-	console.log('Successfully connected to database.')
+	console.log('Successfully connected to database 8/5/23')
 })
