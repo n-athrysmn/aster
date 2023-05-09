@@ -206,7 +206,7 @@ const BookDetails = () => {
 									Cancel
 								</button>
 								<button
-									className='btn btn-success'
+									className='btn btn-sm btn-success'
 									onClick={handleEdit}
 									disabled={!formChanged}
 								>
