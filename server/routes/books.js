@@ -9,6 +9,7 @@ import {
 	editBook,
 	editVideo,
 	getBooks,
+	getVids,
 	ownedBooks,
 } from '../controllers/books.js'
 
@@ -24,5 +25,6 @@ router.put('/edit/:id', editBook)
 router.delete('/delete/:id', deleteBook)
 router.put('/edit-video/:id', editVideo) //book details page
 router.delete('/delete-video/:id', deleteVideo) //book details page
+router.get('/get-videos', getVids)
 
 export default router

@@ -24,7 +24,7 @@ db.getConnection((err, connection) => {
 	if (err) {
 		console.error('Error connecting to database:', err)
 	} else {
-		console.log('Successfully connected to database 8/5/23')
+		console.log('Successfully connected to database')
 		connection.release()
 	}
 })

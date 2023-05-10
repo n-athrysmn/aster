@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import { FaTimes, FaBars, FaUserCog, FaUsers, FaBullhorn } from 'react-icons/fa'
 import { HiOutlineLogout } from 'react-icons/hi'
-import { MdEditCalendar, MdLibraryBooks } from 'react-icons/md'
+import { MdEditCalendar, MdLibraryBooks, MdVideoSettings } from 'react-icons/md'
 
 const AdminNav = () => {
 	const navigate = useNavigate()
@@ -83,6 +83,23 @@ const AdminNav = () => {
 						{activeLink === 'manage-book' && (
 							<div className='popover-content'>
 								<p>Books Management</p>
+							</div>
+						)}
+					</Link>
+					<Link
+						onMouseEnter={() => handleMouseEnter('videos')}
+						onMouseLeave={handleMouseLeave}
+						to='/videos'
+						className={
+							location.pathname === '/videos' ? 'nav-link active' : 'nav-link'
+						}
+					>
+						<span>
+							<MdVideoSettings />
+						</span>
+						{activeLink === 'videos' && (
+							<div className='popover-content'>
+								<p>Videos Management</p>
 							</div>
 						)}
 					</Link>
@@ -183,6 +200,16 @@ const AdminNav = () => {
 					>
 						<span>
 							<MdLibraryBooks className='mr20' /> Books Management
+						</span>
+					</Link>
+					<Link
+						to='/videos'
+						className={
+							location.pathname === '/videos' ? 'nav-link active' : 'nav-link'
+						}
+					>
+						<span>
+							<MdVideoSettings className='mr20' /> Videos Management
 						</span>
 					</Link>
 					<Link

@@ -1,20 +1,16 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
 
-const BookDetails = () => {
-	const location = useLocation()
-
-	const bookId = location.pathname.split('/')[2]
+const Videos = () => {
 	const [videos, setVideos] = useState({})
 
 	useEffect(() => {
-		const fetchBooks = async () => {
+		const fetchVideos = async () => {
 			try {
-				console.log('Fetching book details…')
+				console.log('Fetching videos that isnt connected to books...')
 				const res = await axios.get(
-					`${process.env.REACT_APP_API_URL}/books/details/${bookId}`
+					`${process.env.REACT_APP_API_URL}/books/get-videos`
 				)
 				console.log('Response:', res)
 				const data = res.data
@@ -25,23 +21,18 @@ const BookDetails = () => {
 			}
 		}
 
-		fetchBooks()
-	}, [bookId])
+		fetchVideos()
+	})
 
-	const [showAddModal, setShowAddModal] = useState(false)
 	const [showEditModal, setShowEditModal] = useState(false)
 	const [showDeleteModal, setShowDeleteModal] = useState(false)
 	const [selected, setSelected] = useState(null)
-
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
 
 	const [inputs, setInputs] = useState({
 		title: selected ? selected.title : '',
 		link: selected ? selected.link : '',
-		vidTitle: '',
-		vidUrl: '',
-		book: bookId,
 	})
 
 	console.log(inputs)
@@ -68,21 +59,6 @@ const BookDetails = () => {
 	const handleChange = (e) => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 		setFormChanged(true)
-	}
-
-	const handleAdd = async (e) => {
-		e.preventDefault()
-		try {
-			await axios.post(`${process.env.REACT_APP_API_URL}/others/upload`, inputs)
-			setSuccessMsg('Video has been uploaded!')
-			setTimeout(() => {
-				setSuccessMsg('')
-				window.location.reload()
-			}, 3000)
-		} catch (err) {
-			setError(`Error: ${err.response.data}`)
-			console.log(err)
-		}
 	}
 
 	const handleEdit = async (e) => {
@@ -123,15 +99,7 @@ const BookDetails = () => {
 		<div className='home'>
 			<div className='card'>
 				<div className='card-header'>
-					<div className='card-title'>List of Answers</div>
-					<div className='card-tools'>
-						<button
-							className='btn btn-sm btn-primary'
-							onClick={() => setShowAddModal(true)}
-						>
-							Add Answer <FaPlus />
-						</button>
-					</div>
+					<div className='card-title'>List of Videos</div>
 				</div>
 				<div className='card-body'>
 					{Array.isArray(videos) && videos.length > 0 ? (
@@ -183,74 +151,10 @@ const BookDetails = () => {
 							</tbody>
 						</table>
 					) : (
-						<p className='txt-danger'>No answers uploaded for this book</p>
+						<p className='txt-danger'>No videos yet</p>
 					)}
 				</div>
 			</div>
-			{/*add modal*/}
-			{showAddModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Add Book Answer</h2>
-							<p
-								className='right-header'
-								onClick={() => setShowAddModal(false)}
-							>
-								X
-							</p>
-						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<div className='form-row'>
-									<div className='form-label'>Video title</div>
-									<input
-										type={'text'}
-										className='mb20 input-field'
-										onChange={handleChange}
-										placeholder='Ex: Question 1'
-										name='vidTitle'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Video ID</div>
-									<input
-										type={'url'}
-										className='input-field'
-										onChange={handleChange}
-										placeholder='Enter video ID here'
-										name='vidUrl'
-									/>
-								</div>
-								<div className='form-row'>
-									<span className='small mb20'>
-										You can get the video ID from the link in the URL bar of
-										your browser{' '}
-										<p>
-											Eg: https://www.youtube.com/watch?v=
-											<span className='txt-danger'>video-id-here</span>
-											&ab_channel
-										</p>
-									</span>
-								</div>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
-							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
-									onClick={() => setShowAddModal(false)}
-								>
-									Cancel
-								</button>
-								<button className='btn btn-sm btn-success' onClick={handleAdd}>
-									Add Answer
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			) : null}
 			{/*edit modal*/}
 			{showEditModal ? (
 				<div className='modal'>
@@ -375,4 +279,4 @@ const BookDetails = () => {
 	)
 }
 
-export default BookDetails
+export default Videos

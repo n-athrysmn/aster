@@ -281,18 +281,18 @@ const Books = () => {
 		},
 	]*/
 
-	const [activeQuestionTab1, setActiveQuestionTab1] = useState(1)
-	const [activeQuestionTab2, setActiveQuestionTab2] = useState(51)
-	const [activeQuestionTab3, setActiveQuestionTab3] = useState(101)
-	const [activeQuestionTab4, setActiveQuestionTab4] = useState(151)
-	const [activeQuestionTab5, setActiveQuestionTab5] = useState(201)
-	const [activeQuestionTab6, setActiveQuestionTab6] = useState(251)
-	const [activeQuestionTab7, setActiveQuestionTab7] = useState(301)
-	const [activeQuestionTab8, setActiveQuestionTab8] = useState(351)
-	const [activeQuestionTab9, setActiveQuestionTab9] = useState(401)
-	const [activeQuestionTab10, setActiveQuestionTab10] = useState(451)
-	const [activeQuestionTab11, setActiveQuestionTab11] = useState(501)
-	const [activeQuestionTab12, setActiveQuestionTab12] = useState(551)
+	const [activeQuestionTab1, setActiveQuestionTab1] = useState(0)
+	const [activeQuestionTab2, setActiveQuestionTab2] = useState(0)
+	const [activeQuestionTab3, setActiveQuestionTab3] = useState(0)
+	const [activeQuestionTab4, setActiveQuestionTab4] = useState(0)
+	const [activeQuestionTab5, setActiveQuestionTab5] = useState(0)
+	const [activeQuestionTab6, setActiveQuestionTab6] = useState(0)
+	const [activeQuestionTab7, setActiveQuestionTab7] = useState(0)
+	const [activeQuestionTab8, setActiveQuestionTab8] = useState(0)
+	const [activeQuestionTab9, setActiveQuestionTab9] = useState(0)
+	const [activeQuestionTab10, setActiveQuestionTab10] = useState(0)
+	const [activeQuestionTab11, setActiveQuestionTab11] = useState(0)
+	const [activeQuestionTab12, setActiveQuestionTab12] = useState(0)
 
 	const QuestionComponent = ({ vids }) => {
 		if (!vids) {
@@ -358,7 +358,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q51 to Q100</h2>
-					{videos.length > 51 ? (
+					{videos.length > 50 ? (
 						<div className='answer'>
 							{activeQuestionTab2 &&
 								videos.find((v) => v.id === activeQuestionTab2) && (
@@ -397,7 +397,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q101 to Q150</h2>
-					{videos.length > 101 ? (
+					{videos.length > 100 ? (
 						<div className='answer'>
 							{activeQuestionTab3 &&
 								videos.find((v) => v.id === activeQuestionTab3) && (
@@ -408,7 +408,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(100, 150).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab3(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -436,7 +436,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q151 to Q200</h2>
-					{videos.length > 151 ? (
+					{videos.length > 150 ? (
 						<div className='answer'>
 							{activeQuestionTab4 &&
 								videos.find((v) => v.id === activeQuestionTab4) && (
@@ -447,7 +447,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(150, 200).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab4(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -475,7 +475,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q201 to Q250</h2>
-					{videos.length > 201 ? (
+					{videos.length > 200 ? (
 						<div className='answer'>
 							{activeQuestionTab5 &&
 								videos.find((v) => v.id === activeQuestionTab5) && (
@@ -486,7 +486,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(200, 250).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab5(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -514,7 +514,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q251 to Q300</h2>
-					{videos.length > 251 ? (
+					{videos.length > 250 ? (
 						<div className='answer'>
 							{activeQuestionTab6 &&
 								videos.find((v) => v.id === activeQuestionTab6) && (
@@ -525,7 +525,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(250, 300).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab6(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -552,8 +552,8 @@ const Books = () => {
 			title: 'Q301 - Q350',
 			content: (
 				<div className='answers'>
-					<h2 className='title'>Q51 to Q100</h2>
-					{videos.length > 51 ? (
+					<h2 className='title'>Q301 to Q350</h2>
+					{videos.length > 300 ? (
 						<div className='answer'>
 							{activeQuestionTab7 &&
 								videos.find((v) => v.id === activeQuestionTab7) && (
@@ -564,7 +564,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(300, 350).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab7(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -592,7 +592,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q351 to Q400</h2>
-					{videos.length > 351 ? (
+					{videos.length > 350 ? (
 						<div className='answer'>
 							{activeQuestionTab8 &&
 								videos.find((v) => v.id === activeQuestionTab8) && (
@@ -603,7 +603,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(350, 400).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab8(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -631,7 +631,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q401 to Q450</h2>
-					{videos.length > 401 ? (
+					{videos.length > 400 ? (
 						<div className='answer'>
 							{activeQuestionTab9 &&
 								videos.find((v) => v.id === activeQuestionTab9) && (
@@ -642,7 +642,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(400, 450).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab9(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -670,7 +670,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q451 to Q500</h2>
-					{videos.length > 451 ? (
+					{videos.length > 450 ? (
 						<div className='answer'>
 							{activeQuestionTab10 &&
 								videos.find((v) => v.id === activeQuestionTab10) && (
@@ -681,7 +681,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(450, 500).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab10(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -709,7 +709,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q501 to Q550</h2>
-					{videos.length > 501 ? (
+					{videos.length > 500 ? (
 						<div className='answer'>
 							{activeQuestionTab11 &&
 								videos.find((v) => v.id === activeQuestionTab11) && (
@@ -720,7 +720,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(500, 550).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab11(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -748,7 +748,7 @@ const Books = () => {
 			content: (
 				<div className='answers'>
 					<h2 className='title'>Q551 to Q600</h2>
-					{videos.length > 551 ? (
+					{videos.length > 550 ? (
 						<div className='answer'>
 							{activeQuestionTab12 &&
 								videos.find((v) => v.id === activeQuestionTab12) && (
@@ -759,7 +759,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
+								{videos.slice(550, 600).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab12(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}

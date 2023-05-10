@@ -252,10 +252,11 @@ const AdminHome = () => {
 							<span className='small mb20'>
 								You can get the video ID from the link in the URL bar of your
 								browser{' '}
-								<span className='txt-danger'>
-									Eg: https://www.youtube.com/video-id-here
-								</span>
-								.
+								<p>
+									Eg: https://www.youtube.com/watch?v=
+									<span className='txt-danger'>video-id-here</span>
+									&ab_channel
+								</p>
 							</span>
 							<p className='mb10'>Select book (if any)</p>
 							<select

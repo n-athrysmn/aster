@@ -23,6 +23,7 @@ import Announce from './pages/Announce'
 import BookDetails from './pages/BookDetails'
 import ResetPassword from './pages/Reset'
 import ResetEmail from './pages/EmailReset'
+import Videos from './pages/Videos'
 
 const Layout = () => {
 	return (
@@ -78,10 +79,6 @@ const router = createBrowserRouter([
 		element: <ResetPassword />,
 	},
 	{
-		path: '/change-email/:email',
-		element: <ResetEmail />,
-	},
-	{
 		path: '/',
 		element: <Layout />,
 		children: [
@@ -112,6 +109,10 @@ const router = createBrowserRouter([
 				element: <AdminProfile />,
 			},
 			{
+				path: '/change-email/:email',
+				element: <ResetEmail />,
+			},
+			{
 				path: '/user-list',
 				element: <UsersList />,
 			},
@@ -130,6 +131,10 @@ const router = createBrowserRouter([
 			{
 				path: '/announcement',
 				element: <Announce />,
+			},
+			{
+				path: '/videos',
+				element: <Videos />,
 			},
 		],
 	},

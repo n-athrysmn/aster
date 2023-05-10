@@ -10,7 +10,7 @@ export const ownedBooks = (req, res) => {
 
 	if (userId) {
 		// Use the userId from the request parameters instead of currentUser
-		q = `SELECT books.*, ownedbooks.* FROM ownedbooks JOIN books ON ownedbooks.isbn = books.isbn WHERE ownedbooks.studentId = ? OR ownedbooks.parentId = ? OR ownedbooks.teacherId = ?`
+		q = `SELECT books.*, ownedbooks.* FROM ownedbooks JOIN books ON ownedbooks.isbn = books.isbn WHERE ownedbooks.studentId = ? OR ownedbooks.parentId = ? OR ownedbooks.teacherId = ? ORDER BY books.id ASC`
 		values = [userId, userId, userId]
 	}
 
@@ -70,8 +70,13 @@ export const answers = (req, res) => {
 	const { bookIsbn } = req.params // Get the book isbn from the request parameters
 	console.log('bookIsbn:', bookIsbn)
 
-	const q =
-		'SELECT v.* FROM videos v JOIN books b ON v.bookId = b.id JOIN ownedbooks ob ON ob.isbn = b.isbn WHERE ob.isbn = ? GROUP BY v.id'
+	const q = `SELECT v.*, CAST(SUBSTRING_INDEX(REPLACE(REPLACE(title, 'QUESTION', ''), 'Q', ''), ' ', -1) AS SIGNED) AS question_number 
+		FROM videos v 
+		JOIN books b ON v.bookId = b.id 
+		JOIN ownedbooks ob ON ob.isbn = b.isbn 
+		WHERE ob.isbn = ? 
+		GROUP BY v.id
+		ORDER BY question_number`
 
 	const values = [bookIsbn]
 
@@ -83,10 +88,14 @@ export const answers = (req, res) => {
 
 //get book details by id
 export const bookDetails = (req, res) => {
-	const { bookId } = req.params // Get the book id from the request parameters
+	const { bookId } = req.params
 	console.log('bookId:', bookId)
 
-	const q = 'SELECT * FROM videos WHERE bookId = ?'
+	const q = `SELECT *, 
+	CAST(SUBSTRING_INDEX(REPLACE(REPLACE(title, 'QUESTION', ''), 'Q', ''), ' ', -1) AS SIGNED) AS question_number
+  FROM videos 
+  WHERE bookId = ? 
+  ORDER BY question_number` //using cast to sort data despite the format difference
 
 	const values = [bookId]
 
@@ -212,5 +221,15 @@ export const deleteVideo = (req, res) => {
 			return res.status(404).json({ message: 'Video not found' })
 		}
 		return res.status(200).json({ message: 'Video deleted successfully' })
+	})
+}
+
+//get all videos where book is null
+export const getVids = (req, res) => {
+	const q = `SELECT * FROM videos WHERE bookId IS NULL`
+
+	db.query(q, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
 	})
 }

@@ -362,7 +362,11 @@ body {
 		}
 
 		.link.active {
-			color: $primary;
+			text-decoration: underline;
+
+			&:hover {
+				text-decoration: none;
+			}
 		}
 
 		.modal {
