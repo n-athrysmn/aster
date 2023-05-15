@@ -1,8 +1,11 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/authContext'
 
 const Event = () => {
+	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [events, setEvents] = useState([])
 
 	useEffect(() => {
@@ -94,6 +97,12 @@ const Event = () => {
 			}, 3000)
 			console.log(err)
 		}
+	}
+
+	const navigate = useNavigate()
+
+	if (!isLoggedIn || !currentAdmin) {
+		return navigate('/admin')
 	}
 
 	return (

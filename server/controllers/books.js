@@ -115,8 +115,15 @@ export const addBook = (req, res) => {
 		if (data.length)
 			return res.status(409).json('A book with the same ISBN exist!')
 
-		const q = 'INSERT INTO books(`name`, `img`, `desc`, `isbn`) VALUES (?)'
-		const values = [req.body.name, req.body.img, req.body.desc, req.body.isbn]
+		const q =
+			'INSERT INTO books(`name`, `img`, `desc`, `isbn`, `pdf`) VALUES (?)'
+		const values = [
+			req.body.name,
+			req.body.img,
+			req.body.desc,
+			req.body.isbn,
+			req.body.pdf,
+		]
 
 		db.query(q, [values], (err, data) => {
 			if (err) return res.status(500).json(err)
@@ -131,9 +138,15 @@ export const editBook = (req, res) => {
 	console.log('id:', id)
 
 	const q =
-		'UPDATE books SET `name`=?, `img`=?, `desc`=?, `isbn`=? WHERE id = ?'
+		'UPDATE books SET `name`=?, `img`=?, `desc`=?, `isbn`=?, `pdf`=? WHERE id = ?'
 
-	const values = [req.body.name, req.body.img, req.body.desc, req.body.isbn]
+	const values = [
+		req.body.name,
+		req.body.img,
+		req.body.desc,
+		req.body.isbn,
+		req.body.pdf,
+	]
 
 	db.query(q, [...values, id], (err, data) => {
 		if (err) return res.status(500).json(err)
@@ -227,6 +240,29 @@ export const deleteVideo = (req, res) => {
 //get all videos where book is null
 export const getVids = (req, res) => {
 	const q = `SELECT * FROM videos WHERE bookId IS NULL`
+
+	db.query(q, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
+//get book pdf
+export const getPdf = (req, res) => {
+	const { bookIsbn } = req.params
+	const q = `SELECT * FROM books WHERE isbn = ?`
+
+	const values = [bookIsbn]
+
+	db.query(q, values, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data[0])
+	})
+}
+
+//get all videos
+export const getAll = (req, res) => {
+	const q = `SELECT * FROM videos`
 
 	db.query(q, (err, data) => {
 		if (err) return res.status(500).json(err)

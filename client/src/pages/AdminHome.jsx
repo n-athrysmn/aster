@@ -4,6 +4,7 @@ import { FaUpload, FaBullhorn, FaCalendarAlt } from 'react-icons/fa'
 import axios from 'axios'
 import Tasks from '../components/Tasks'
 import { MdCelebration } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 
 const AdminHome = () => {
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
@@ -126,8 +127,10 @@ const AdminHome = () => {
 		}
 	}
 
+	const navigate = useNavigate()
+
 	if (!isLoggedIn || !currentAdmin) {
-		return <div>Loading...</div>
+		return navigate('/admin')
 	}
 
 	return (
@@ -149,7 +152,7 @@ const AdminHome = () => {
 								</div>
 							</>
 						) : (
-							<h3>Hello, Guest!</h3>
+							<h3>Please login!</h3>
 						)}
 					</div>
 				</div>

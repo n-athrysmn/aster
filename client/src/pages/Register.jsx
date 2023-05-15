@@ -33,6 +33,16 @@ const Register = () => {
 			setError('Form cannot be empty')
 			return
 		}
+		if (
+			!inputs.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i)
+		) {
+			setError('Please enter a valid email address')
+			return
+		}
+		if (!/^(?!0123456789)\d{10,11}$/.test(inputs.number)) {
+			setError('Invalid phone number')
+			return
+		}
 		try {
 			await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, inputs)
 			setSuccessMsg('Registration successful')
@@ -44,6 +54,20 @@ const Register = () => {
 		} catch (err) {
 			setError(err.response.data)
 		}
+	}
+
+	const getMaxDate = () => {
+		const currentDate = new Date()
+		const minDate = new Date(
+			currentDate.getFullYear() - 7,
+			currentDate.getMonth(),
+			currentDate.getDate()
+		)
+		const formattedDate = `${minDate.getFullYear()}-${String(
+			minDate.getMonth() + 1
+		).padStart(2, '0')}-${String(minDate.getDate()).padStart(2, '0')}`
+
+		return formattedDate
 	}
 
 	return (
@@ -67,17 +91,20 @@ const Register = () => {
 							onChange={handleChange}
 							type={'text'}
 							placeholder={'Enter full name'}
+							required
 						/>
 						<input
 							name={'number'}
 							onChange={handleChange}
 							type={'tel'}
-							placeholder={'Enter phone number'}
+							placeholder={'Enter phone number. Ex: 0123456789'}
+							required
 						/>
 						<input
 							name={'birthday'}
 							onChange={handleChange}
 							type={'date'}
+							max={getMaxDate()}
 							placeholder={'Enter birthday'}
 						/>
 						<textarea
@@ -124,12 +151,15 @@ const Register = () => {
 							onChange={handleChange}
 							type={'email'}
 							placeholder={'Enter email'}
+							required
+							pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
 						/>
 						<input
 							name={'password'}
 							onChange={handleChange}
 							type={'password'}
 							placeholder={'Enter password'}
+							required
 						/>
 						<button onClick={handleSubmit}>Register</button>
 					</form>

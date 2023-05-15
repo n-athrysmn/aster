@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Tabs from '../components/Tab'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { AuthContext } from '../context/authContext'
 
 const Books = () => {
+	const { currentUser, isLoggedIn } = useContext(AuthContext)
 	const location = useLocation()
 
 	const bookIsbn = location.pathname.split('/')[2]
 	const [videos, setVideos] = useState({})
+	const [book, setBook] = useState({})
 
 	useEffect(() => {
 		const fetchVideos = async () => {
@@ -27,6 +30,28 @@ const Books = () => {
 
 		fetchVideos()
 	}, [bookIsbn])
+
+	useEffect(() => {
+		const fetchBookData = async () => {
+			try {
+				console.log('Fetching book…')
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/books/getPdf/${bookIsbn}`
+				)
+				console.log('Response:', res)
+				const data = res.data
+				console.log('Data:', data)
+				setBook(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchBookData()
+	}, [bookIsbn])
+
+	console.log('Book:', book)
+	console.log('pdf link:', book.pdf)
 
 	/*const questions = [
 		{
@@ -759,7 +784,7 @@ const Books = () => {
 									</div>
 								)}
 							<div className='vid-links'>
-								{videos.slice(550, 600).map((v) => (
+								{videos.slice(550, 650).map((v) => (
 									<div key={v.id} onClick={() => setActiveQuestionTab12(v.id)}>
 										<Link
 											to={`/books/${bookIsbn}`}
@@ -784,10 +809,27 @@ const Books = () => {
 		},
 	]
 
+	const navigate = useNavigate()
+
+	if (!isLoggedIn || !currentUser) {
+		return navigate('/')
+	}
+
 	return (
 		<div className='books'>
-			<h2>Book Answers</h2>
+			<h2>Book Answers {`/ ${book.name}`} </h2>
 			<Tabs tabs={tabs} />
+			<div className='mt30 center'>
+				<a
+					className='btn btn-primary'
+					type='button'
+					href={`${book.pdf}`}
+					target='_blank'
+					rel='noreferrer'
+				>
+					Download Answers in PDF
+				</a>
+			</div>
 		</div>
 	)
 }

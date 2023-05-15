@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import Tabs from '../components/Tab'
 import { FaBook, FaChalkboardTeacher } from 'react-icons/fa'
@@ -10,7 +10,7 @@ import axios from 'axios'
 import Accords from '../components/Accords'
 
 const Home = () => {
-	const { currentUser } = useContext(AuthContext)
+	const { currentUser, isLoggedIn } = useContext(AuthContext)
 
 	const [books, setBooks] = useState([])
 	const [videos, setVideos] = useState([])
@@ -54,6 +54,12 @@ const Home = () => {
 		}
 		fetchVideos()
 	}, [])
+
+	const navigate = useNavigate()
+
+	if (!isLoggedIn || !currentUser) {
+		return navigate('/')
+	}
 
 	/*const books = [
 		{

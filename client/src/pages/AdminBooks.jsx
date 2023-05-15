@@ -1,9 +1,11 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/authContext'
 
 const AdminBook = () => {
+	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [books, setBooks] = useState([])
 
 	useEffect(() => {
@@ -38,6 +40,7 @@ const AdminBook = () => {
 		img: selectedBook ? selectedBook.img : '',
 		desc: selectedBook ? selectedBook.desc : '',
 		isbn: selectedBook ? selectedBook.isbn : '',
+		pdf: selectedBook ? selectedBook.pdf : '',
 	})
 
 	useEffect(() => {
@@ -47,6 +50,7 @@ const AdminBook = () => {
 				img: selectedBook.img,
 				desc: selectedBook.desc,
 				isbn: selectedBook.isbn,
+				pdf: selectedBook.pdf,
 			})
 		}
 	}, [selectedBook])
@@ -58,6 +62,7 @@ const AdminBook = () => {
 			img: selectedBook.img,
 			desc: selectedBook.desc,
 			isbn: selectedBook.isbn,
+			pdf: selectedBook.pdf,
 		})
 	}
 
@@ -120,6 +125,12 @@ const AdminBook = () => {
 		}
 	}
 
+	const navigate = useNavigate()
+
+	if (!isLoggedIn || !currentAdmin) {
+		return navigate('/admin')
+	}
+
 	return (
 		<div className='home'>
 			<div className='card'>
@@ -141,8 +152,7 @@ const AdminBook = () => {
 								<th>Id</th>
 								<th>Image</th>
 								<th>Name</th>
-								<th>Description</th>
-								<th>ISBN</th>
+								<th>Details</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -157,8 +167,20 @@ const AdminBook = () => {
 											</a>
 										</td>
 										<td>{book.name}</td>
-										<td>{book.desc}</td>
-										<td>{book.isbn}</td>
+										<td>
+											<p className='mb20'>Description: {book.desc}</p>
+											<p className='mb20'>ISBN: {book.isbn}</p>
+											<p>
+												PDF Answer:{' '}
+												<Link
+													to={`${book.pdf}`}
+													target='_blank'
+													className='link'
+												>
+													Click to view
+												</Link>
+											</p>
+										</td>
 										<td>
 											<div className='row'>
 												<Link
@@ -245,6 +267,15 @@ const AdminBook = () => {
 										name='isbn'
 									/>
 								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book PDF Answer</div>
+									<input
+										type='url'
+										className='input-field'
+										onChange={handleChange}
+										name='pdf'
+									/>
+								</div>
 								{err && <p className='txt-danger'>{err}</p>}
 								{successMsg && <p className='txt-success'>{successMsg}</p>}
 							</div>
@@ -316,6 +347,16 @@ const AdminBook = () => {
 										onChange={handleChange}
 										value={inputs.isbn}
 										name='isbn'
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book PDF Answer</div>
+									<input
+										type='url'
+										className='input-field'
+										onChange={handleChange}
+										value={inputs.pdf}
+										name='pdf'
 									/>
 								</div>
 								{err && <p className='txt-danger'>{err}</p>}
@@ -400,6 +441,16 @@ const AdminBook = () => {
 										className='input-field'
 										value={inputs.isbn}
 										name='isbn'
+										disabled
+									/>
+								</div>
+								<div className='form-row'>
+									<div className='form-label'>Book PDF Answer</div>
+									<input
+										type='url'
+										className='input-field'
+										value={inputs.pdf}
+										name='pdf'
 										disabled
 									/>
 								</div>

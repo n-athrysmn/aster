@@ -1,8 +1,11 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/authContext'
 
 const Videos = () => {
+	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [videos, setVideos] = useState({})
 
 	useEffect(() => {
@@ -93,6 +96,12 @@ const Videos = () => {
 			setError(`Error: ${err.response.data}`)
 			console.log(err)
 		}
+	}
+
+	const navigate = useNavigate()
+
+	if (!isLoggedIn || !currentAdmin) {
+		return navigate('/admin')
 	}
 
 	return (

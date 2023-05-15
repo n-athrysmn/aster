@@ -30,6 +30,16 @@ const Parent = () => {
 			setError('Form cannot be empty')
 			return
 		}
+		if (
+			!inputs.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i)
+		) {
+			setError('Please enter a valid email address')
+			return
+		}
+		if (!/^(?!0123456789)\d{10,11}$/.test(inputs.number)) {
+			setError('Invalid phone number')
+			return
+		}
 		try {
 			await axios.post(
 				`${process.env.REACT_APP_API_URL}/auth/parent-register`,
@@ -67,12 +77,14 @@ const Parent = () => {
 							name={'name'}
 							onChange={handleChange}
 							placeholder={'Enter full name'}
+							required
 						/>
 						<input
 							type={'tel'}
 							name={'number'}
 							onChange={handleChange}
-							placeholder={'Enter phone number'}
+							placeholder={'Enter phone number. Ex: 0123456789'}
+							required
 						/>
 						<input
 							type={'text'}
@@ -96,6 +108,8 @@ const Parent = () => {
 							name={'email'}
 							onChange={handleChange}
 							placeholder={'Enter email'}
+							required
+							pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
 						/>
 						<input
 							type={'password'}

@@ -92,7 +92,7 @@ const Tasks = () => {
 		e.preventDefault()
 		try {
 			await axios.put(
-				`${process.env.REACT_APP_API_URL}/others/edit-task/${selected.id}`,
+				`${process.env.REACT_APP_API_URL}/others/edit-tasks/${selected.id}`,
 				inputs
 			)
 			setSuccessMsg('The task has been edited successfully!')
@@ -385,7 +385,7 @@ const Tasks = () => {
 								/>
 								<label className='form-label'>Deadline</label>
 								<input
-									type='date'
+									type='text'
 									className='input-field'
 									onChange={handleChange}
 									name='deadline'

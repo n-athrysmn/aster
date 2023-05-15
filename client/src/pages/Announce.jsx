@@ -1,8 +1,11 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
+import { AuthContext } from '../context/authContext'
+import { useNavigate } from 'react-router-dom'
 
 const Announce = () => {
+	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [announcements, setAnnouncements] = useState([])
 
 	useEffect(() => {
@@ -92,6 +95,12 @@ const Announce = () => {
 			setError(`Error: ${err.response.data}`)
 			console.log(err)
 		}
+	}
+
+	const navigate = useNavigate()
+
+	if (!isLoggedIn || !currentAdmin) {
+		return navigate('/admin')
 	}
 
 	return (
