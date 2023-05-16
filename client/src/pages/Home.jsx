@@ -107,13 +107,9 @@ const Home = () => {
 		{
 			id: 1,
 			title: (
-				<div className='tab-title'>
-					<div className='tab-icon'>
-						<FaBook />
-					</div>
-					Books
-				</div>
+				<div className='nav-text text-gray-700 fw-bold fs-6 lh-1'>Books</div>
 			),
+
 			content: (
 				<div className='posts'>
 					{Array.isArray(books) && books.length > 0 ? (
@@ -143,10 +139,7 @@ const Home = () => {
 		{
 			id: 2,
 			title: (
-				<div className='tab-title'>
-					<div className='tab-icon'>
-						<FaChalkboardTeacher />
-					</div>
+				<div className='nav-text text-gray-700 fw-bold fs-6 lh-1'>
 					Knowledge Library
 				</div>
 			),
@@ -186,64 +179,74 @@ const Home = () => {
 	]
 
 	return (
-		<div className='home'>
-			<Announcement />
-			<div className='top-part'>
-				<div className='profile-card'>
-					{/*<div className='avatar'>
-						{currentUser?.studentName && (
-							<img
-								src={currentUser?.studentPfp}
-								alt={currentUser?.studentName}
-							/>
-						)}
-						{currentUser?.parentName && (
-							<img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
-						)}
-						{currentUser?.teacherName && (
-							<img
-								src={currentUser?.teacherPfp}
-								alt={currentUser?.teacherName}
-							/>
-						)}
-						</div>*/}
-					<div className='info'>
-						{currentUser?.studentName && (
-							<>
-								<div>
-									<h2 className='small'>
-										Hello <MdCelebration />
-									</h2>
-									<h3 className='mt20 uppercase'>{currentUser.studentName}!</h3>
-								</div>
-							</>
-						)}
-						{currentUser?.parentName && (
-							<>
-								<div>
-									<h2 className='small'>
-										Hello <MdCelebration />
-									</h2>
-									<h3 className='mt20 uppercase'>{currentUser.parentName}!</h3>
-								</div>
-							</>
-						)}
-						{currentUser?.teacherName && (
-							<>
-								<div>
-									<h2 className='small'>
-										Hello <MdCelebration />
-									</h2>
-									<h3 className='mt20 uppercase'>{currentUser.teacherName}!</h3>
-								</div>
-							</>
-						)}
+		<div class='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
+			<div class='content d-flex flex-column flex-column-fluid' id='kt_content'>
+				<div id='kt_content_container' class='container-xxl'>
+					<Announcement />
+					<div className='top-part'>
+						<div className='profile-card'>
+							{/*<div className='avatar'>
+					{currentUser?.studentName && (
+						<img
+							src={currentUser?.studentPfp}
+							alt={currentUser?.studentName}
+						/>
+					)}
+					{currentUser?.parentName && (
+						<img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
+					)}
+					{currentUser?.teacherName && (
+						<img
+							src={currentUser?.teacherPfp}
+							alt={currentUser?.teacherName}
+						/>
+					)}
+					</div>*/}
+							<div className='info'>
+								{currentUser?.studentName && (
+									<>
+										<div>
+											<h2 className='small'>
+												Hello <MdCelebration />
+											</h2>
+											<h3 className='mt20 uppercase'>
+												{currentUser.studentName}!
+											</h3>
+										</div>
+									</>
+								)}
+								{currentUser?.parentName && (
+									<>
+										<div>
+											<h2 className='small'>
+												Hello <MdCelebration />
+											</h2>
+											<h3 className='mt20 uppercase'>
+												{currentUser.parentName}!
+											</h3>
+										</div>
+									</>
+								)}
+								{currentUser?.teacherName && (
+									<>
+										<div>
+											<h2 className='small'>
+												Hello <MdCelebration />
+											</h2>
+											<h3 className='mt20 uppercase'>
+												{currentUser.teacherName}!
+											</h3>
+										</div>
+									</>
+								)}
+							</div>
+						</div>
+						<Calendar />
 					</div>
+					<Tabs tabs={tabs} isDashboard={true} />
+					<Accords />
 				</div>
-				<Calendar />
 			</div>
-			<Tabs tabs={tabs} isDashboard={true} />
-			<Accords />
 		</div>
 	)
 }

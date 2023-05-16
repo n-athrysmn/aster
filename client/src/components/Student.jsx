@@ -1,13 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import {
-	FaEnvelope,
-	FaHome,
-	FaLeanpub,
-	FaPhoneAlt,
-	FaSchool,
-	FaTrophy,
-	FaUserGraduate,
-} from 'react-icons/fa'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 
@@ -88,90 +79,126 @@ const Student = () => {
 	const [successMsg, setSuccessMsg] = useState('')
 
 	return (
-		<div className='profile-card'>
-			<div className='info'>
-				<form className='form-profile'>
-					<div className='form-row'>
-						<div className='form-label'>Name</div>
-						<div className='input-group input-group-icon'>
+		<div id='kt_account_settings_profile_details' class='collapse show'>
+			<form id='kt_account_profile_details_form' class='form'>
+				<div class='card-body border-top p-9'>
+					{/*begin::Input group*/}
+					<div class='row mb-6'>
+						{/*begin::Label*/}
+						<label class='col-lg-4 col-form-label fw-semibold fs-6'>Name</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div class='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								value={student.studentName}
 								name='studentName'
 								disabled={isDisabled}
 								onChange={handleChange}
+								class='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaUserGraduate />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Email</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div class='row mb-6'>
+						{/*begin::Label*/}
+						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+							Email
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div class='col-lg-8 fv-row'>
 							<input
 								type={'email'}
 								value={student.studentEmail}
 								name='studentEmail'
 								disabled
+								class='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaEnvelope />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Number</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div class='row mb-6'>
+						{/*begin::Label*/}
+						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+							Phone Number
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div class='col-lg-8 fv-row'>
 							<input
 								type={'tel'}
 								value={student.studentNumber}
 								name='studentNumber'
 								disabled={isDisabled}
 								onChange={handleChange}
+								class='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaPhoneAlt />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Address</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div class='row mb-6'>
+						{/*begin::Label*/}
+						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+							Address
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div class='col-lg-8 fv-row'>
 							<textarea
 								name='studentAddr'
 								value={student.studentAddr}
 								disabled={isDisabled}
 								onChange={handleChange}
+								class='form-control form-control-lg form-control-solid'
+								rows='3'
 							/>
-							<div className='input-icon'>
-								<FaHome />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>School Name</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div class='row mb-6'>
+						{/*begin::Label*/}
+						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+							School Name
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div class='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								value={student.studentSch}
 								name='studentSch'
 								disabled={isDisabled}
 								onChange={handleChange}
+								class='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaSchool />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Education Level</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div class='row mb-6'>
+						{/*begin::Label*/}
+						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+							Education Level
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div class='col-lg-8 fv-row'>
 							<select
 								name='studentLevel'
 								onChange={handleChange}
 								value={student.studentLevel}
 								disabled={isDisabled}
+								class='form-select form-select-solid form-select-lg fw-semibold'
 							>
 								<option value=''>Select your education level</option>
 								<optgroup label='Form'>
@@ -190,19 +217,25 @@ const Student = () => {
 									<option value='Grade-6'>Grade 6</option>
 								</optgroup>
 							</select>
-							<div className='input-icon'>
-								<FaLeanpub />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Mathematics Grade</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div class='row mb-6'>
+						{/*begin::Label*/}
+						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+							Mathematics Grade
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div class='col-lg-8 fv-row'>
 							<select
 								value={student.studentGrade}
 								name='studentGrade'
 								disabled={isDisabled}
 								onChange={handleChange}
+								class='form-select form-select-solid form-select-lg fw-semibold'
 							>
 								<option value=''>Select your grade for Mathematics</option>
 								<option value='A'>A</option>
@@ -213,21 +246,25 @@ const Student = () => {
 								<option value='F'>F</option>
 								<option value='G'>G</option>
 							</select>
-							<div className='input-icon'>
-								<FaTrophy />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-				</form>
-				{err && <p className='txt-danger'>{err}</p>}
-				{successMsg && <p className='txt-success'>{successMsg}</p>}
+					{/*end::Input group*/}
+				</div>
+			</form>
+			{err && <p className='txt-danger'>{err}</p>}
+			{successMsg && <p className='txt-success'>{successMsg}</p>}
+			<div class='card-footer d-flex justify-content-end py-6 px-9'>
 				{isEditing ? (
 					<>
+						<button
+							onClick={handleCancelClick}
+							className='btn btn-light btn-active-light-danger me-2'
+						>
+							Cancel
+						</button>
 						<button onClick={handleSaveClick} className='btn btn-success'>
 							Save
-						</button>
-						<button onClick={handleCancelClick} className='btn btn-danger'>
-							Cancel
 						</button>
 					</>
 				) : (

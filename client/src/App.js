@@ -1,4 +1,5 @@
-import './style.scss'
+//import './style.scss'
+import './style.bundle.css'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -142,11 +143,9 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-		<div className='app'>
-			<div className='container'>
-				<RouterProvider router={router} />
-				<OneSignalComponent />
-			</div>
+		<div className='d-flex flex-column flex-root'>
+			<RouterProvider router={router} />
+			<OneSignalComponent />
 		</div>
 	)
 }

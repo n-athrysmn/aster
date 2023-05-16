@@ -131,7 +131,7 @@ function Calendar() {
 			) : (
 				<div>
 					<p className='txt-danger'>
-						No event. Hover on the calendar to check available event.
+						Hover/Click on the calendar to check available event.
 					</p>
 				</div>
 			)}
