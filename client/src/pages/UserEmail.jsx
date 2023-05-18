@@ -59,7 +59,7 @@ const UserEmail = () => {
 				user
 			)
 			setSuccessMsg(
-				'Your email has been updated successfully! Please log in again'
+				'Your email has been updated successfully! Please log in again using your new email'
 			)
 			setError('')
 			setTimeout(() => {
