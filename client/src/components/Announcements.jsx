@@ -30,7 +30,9 @@ const Announcement = () => {
 				</div>
 			</div>
 			{announcement && (
-				<div className='ann-text'>{announcement.announcement}</div>
+				<div className='ann-text'>
+					<p>{announcement.announcement}</p>
+				</div>
 			)}
 		</div>
 	)

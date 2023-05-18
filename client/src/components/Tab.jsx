@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import BookModal from './BookModal'
 
 const Tabs = ({ tabs, isDashboard }) => {
 	const [activeTab, setActiveTab] = useState(0)
@@ -30,7 +29,7 @@ const Tabs = ({ tabs, isDashboard }) => {
 				<div className='card-body'>
 					<div className='tab-content'>
 						{tabs[activeTab].content}
-						{isDashboard && isBooksTabActive && <BookModal />}
+						{isDashboard && isBooksTabActive}
 					</div>
 				</div>
 			</div>
