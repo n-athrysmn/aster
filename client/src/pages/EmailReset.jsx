@@ -4,7 +4,7 @@ import { FaEnvelope } from 'react-icons/fa'
 import { AuthContext } from '../context/authContext'
 import { useNavigate } from 'react-router-dom'
 
-const AdminProfile = () => {
+const ResetEmail = () => {
 	const { currentAdmin, logout } = useContext(AuthContext)
 	const navigate = useNavigate()
 
@@ -130,4 +130,4 @@ const AdminProfile = () => {
 	)
 }
 
-export default AdminProfile
+export default ResetEmail

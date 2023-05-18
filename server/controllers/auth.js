@@ -487,27 +487,8 @@ export const emailChange = (req, res) => {
 						return res.status(200).json('Teacher email updated.')
 					})
 					return
-				}
-
-				// If the user is not found in the teachers table, check the admins table
-				const q4 = 'SELECT * FROM admins WHERE adminEmail = ?'
-				db.query(q4, [email], (err, data) => {
-					if (err) {
-						return res.status(500).json(err)
-					}
-					if (data.length) {
-						// If the user is found in the admins table, update their email
-						const q = 'UPDATE admins SET adminEmail = ? WHERE adminEmail = ?'
-						db.query(q, [req.body.email, email], (err, data) => {
-							if (err) {
-								return res.status(500).json(err)
-							}
-							return res.status(200).json('Admin email updated.')
-						})
-						return
-					} // If the user is not found in any table, return an error message
-					return res.status(404).json('User not found.')
-				})
+				} // If the user is not found in any table, return an error message
+				return res.status(404).json('User not found.')
 			})
 		})
 	})

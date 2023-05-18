@@ -87,10 +87,6 @@ const Home = () => {
 		fetchVideos()
 	}, [])
 
-	const handleChange = (e) => {
-		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-	}
-
 	const [inputs, setInputs] = useState({
 		isbn: selectedBook?.isbn || '',
 		studentId: '',
@@ -151,9 +147,6 @@ const Home = () => {
 		setInputs((prevInputs) => ({
 			...prevInputs,
 			isbn: '',
-			parentId: '',
-			studentId: '',
-			teacherId: '',
 		}))
 	}
 
@@ -242,6 +235,10 @@ const Home = () => {
 											className='btn btn-danger'
 											onClick={() => {
 												setSelectedBook(book)
+												setInputs((prevInputs) => ({
+													...prevInputs,
+													isbn: book.isbn,
+												}))
 												setShowDeleteModal(true)
 											}}
 										>
@@ -394,35 +391,13 @@ const Home = () => {
 									Are you sure you want to remove the book below?
 								</p>
 								<div className='form-row'>
-									<div className='form-label'>Student Id</div>
+									{/* Add a new form row for Book Name */}
+									<div className='form-label'>Book Name</div>
 									<input
 										type='text'
 										className='input-field'
-										onChange={handleChange}
-										value={inputs.studentId}
-										name='name'
-										disabled
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Parent Id</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.parentId}
-										name='name'
-										disabled
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Teacher Id</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.teacherId}
-										name='name'
+										value={selectedBook ? selectedBook.name : ''}
+										name='bookName'
 										disabled
 									/>
 								</div>

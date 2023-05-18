@@ -24,6 +24,7 @@ import BookDetails from './pages/BookDetails'
 import ResetPassword from './pages/Reset'
 import ResetEmail from './pages/EmailReset'
 import Videos from './pages/Videos'
+import UserEmail from './pages/UserEmail'
 
 const Layout = () => {
 	return (
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
 			{
 				path: '/books/:id',
 				element: <Books />,
+			},
+			{
+				path: '/reset-email/:email',
+				element: <UserEmail />,
 			},
 		],
 	},

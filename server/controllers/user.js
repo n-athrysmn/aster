@@ -347,3 +347,36 @@ export const adminEdit = (req, res) => {
 		})
 	})
 }
+
+//user data
+export const user = (req, res) => {
+	const { email } = req.params // Get the user id from the request parameters
+	console.log('email:', email)
+
+	const studentQuery = `SELECT * FROM students WHERE studentEmail = ? LIMIT 1`
+	const teacherQuery = `SELECT * FROM teachers WHERE teacherEmail = ? LIMIT 1`
+	const parentQuery = `SELECT * FROM parents WHERE parentEmail = ? LIMIT 1`
+
+	const values = [email]
+
+	// Execute queries for each table separately
+	db.query(studentQuery, values, (studentErr, studentData) => {
+		if (studentErr) return res.status(500).json(studentErr)
+
+		db.query(teacherQuery, values, (teacherErr, teacherData) => {
+			if (teacherErr) return res.status(500).json(teacherErr)
+
+			db.query(parentQuery, values, (parentErr, parentData) => {
+				if (parentErr) return res.status(500).json(parentErr)
+
+				const userData = {
+					student: studentData[0],
+					teacher: teacherData[0],
+					parent: parentData[0],
+				}
+
+				return res.status(200).json(userData)
+			})
+		})
+	})
+}

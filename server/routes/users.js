@@ -11,6 +11,7 @@ import {
 	students,
 	teacherEdit,
 	teachers,
+	user,
 } from '../controllers/user.js'
 
 const router = express.Router()
@@ -24,6 +25,7 @@ router.get('/getTeacher/:email', getTeacher)
 router.put('/student-edit/:email', studentEdit)
 router.put('/parent-edit/:email', parentEdit)
 router.put('/teacher-edit/:email', teacherEdit)
+router.get('/user/:email', user)
 
 //admin side
 router.get('/admin/:id', admin)
