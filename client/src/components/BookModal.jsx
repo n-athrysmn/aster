@@ -66,10 +66,7 @@ function BookModal({ setBooks }) {
 
 	return (
 		<div className='addbook'>
-			<button
-				className='btn btn-success right'
-				onClick={() => setShowModal(true)}
-			>
+			<button className='btn btn-success' onClick={() => setShowModal(true)}>
 				Add Book
 			</button>
 			{showModal ? (
@@ -95,6 +92,9 @@ function BookModal({ setBooks }) {
 								}
 								name='isbn'
 							/>
+							<p className='small txt-danger'>
+								Do include the dash "-" when entering the ISBN.
+							</p>
 							{err && <p className='txt-danger'>{err}</p>}
 							{successMsg && <p className='txt-success'>{successMsg}</p>}
 						</div>

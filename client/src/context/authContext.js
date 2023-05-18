@@ -29,6 +29,7 @@ export const AuthContextProvider = ({ children }) => {
 			inputs
 		)
 		setCurrentAdmin(data)
+		console.log(data)
 	}
 
 	const logout = async () => {

@@ -273,22 +273,22 @@ body {
 		}
 
 		.btn-secondary {
-			background-color: $danger;
+			background-color: $secondary;
 
 			&:hover {
 				background-color: transparent;
-				color: $danger;
-				border: $danger 2px solid;
+				color: $secondary;
+				border: $secondary 2px solid;
 			}
 		}
 
 		.btn-info {
-			background-color: $danger;
+			background-color: $info;
 
 			&:hover {
 				background-color: transparent;
-				color: $danger;
-				border: $danger 2px solid;
+				color: $info;
+				border: $info 2px solid;
 			}
 		}
 
@@ -308,6 +308,18 @@ body {
 			&:hover {
 				background-color: transparent;
 				color: $danger;
+				border: $danger 2px solid;
+			}
+		}
+
+		.btn-danger.outline {
+			background-color: transparent;
+			border: $danger 2px solid;
+			color: $danger;
+
+			&:hover {
+				background-color: $danger;
+				color: white;
 				border: $danger 2px solid;
 			}
 		}

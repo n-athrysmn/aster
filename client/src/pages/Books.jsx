@@ -817,7 +817,9 @@ const Books = () => {
 
 	return (
 		<div className='books'>
-			<h2>Book Answers {`/ ${book.name}`} </h2>
+			<h2 className='mb10'>{`${book.name}`} </h2>
+			<h3 className='mb20'>{`${book.desc}`}</h3>
+			<p>Click on the question's number to watch solution video</p>
 			<Tabs tabs={tabs} />
 			<div className='mt30 center'>
 				<a
