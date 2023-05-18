@@ -9,10 +9,12 @@ import {
 	editBook,
 	editVideo,
 	getAll,
+	getAllBooks,
 	getBooks,
 	getPdf,
 	getVids,
 	ownedBooks,
+	removeBook,
 } from '../controllers/books.js'
 
 const router = express.Router()
@@ -30,5 +32,7 @@ router.delete('/delete-video/:id', deleteVideo) //book details page
 router.get('/get-videos', getVids)
 router.get('/getPdf/:bookIsbn', getPdf)
 router.get('/getAll', getAll)
+router.get('/getAllOwned', getAllBooks)
+router.delete('/remove/:isbn', removeBook)
 
 export default router

@@ -32,6 +32,16 @@ export const getBooks = (req, res) => {
 	})
 }
 
+//get all owned books
+export const getAllBooks = (req, res) => {
+	const q = 'SELECT * FROM ownedbooks'
+
+	db.query(q, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
 //add more books - user dashboard
 export const addBooks = (req, res) => {
 	const q =
@@ -62,6 +72,30 @@ export const addBooks = (req, res) => {
 				return res.status(200).json('Book added.')
 			})
 		}
+	})
+}
+
+//add more books - user dashboard
+export const removeBook = (req, res) => {
+	const { isbn, studentId, teacherId, parentId } = req.body
+	console.log('isbn:', isbn)
+	console.log('studentId:', studentId)
+	console.log('teacherId:', teacherId)
+	console.log('parentId:', parentId)
+
+	const query =
+		'DELETE FROM ownedbooks WHERE isbn = ? AND (`studentId` = ? OR `teacherId` = ? OR `parentId` = ?)'
+	const values = [isbn, studentId, teacherId, parentId]
+
+	db.query(query, values, (err, result) => {
+		if (err) {
+			console.error(err)
+			return res.status(500).json({ message: 'Error deleting book' })
+		}
+		if (result.affectedRows === 0) {
+			return res.status(404).json({ message: 'Book not found' })
+		}
+		return res.status(200).json({ message: 'Book deleted successfully' })
 	})
 }
 
