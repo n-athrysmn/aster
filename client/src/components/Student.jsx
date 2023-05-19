@@ -251,6 +251,12 @@ const Student = () => {
 					</div>
 					{/*end::Input group*/}
 				</div>
+				<p>
+					Want to change email?{' '}
+					<a className='link' href={`/reset-email/${student.studentEmail}`}>
+						Reset email here
+					</a>
+				</p>
 			</form>
 			{err && <p className='txt-danger'>{err}</p>}
 			{successMsg && <p className='txt-success'>{successMsg}</p>}

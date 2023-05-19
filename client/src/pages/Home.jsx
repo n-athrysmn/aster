@@ -86,10 +86,6 @@ const Home = () => {
 		fetchVideos()
 	}, [])
 
-	const handleChange = (e) => {
-		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-	}
-
 	const [inputs, setInputs] = useState({
 		isbn: selectedBook?.isbn || '',
 		studentId: '',
@@ -143,6 +139,10 @@ const Home = () => {
 		}
 	}
 
+	const handleChange = (e) => {
+		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+	}
+
 	console.log('delete book: ', inputs)
 
 	const handleCancelEdit = () => {
@@ -150,9 +150,6 @@ const Home = () => {
 		setInputs((prevInputs) => ({
 			...prevInputs,
 			isbn: '',
-			parentId: '',
-			studentId: '',
-			teacherId: '',
 		}))
 	}
 
@@ -237,6 +234,10 @@ const Home = () => {
 											className='btn btn-danger'
 											onClick={() => {
 												setSelectedBook(book)
+												setInputs((prevInputs) => ({
+													...prevInputs,
+													isbn: book.isbn,
+												}))
 												setShowDeleteModal(true)
 											}}
 										>
