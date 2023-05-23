@@ -9,6 +9,8 @@ const Register = () => {
 	const [inputs, setInputs] = useState({
 		name: '',
 		number: '',
+		parName: '',
+		parNum: '',
 		birthday: '',
 		address: '',
 		school: '',
@@ -41,6 +43,10 @@ const Register = () => {
 		}
 		if (!/^(?!0123456789)\d{10,11}$/.test(inputs.number)) {
 			setError('Invalid phone number')
+			return
+		}
+		if (!/^(?!0123456789)\d{10,11}$/.test(inputs.parNum)) {
+			setError('Invalid parent number')
 			return
 		}
 		try {
@@ -98,6 +104,20 @@ const Register = () => {
 							onChange={handleChange}
 							type={'tel'}
 							placeholder={'Enter phone number. Ex: 0123456789'}
+							required
+						/>
+						<input
+							name={'parName'}
+							onChange={handleChange}
+							type={'text'}
+							placeholder={'Enter parent name'}
+							required
+						/>
+						<input
+							name={'parNum'}
+							onChange={handleChange}
+							type={'tel'}
+							placeholder={'Enter parent number. Ex: 0123456789'}
 							required
 						/>
 						<input

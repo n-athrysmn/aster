@@ -1199,18 +1199,18 @@ body {
 				}
 
 				.ann-text {
-					animation: scrolling-left 60s linear infinite;
+					animation: scrolling-left 30s linear infinite;
 					white-space: nowrap;
 				}
 
 				@keyframes scrolling-left {
 					0% {
-						transform: translateX(-100%);
-						-webkit-transform: translateX(-100%);
+						transform: translateX(100%);
+						-webkit-transform: translateX(100%);
 					}
 					100% {
-						transform: translateX(500%);
-						-webkit-transform: translateX(500%);
+						transform: translateX(-100%);
+						-webkit-transform: translateX(-100%);
 					}
 				}
 			}

@@ -3,7 +3,7 @@ import { db } from '../db.js'
 //get students list
 export const students = (req, res) => {
 	const q =
-		'SELECT studentId, studentName, studentEmail, studentNumber FROM students'
+		'SELECT studentId, studentName, studentEmail, studentNumber, studentPar, studentParNum FROM students'
 
 	db.query(q, (err, data) => {
 		if (err) return res.status(500).json(err)
@@ -97,6 +97,8 @@ export const studentEdit = (req, res) => {
 			studentSch: req.body.studentSch || student.studentSch,
 			studentLevel: req.body.studentLevel || student.studentLevel,
 			studentGrade: req.body.studentGrade || student.studentGrade,
+			studentPar: req.body.studentPar || student.studentPar,
+			studentParNum: req.body.studentParNum || student.studentParNum,
 		}
 
 		const updatedFields = []
@@ -130,6 +132,14 @@ export const studentEdit = (req, res) => {
 		if (newStudent.studentGrade !== student.studentGrade) {
 			updatedFields.push('studentGrade = ?')
 			values.push(newStudent.studentGrade)
+		}
+		if (newStudent.studentPar !== student.studentPar) {
+			updatedFields.push('studentPar = ?')
+			values.push(newStudent.studentPar)
+		}
+		if (newStudent.studentParNum !== student.studentParNum) {
+			updatedFields.push('studentParNum = ?')
+			values.push(newStudent.studentParNum)
 		}
 
 		if (updatedFields.length === 0) {
