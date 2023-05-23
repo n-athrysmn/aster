@@ -306,18 +306,18 @@ const Books = () => {
 		},
 	]*/
 
-	const [activeQuestionTab1, setActiveQuestionTab1] = useState(0)
-	const [activeQuestionTab2, setActiveQuestionTab2] = useState(0)
-	const [activeQuestionTab3, setActiveQuestionTab3] = useState(0)
-	const [activeQuestionTab4, setActiveQuestionTab4] = useState(0)
-	const [activeQuestionTab5, setActiveQuestionTab5] = useState(0)
-	const [activeQuestionTab6, setActiveQuestionTab6] = useState(0)
-	const [activeQuestionTab7, setActiveQuestionTab7] = useState(0)
-	const [activeQuestionTab8, setActiveQuestionTab8] = useState(0)
-	const [activeQuestionTab9, setActiveQuestionTab9] = useState(0)
-	const [activeQuestionTab10, setActiveQuestionTab10] = useState(0)
-	const [activeQuestionTab11, setActiveQuestionTab11] = useState(0)
-	const [activeQuestionTab12, setActiveQuestionTab12] = useState(0)
+	const [activeQuestionTab1, setActiveQuestionTab1] = useState('')
+	const [activeQuestionTab2, setActiveQuestionTab2] = useState('')
+	const [activeQuestionTab3, setActiveQuestionTab3] = useState('')
+	const [activeQuestionTab4, setActiveQuestionTab4] = useState('')
+	const [activeQuestionTab5, setActiveQuestionTab5] = useState('')
+	const [activeQuestionTab6, setActiveQuestionTab6] = useState('')
+	const [activeQuestionTab7, setActiveQuestionTab7] = useState('')
+	const [activeQuestionTab8, setActiveQuestionTab8] = useState('')
+	const [activeQuestionTab9, setActiveQuestionTab9] = useState('')
+	const [activeQuestionTab10, setActiveQuestionTab10] = useState('')
+	const [activeQuestionTab11, setActiveQuestionTab11] = useState('')
+	const [activeQuestionTab12, setActiveQuestionTab12] = useState('')
 
 	const QuestionComponent = ({ vids }) => {
 		if (!vids) {
@@ -816,21 +816,25 @@ const Books = () => {
 	}
 
 	return (
-		<div className='books'>
-			<h2 className='mb10'>{`${book.name}`} </h2>
-			<h3 className='mb20'>{`${book.desc}`}</h3>
-			<p>Click on the question's number to watch solution video</p>
-			<Tabs tabs={tabs} />
-			<div className='mt30 center'>
-				<a
-					className='btn btn-primary'
-					type='button'
-					href={`${book.pdf}`}
-					target='_blank'
-					rel='noreferrer'
-				>
-					Download Answers in PDF
-				</a>
+		<div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
+			<div id='kt_content_container' className='container-xxl'>
+				<div className='books'>
+					<h2 className='mb-3'>{`${book.name}`} </h2>
+					<h3 className='mb-8'>{`${book.desc}`}</h3>
+					<p>Click on the question's number to watch solution video</p>
+					<Tabs tabs={tabs} />
+					<div className='mt-10 text-center'>
+						<a
+							className='btn btn-primary'
+							type='button'
+							href={`${book.pdf}`}
+							target='_blank'
+							rel='noreferrer'
+						>
+							Download Answers in PDF
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	)

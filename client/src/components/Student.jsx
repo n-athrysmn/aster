@@ -79,84 +79,95 @@ const Student = () => {
 	const [successMsg, setSuccessMsg] = useState('')
 
 	return (
-		<div id='kt_account_settings_profile_details' class='collapse show'>
-			<form id='kt_account_profile_details_form' class='form'>
-				<div class='card-body border-top p-9'>
+		<div id='kt_account_settings_profile_details' className='collapse show'>
+			<form id='kt_account_profile_details_form' className='form'>
+				<div className='card-body border-top p-9'>
 					{/*begin::Input group*/}
-					<div class='row mb-6'>
+					<div className='row mb-6'>
 						{/*begin::Label*/}
-						<label class='col-lg-4 col-form-label fw-semibold fs-6'>Name</label>
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Name
+						</label>
 						{/*end::Label*/}
 						{/*begin::Col*/}
-						<div class='col-lg-8 fv-row'>
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								value={student.studentName}
 								name='studentName'
 								disabled={isDisabled}
 								onChange={handleChange}
-								class='form-control form-control-lg form-control-solid'
+								className='form-control form-control-lg form-control-solid'
 							/>
 						</div>
 						{/*end::Col*/}
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}
-					<div class='row mb-6'>
+					<div className='row mb-6'>
 						{/*begin::Label*/}
-						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
 							Email
 						</label>
 						{/*end::Label*/}
 						{/*begin::Col*/}
-						<div class='col-lg-8 fv-row'>
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'email'}
 								value={student.studentEmail}
 								name='studentEmail'
 								disabled
-								class='form-control form-control-lg form-control-solid'
+								className='form-control form-control-lg form-control-solid'
 							/>
+							<div className='form-text'>
+								Want to change email?{' '}
+								<a
+									className='link'
+									href={`/reset-email/${student.studentEmail}`}
+								>
+									Reset email here
+								</a>
+							</div>
 						</div>
 						{/*end::Col*/}
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}
-					<div class='row mb-6'>
+					<div className='row mb-6'>
 						{/*begin::Label*/}
-						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
 							Phone Number
 						</label>
 						{/*end::Label*/}
 						{/*begin::Col*/}
-						<div class='col-lg-8 fv-row'>
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'tel'}
 								value={student.studentNumber}
 								name='studentNumber'
 								disabled={isDisabled}
 								onChange={handleChange}
-								class='form-control form-control-lg form-control-solid'
+								className='form-control form-control-lg form-control-solid'
 							/>
 						</div>
 						{/*end::Col*/}
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}
-					<div class='row mb-6'>
+					<div className='row mb-6'>
 						{/*begin::Label*/}
-						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
 							Address
 						</label>
 						{/*end::Label*/}
 						{/*begin::Col*/}
-						<div class='col-lg-8 fv-row'>
+						<div className='col-lg-8 fv-row'>
 							<textarea
 								name='studentAddr'
 								value={student.studentAddr}
 								disabled={isDisabled}
 								onChange={handleChange}
-								class='form-control form-control-lg form-control-solid'
+								className='form-control form-control-lg form-control-solid'
 								rows='3'
 							/>
 						</div>
@@ -164,41 +175,41 @@ const Student = () => {
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}
-					<div class='row mb-6'>
+					<div className='row mb-6'>
 						{/*begin::Label*/}
-						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
 							School Name
 						</label>
 						{/*end::Label*/}
 						{/*begin::Col*/}
-						<div class='col-lg-8 fv-row'>
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								value={student.studentSch}
 								name='studentSch'
 								disabled={isDisabled}
 								onChange={handleChange}
-								class='form-control form-control-lg form-control-solid'
+								className='form-control form-control-lg form-control-solid'
 							/>
 						</div>
 						{/*end::Col*/}
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}
-					<div class='row mb-6'>
+					<div className='row mb-6'>
 						{/*begin::Label*/}
-						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
 							Education Level
 						</label>
 						{/*end::Label*/}
 						{/*begin::Col*/}
-						<div class='col-lg-8 fv-row'>
+						<div className='col-lg-8 fv-row'>
 							<select
 								name='studentLevel'
 								onChange={handleChange}
 								value={student.studentLevel}
 								disabled={isDisabled}
-								class='form-select form-select-solid form-select-lg fw-semibold'
+								className='form-select form-select-solid form-select-lg fw-semibold'
 							>
 								<option value=''>Select your education level</option>
 								<optgroup label='Form'>
@@ -222,20 +233,20 @@ const Student = () => {
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}
-					<div class='row mb-6'>
+					<div className='row mb-6'>
 						{/*begin::Label*/}
-						<label class='col-lg-4 col-form-label fw-semibold fs-6'>
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
 							Mathematics Grade
 						</label>
 						{/*end::Label*/}
 						{/*begin::Col*/}
-						<div class='col-lg-8 fv-row'>
+						<div className='col-lg-8 fv-row'>
 							<select
 								value={student.studentGrade}
 								name='studentGrade'
 								disabled={isDisabled}
 								onChange={handleChange}
-								class='form-select form-select-solid form-select-lg fw-semibold'
+								className='form-select form-select-solid form-select-lg fw-semibold'
 							>
 								<option value=''>Select your grade for Mathematics</option>
 								<option value='A'>A</option>
@@ -251,16 +262,10 @@ const Student = () => {
 					</div>
 					{/*end::Input group*/}
 				</div>
-				<p>
-					Want to change email?{' '}
-					<a className='link' href={`/reset-email/${student.studentEmail}`}>
-						Reset email here
-					</a>
-				</p>
 			</form>
 			{err && <p className='txt-danger'>{err}</p>}
 			{successMsg && <p className='txt-success'>{successMsg}</p>}
-			<div class='card-footer d-flex justify-content-end py-6 px-9'>
+			<div className='card-footer d-flex justify-content-end py-6 px-9'>
 				{isEditing ? (
 					<>
 						<button

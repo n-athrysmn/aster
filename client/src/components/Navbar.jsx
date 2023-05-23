@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
-import Logo from '../assets/dark-logo.png'
+import Logo from '../assets/logo.png'
+import LogoDark from '../assets/dark-logo.png'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import { FaTimes, FaBars, FaUserCog } from 'react-icons/fa'
@@ -67,7 +68,7 @@ const Navbar = () => {
 		<div className='page d-flex flex-row flex-column-fluid'>
 			<div
 				id='kt_aside'
-				class='aside overflow-visible pb-5 pt-5 pt-lg-0'
+				className='aside overflow-visible pb-5 pt-5 pt-lg-0'
 				data-kt-drawer='true'
 				data-kt-drawer-name='aside'
 				data-kt-drawer-activate='{default: true, lg: false}'
@@ -77,19 +78,19 @@ const Navbar = () => {
 				data-kt-drawer-toggle='#kt_aside_mobile_toggle'
 			>
 				{/*begin::Brand*/}
-				<div class='aside-logo py-8' id='kt_aside_logo'>
+				<div className='aside-logo py-8' id='kt_aside_logo'>
 					{/*begin::Logo*/}
-					<a href='/dashboard' class='d-flex align-items-center'>
-						<img src={Logo} alt='Aster Education' class='h-45px logo' />
+					<a href='/dashboard' className='d-flex align-items-center'>
+						<img src={Logo} alt='Aster Education' className='h-100px logo' />
 					</a>
 					{/*end::Logo*/}
 				</div>
 				{/*end::Brand*/}
 				{/*begin::Aside menu*/}
-				<div class='aside-menu flex-column-fluid' id='kt_aside_menu'>
+				<div className='aside-menu flex-column-fluid' id='kt_aside_menu'>
 					{/*begin::Aside Menu*/}
 					<div
-						class='hover-scroll-overlay-y my-2 my-lg-5 pe-lg-n1'
+						className='hover-scroll-overlay-y my-2 my-lg-5 pe-lg-n1'
 						id='kt_aside_menu_wrapper'
 						data-kt-scroll='true'
 						data-kt-scroll-height='auto'
@@ -99,7 +100,7 @@ const Navbar = () => {
 					>
 						{/*begin::Menu*/}
 						<div
-							class='menu menu-column menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold'
+							className='menu menu-column menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold'
 							id='#kt_aside_menu'
 							data-kt-menu='true'
 						>
@@ -107,15 +108,15 @@ const Navbar = () => {
 							<div
 								data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
 								data-kt-menu-placement='right-start'
-								class='menu-item here show py-2'
+								className='menu-item here show py-2'
 							>
 								{/*begin:Menu link*/}
-								<span class='menu-link menu-center'>
-									<span class='menu-icon me-0'>
-										<i class='fonticon-house fs-1'></i>
+								<span className='menu-link menu-center'>
+									<span className='menu-icon me-0'>
+										<i className='fonticon-house fs-1'></i>
 									</span>
 									<Link to='/dashboard'>
-										<span class='menu-section fs-5 fw-bolder ps-1 py-1'>
+										<span className='menu-section fs-5 fw-bolder ps-1 py-1'>
 											Home
 										</span>
 									</Link>
@@ -127,15 +128,15 @@ const Navbar = () => {
 							<div
 								data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
 								data-kt-menu-placement='right-start'
-								class='menu-item py-2'
+								className='menu-item py-2'
 							>
 								{/*begin:Menu link*/}
-								<span class='menu-link menu-center'>
-									<span class='menu-icon me-0'>
-										<i class='fonticon-stats fs-1'></i>
+								<span className='menu-link menu-center'>
+									<span className='menu-icon me-0'>
+										<i className='fonticon-stats fs-1'></i>
 									</span>
 									<Link to={`/profile/${userId}`}>
-										<span class='menu-section fs-5 fw-bolder ps-1 py-1'>
+										<span className='menu-section fs-5 fw-bolder ps-1 py-1'>
 											Profile
 										</span>
 									</Link>
@@ -152,20 +153,20 @@ const Navbar = () => {
 			</div>
 
 			{/*begin::Header*/}
-			<div id='kt_header' class='header align-items-stretch'>
+			<div id='kt_header' className='header align-items-stretch'>
 				{/*begin::Container*/}
-				<div class='container-fluid d-flex align-items-stretch justify-content-between'>
+				<div className='container-fluid d-flex align-items-stretch justify-content-between'>
 					{/*begin::Aside mobile toggle*/}
 					<div
-						class='d-flex align-items-center d-lg-none ms-n1 me-2'
+						className='d-flex align-items-center d-lg-none ms-n1 me-2'
 						title='Show aside menu'
 					>
 						<div
-							class='btn btn-icon btn-active-color-primary w-30px h-30px w-md-40px h-md-40px'
+							className='btn btn-icon btn-active-color-primary w-30px h-30px w-md-40px h-md-40px'
 							id='kt_aside_mobile_toggle'
 						>
 							{/*begin::Svg Icon | path: icons/duotune/abstract/abs015.svg*/}
-							<span class='svg-icon svg-icon-1'>
+							<span className='svg-icon svg-icon-1'>
 								<svg
 									width='24'
 									height='24'
@@ -189,23 +190,23 @@ const Navbar = () => {
 					</div>
 					{/*end::Aside mobile toggle*/}
 					{/*begin::Mobile logo*/}
-					<div class='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
-						<a href='/dashboard' class='d-lg-none'>
+					<div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
+						<a href='/dashboard' className='d-lg-none'>
 							<img
-								alt='Logo'
-								src='assets/media/logos/demo6.svg'
-								class='h-30px'
+								src={LogoDark}
+								alt='Aster Education'
+								className='h-30px logo'
 							/>
 						</a>
 					</div>
 					{/*end::Mobile logo*/}
 					{/*begin::Wrapper*/}
-					<div class='d-flex align-items-stretch justify-content-between flex-lg-grow-1'>
+					<div className='d-flex align-items-stretch justify-content-between flex-lg-grow-1'>
 						{/*begin::Navbar*/}
-						<div class='d-flex align-items-stretch' id='kt_header_nav'>
+						<div className='d-flex align-items-stretch' id='kt_header_nav'>
 							{/*begin::Menu wrapper*/}
 							<div
-								class='header-menu align-items-stretch'
+								className='header-menu align-items-stretch'
 								data-kt-drawer='true'
 								data-kt-drawer-name='header-menu'
 								data-kt-drawer-activate='{default: true, lg: false}'
@@ -221,19 +222,19 @@ const Navbar = () => {
 						</div>
 						{/*end::Navbar*/}
 						{/*begin::Toolbar wrapper*/}
-						<div class='d-flex align-items-stretch flex-shrink-0'>
+						<div className='d-flex align-items-stretch flex-shrink-0'>
 							{/*begin::Theme mode*/}
-							<div class='d-flex align-items-center ms-1 ms-lg-3'>
+							<div className='d-flex align-items-center ms-1 ms-lg-3'>
 								{/*begin::Menu toggle*/}
 								<a
 									href='#'
-									class='btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px'
+									className='btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px'
 									data-kt-menu-trigger="{default:'click', lg: 'hover'}"
 									data-kt-menu-attach='parent'
 									data-kt-menu-placement='bottom-end'
 								>
 									{/*begin::Svg Icon | path: icons/duotune/general/gen060.svg*/}
-									<span class='svg-icon theme-light-show svg-icon-1'>
+									<span className='svg-icon theme-light-show svg-icon-1'>
 										<svg
 											width='24'
 											height='24'
@@ -281,7 +282,7 @@ const Navbar = () => {
 									</span>
 									{/*end::Svg Icon*/}
 									{/*begin::Svg Icon | path: icons/duotune/general/gen061.svg*/}
-									<span class='svg-icon theme-dark-show svg-icon-1'>
+									<span className='svg-icon theme-dark-show svg-icon-1'>
 										<svg
 											width='24'
 											height='24'
@@ -312,21 +313,21 @@ const Navbar = () => {
 								{/*begin::Menu toggle*/}
 								{/*begin::Menu*/}
 								<div
-									class='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px'
+									className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px'
 									data-kt-menu='true'
 									data-kt-element='theme-mode-menu'
 								>
 									{/*begin::Menu item*/}
-									<div class='menu-item px-3 my-0'>
+									<div className='menu-item px-3 my-0'>
 										<a
 											href='#'
-											class='menu-link px-3 py-2'
+											className='menu-link px-3 py-2'
 											data-kt-element='mode'
 											data-kt-value='light'
 										>
-											<span class='menu-icon' data-kt-element='icon'>
+											<span className='menu-icon' data-kt-element='icon'>
 												{/*begin::Svg Icon | path: icons/duotune/general/gen060.svg*/}
-												<span class='svg-icon svg-icon-3'>
+												<span className='svg-icon svg-icon-3'>
 													<svg
 														width='24'
 														height='24'
@@ -374,21 +375,21 @@ const Navbar = () => {
 												</span>
 												{/*end::Svg Icon*/}
 											</span>
-											<span class='menu-title'>Light</span>
+											<span className='menu-title'>Light</span>
 										</a>
 									</div>
 									{/*end::Menu item*/}
 									{/*begin::Menu item*/}
-									<div class='menu-item px-3 my-0'>
+									<div className='menu-item px-3 my-0'>
 										<a
 											href='#'
-											class='menu-link px-3 py-2'
+											className='menu-link px-3 py-2'
 											data-kt-element='mode'
 											data-kt-value='dark'
 										>
-											<span class='menu-icon' data-kt-element='icon'>
+											<span className='menu-icon' data-kt-element='icon'>
 												{/*begin::Svg Icon | path: icons/duotune/general/gen061.svg*/}
-												<span class='svg-icon svg-icon-3'>
+												<span className='svg-icon svg-icon-3'>
 													<svg
 														width='24'
 														height='24'
@@ -416,21 +417,21 @@ const Navbar = () => {
 												</span>
 												{/*end::Svg Icon*/}
 											</span>
-											<span class='menu-title'>Dark</span>
+											<span className='menu-title'>Dark</span>
 										</a>
 									</div>
 									{/*end::Menu item*/}
 									{/*begin::Menu item*/}
-									<div class='menu-item px-3 my-0'>
+									<div className='menu-item px-3 my-0'>
 										<a
 											href='#'
-											class='menu-link px-3 py-2'
+											className='menu-link px-3 py-2'
 											data-kt-element='mode'
 											data-kt-value='system'
 										>
-											<span class='menu-icon' data-kt-element='icon'>
+											<span className='menu-icon' data-kt-element='icon'>
 												{/*begin::Svg Icon | path: icons/duotune/general/gen062.svg*/}
-												<span class='svg-icon svg-icon-3'>
+												<span className='svg-icon svg-icon-3'>
 													<svg
 														width='24'
 														height='24'
@@ -448,7 +449,7 @@ const Navbar = () => {
 												</span>
 												{/*end::Svg Icon*/}
 											</span>
-											<span class='menu-title'>System</span>
+											<span className='menu-title'>System</span>
 										</a>
 									</div>
 									{/*end::Menu item*/}
@@ -457,17 +458,14 @@ const Navbar = () => {
 							</div>
 							{/*end::Theme mode*/}
 							{/*begin::Theme mode*/}
-							<div class='d-flex align-items-center ms-1 ms-lg-3'>
+							<div className='d-flex align-items-center ms-1 ms-lg-3'>
 								{/*begin::Menu toggle*/}
-								<a
-									href='#'
-									class='btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px'
-									data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-									data-kt-menu-attach='parent'
-									data-kt-menu-placement='bottom-end'
+								<button
+									onClick={handleLogout}
+									className='btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px'
 								>
 									{/*begin::Svg Icon | path: icons/duotune/general/gen060.svg*/}
-									<span class='svg-icon theme-light-show svg-icon-1'>
+									<span className='svg-icon theme-light-show svg-icon-1'>
 										<svg
 											width='24'
 											height='24'
@@ -515,7 +513,7 @@ const Navbar = () => {
 									</span>
 									{/*end::Svg Icon*/}
 									{/*begin::Svg Icon | path: icons/duotune/general/gen061.svg*/}
-									<span class='svg-icon theme-dark-show svg-icon-1'>
+									<span className='svg-icon theme-dark-show svg-icon-1'>
 										<svg
 											width='24'
 											height='24'
@@ -542,25 +540,25 @@ const Navbar = () => {
 										</svg>
 									</span>
 									{/*end::Svg Icon*/}
-								</a>
+								</button>
 								{/*begin::Menu toggle*/}
 								{/*begin::Menu*/}
 								<div
-									class='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px'
+									className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px'
 									data-kt-menu='true'
 									data-kt-element='theme-mode-menu'
 								>
 									{/*begin::Menu item*/}
-									<div class='menu-item px-3 my-0'>
+									<div className='menu-item px-3 my-0'>
 										<a
 											href='#'
-											class='menu-link px-3 py-2'
+											className='menu-link px-3 py-2'
 											data-kt-element='mode'
 											data-kt-value='light'
 										>
-											<span class='menu-icon' data-kt-element='icon'>
+											<span className='menu-icon' data-kt-element='icon'>
 												{/*begin::Svg Icon | path: icons/duotune/general/gen060.svg*/}
-												<span class='svg-icon svg-icon-3'>
+												<span className='svg-icon svg-icon-3'>
 													<svg
 														width='24'
 														height='24'
@@ -608,21 +606,21 @@ const Navbar = () => {
 												</span>
 												{/*end::Svg Icon*/}
 											</span>
-											<span class='menu-title'>Light</span>
+											<span className='menu-title'>Light</span>
 										</a>
 									</div>
 									{/*end::Menu item*/}
 									{/*begin::Menu item*/}
-									<div class='menu-item px-3 my-0'>
+									<div className='menu-item px-3 my-0'>
 										<a
 											href='#'
-											class='menu-link px-3 py-2'
+											className='menu-link px-3 py-2'
 											data-kt-element='mode'
 											data-kt-value='dark'
 										>
-											<span class='menu-icon' data-kt-element='icon'>
+											<span className='menu-icon' data-kt-element='icon'>
 												{/*begin::Svg Icon | path: icons/duotune/general/gen061.svg*/}
-												<span class='svg-icon svg-icon-3'>
+												<span className='svg-icon svg-icon-3'>
 													<svg
 														width='24'
 														height='24'
@@ -650,21 +648,21 @@ const Navbar = () => {
 												</span>
 												{/*end::Svg Icon*/}
 											</span>
-											<span class='menu-title'>Dark</span>
+											<span className='menu-title'>Dark</span>
 										</a>
 									</div>
 									{/*end::Menu item*/}
 									{/*begin::Menu item*/}
-									<div class='menu-item px-3 my-0'>
+									<div className='menu-item px-3 my-0'>
 										<a
 											href='#'
-											class='menu-link px-3 py-2'
+											className='menu-link px-3 py-2'
 											data-kt-element='mode'
 											data-kt-value='system'
 										>
-											<span class='menu-icon' data-kt-element='icon'>
+											<span className='menu-icon' data-kt-element='icon'>
 												{/*begin::Svg Icon | path: icons/duotune/general/gen062.svg*/}
-												<span class='svg-icon svg-icon-3'>
+												<span className='svg-icon svg-icon-3'>
 													<svg
 														width='24'
 														height='24'
@@ -682,7 +680,7 @@ const Navbar = () => {
 												</span>
 												{/*end::Svg Icon*/}
 											</span>
-											<span class='menu-title'>System</span>
+											<span className='menu-title'>System</span>
 										</a>
 									</div>
 									{/*end::Menu item*/}
@@ -699,29 +697,29 @@ const Navbar = () => {
 			</div>
 			{/*end::Header*/}
 			{/*begin::Toolbar*/}
-			<div class='toolbar py-2' id='kt_toolbar'>
+			<div className='toolbar py-2' id='kt_toolbar'>
 				{/*begin::Container*/}
 				<div
 					id='kt_toolbar_container'
-					class='container-fluid d-flex align-items-center'
+					className='container-fluid d-flex align-items-center'
 				>
 					{/*begin::Page title*/}
-					<div class='flex-grow-1 flex-shrink-0 me-5'>
+					<div className='flex-grow-1 flex-shrink-0 me-5'>
 						{/*begin::Page title*/}
 						<div
 							data-kt-swapper='true'
 							data-kt-swapper-mode='prepend'
 							data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-							class='page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0'
+							className='page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0'
 						>
 							{/*begin::Title*/}
-							<h1 class='d-flex align-items-center text-dark fw-bold my-1 fs-3'>
+							<h1 className='d-flex align-items-center text-dark fw-bold my-1 fs-3'>
 								Dashboard
 								{/*begin::Separator*/}
-								<span class='h-20px border-gray-200 border-start ms-3 mx-2'></span>
+								<span className='h-20px border-gray-200 border-start ms-3 mx-2'></span>
 								{/*end::Separator*/}
 								{/*begin::Description*/}
-								<small class='text-muted fs-7 fw-semibold my-1 ms-1'>
+								<small className='text-muted fs-7 fw-semibold my-1 ms-1'>
 									#XRS-45670
 								</small>
 								{/*end::Description*/}

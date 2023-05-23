@@ -5,29 +5,40 @@ const Tabs = ({ tabs, isDashboard }) => {
 
 	const isBooksTabActive = activeTab === tabs.findIndex((tab) => tab.id === 1)
 
-	return (
-		<div>
-			<ul className='nav nav-pills nav-pills-custom mb-3'>
-				<li className='nav-item mb-3 me-3 me-lg-6'>
-					{tabs.map((tab, index) => (
-						<button
-							key={index}
-							onClick={() => setActiveTab(index)}
-							className={`nav-link d-flex justify-content-between flex-column flex-center overflow-hidden active w-80px h-85px py-4 ${
-								index === activeTab ? 'active' : ''
-							}`}
-							data-bs-toggle='pill'
-						>
-							{tab.title}
+	let colClassName = 'col-6'
+	if (tabs.length === 2) {
+		colClassName = 'col-6'
+	} else if (tabs.length === 3) {
+		colClassName = 'col-4'
+	} else {
+		colClassName = 'col-3'
+	}
 
-							<span className='bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary'></span>
-						</button>
+	return (
+		<div className='card card-flush'>
+			<div className='card-body'>
+				<ul className='nav nav-pills nav-pills-custom row position-relative mx-0 mb-9'>
+					{tabs.map((tab, index) => (
+						<li key={index} className={`nav-item ${colClassName} mx-0 p-0`}>
+							<button
+								onClick={() => setActiveTab(index)}
+								className={`nav-link active d-flex justify-content-center w-100 border-0 h-100 ${
+									index === activeTab ? 'active' : ''
+								}`}
+								data-bs-toggle='pill'
+							>
+								<span className='nav-text text-gray-800 fw-bold fs-6 mb-3'>
+									{tab.title}
+								</span>
+								{index === activeTab && (
+									<span className='bullet-custom position-absolute z-index-2 bottom-0 w-100 h-4px bg-primary rounded'></span>
+								)}
+							</button>
+						</li>
 					))}
-				</li>
-			</ul>
-			<div className='card'>
-				<div className='card-body'>
-					<div className='tab-content'>
+				</ul>
+				<div className='tab-content text-center'>
+					<div className='tab-pane fade show active'>
 						{tabs[activeTab].content}
 						{isDashboard && isBooksTabActive}
 					</div>

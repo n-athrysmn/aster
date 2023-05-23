@@ -5,18 +5,18 @@ const Footer = () => {
 
 	return (
 		<div className='wrapper d-flex flex-column flex-row-fluid'>
-			<div class='footer py-4 d-flex flex-lg-column' id='kt_footer'>
+			<div className='footer py-4 d-flex flex-lg-column' id='kt_footer'>
 				{/*begin::Container*/}
-				<div class='container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between'>
+				<div className='container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between'>
 					{/*begin::Copyright*/}
-					<div class='text-dark order-2 order-md-1'>
-						<span class='text-muted fw-semibold me-1'>
+					<div className='text-dark order-2 order-md-1'>
+						<span className='text-muted fw-semibold me-1'>
 							{currentYear} &copy;
 						</span>
 						<a
 							href='https://lms.aster.edu.my'
 							target='_blank'
-							class='text-gray-800 text-hover-primary'
+							className='text-gray-800 text-hover-primary'
 							rel='noreferrer'
 						>
 							Aster Edu Learning Management System
@@ -24,22 +24,22 @@ const Footer = () => {
 					</div>
 					{/*end::Copyright*/}
 					{/*begin::Menu*/}
-					<ul class='menu menu-gray-600 menu-hover-primary fw-semibold order-1'>
-						<li class='menu-item'>
+					<ul className='menu menu-gray-600 menu-hover-primary fw-semibold order-1'>
+						<li className='menu-item'>
 							<a
 								href='https://aster.edu.my/about-us/'
 								target='_blank'
-								class='menu-link px-2'
+								className='menu-link px-2'
 								rel='noreferrer'
 							>
 								About
 							</a>
 						</li>
-						<li class='menu-item'>
+						<li className='menu-item'>
 							<a
 								href='https://wa.me/60192549717'
 								target='_blank'
-								class='menu-link px-2'
+								className='menu-link px-2'
 								rel='noreferrer'
 							>
 								Support

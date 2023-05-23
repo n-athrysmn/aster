@@ -209,27 +209,23 @@ const Home = () => {
 			),
 
 			content: (
-				<div className='posts'>
+				<div className='m-0'>
 					{Array.isArray(books) && books.length > 0 ? (
 						<>
 							{books.map((book) => (
-								<div className='post' key={book.id}>
+								<div key={book.id} className='mb-2'>
 									<Link to={`/books/${book.isbn}`}>
-										<div className='img'>
-											<img src={book.img} alt={book.desc} />
-										</div>
+										<img
+											src={book.img}
+											alt={book.desc}
+											className='mw-400px mh-400px'
+										/>
 									</Link>
-									<div className='content center'>
-										<Link to={`/books/${book.isbn}`} className='link'>
-											<h2>{book.name}</h2>
-										</Link>
-										<a
-											href={`/books/${book.isbn}`}
-											className='btn btn-primary mt20 mb20'
-											role='button'
-										>
-											View Answers
-										</a>
+									<Link to={`/books/${book.isbn}`}>
+										<h2>{book.name}</h2>
+									</Link>
+									<div className='d-flex justify-content-evenly mb-10 mt-10'>
+										{/* <!--begin::Link--> */}
 										<button
 											className='btn btn-danger'
 											onClick={() => {
@@ -240,9 +236,21 @@ const Home = () => {
 												}))
 												setShowDeleteModal(true)
 											}}
+											data-bs-toggle='modal'
+											data-bs-target='#remove-book'
 										>
 											Remove Book
 										</button>
+										{/* <!--end::Link--> */}
+										{/* <!--begin::Link--> */}
+										<a
+											href={`/books/${book.isbn}`}
+											className='btn btn-primary'
+											role='button'
+										>
+											View Answers
+										</a>
+										{/* <!--end::Link--> */}
 									</div>
 								</div>
 							))}
@@ -251,13 +259,13 @@ const Home = () => {
 								href='https://ezy.la/GroupSupportKPBA'
 								rel='noreferrer'
 								role='button'
-								className='btn btn-info center'
+								className='btn btn-info mb-10'
 							>
 								Join Telegram Kelab Pemilik Buku Aster
 							</a>
 						</>
 					) : (
-						<p className='txt-danger'>
+						<p className='text-danger'>
 							You have not added any book yet. Click the add book button below
 							to add your book. If you have not bought any book, please contact
 							our marketing team to get your copy.
@@ -310,154 +318,175 @@ const Home = () => {
 	]
 
 	return (
-		<div class='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
-			<div class='content d-flex flex-column flex-column-fluid' id='kt_content'>
-				<div id='kt_content_container' class='container-xxl'>
+		<div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
+			<div
+				className='content d-flex flex-column flex-column-fluid'
+				id='kt_content'
+			>
+				<div id='kt_content_container' className='container-xxl'>
 					<Announcement />
-					<div className='top-part'>
-						<div className='profile-card'>
-							{/*<div className='avatar'>
-					{currentUser?.studentName && (
-						<img
-							src={currentUser?.studentPfp}
-							alt={currentUser?.studentName}
-						/>
-					)}
-					{currentUser?.parentName && (
-						<img src={currentUser?.parentPfp} alt={currentUser?.parentName} />
-					)}
-					{currentUser?.teacherName && (
-						<img
-							src={currentUser?.teacherPfp}
-							alt={currentUser?.teacherName}
-						/>
-					)}
-					</div>*/}
-							<div className='info'>
-								{currentUser?.studentName && (
-									<>
-										<div>
-											<h2 className='small'>
-												Hello <MdCelebration />
-											</h2>
-											<h3 className='mt20 uppercase'>
-												{currentUser.studentName}!
-											</h3>
-										</div>
-									</>
-								)}
-								{currentUser?.parentName && (
-									<>
-										<div>
-											<h2 className='small'>
-												Hello <MdCelebration />
-											</h2>
-											<h3 className='mt20 uppercase'>
-												{currentUser.parentName}!
-											</h3>
-										</div>
-									</>
-								)}
-								{currentUser?.teacherName && (
-									<>
-										<div>
-											<h2 className='small'>
-												Hello <MdCelebration />
-											</h2>
-											<h3 className='mt20 uppercase'>
-												{currentUser.teacherName}!
-											</h3>
-										</div>
-									</>
-								)}
+					<div className='row g-5 g-xl-10 mb-5 mb-xl-10'>
+						<div className='col-xl-4'>
+							<div className='card h-lg-100'>
+								<div className='card-body'>
+									{currentUser?.studentName && (
+										<>
+											<div className='card-px text-center pt-15 pb-15'>
+												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
+													Hello <MdCelebration />
+												</h2>
+												{/* <div className='text-center pb-15 px-5'>
+													<img
+														src={currentUser?.studentPfp}
+														alt={currentUser?.studentName}
+														className='mw-100 h-200px h-sm-325px'
+													/>
+												</div> */}
+												<h3 className='fs-2x fw-bold mb-0'>
+													{currentUser.studentName}!
+												</h3>
+											</div>
+										</>
+									)}
+									{currentUser?.parentName && (
+										<>
+											<div className='card-px text-center pt-15 pb-15'>
+												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
+													Hello <MdCelebration />
+												</h2>
+												{/* <div className='text-center pb-15 px-5'>
+													<img
+														src={currentUser?.parentPfp}
+														alt={currentUser?.parentName}
+														className='mw-100 h-200px h-sm-325px'
+													/>
+												</div> */}
+												<h3 className='fs-2x fw-bold mb-0'>
+													{currentUser.parentName}!
+												</h3>
+											</div>
+										</>
+									)}
+									{currentUser?.teacherName && (
+										<>
+											<div className='card-px text-center pt-15 pb-15'>
+												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
+													Hello <MdCelebration />
+												</h2>
+												{/* <div className='text-center pb-15 px-5'>
+													<img
+														src={currentUser?.teacherPfp}
+														alt={currentUser?.teacherName}
+														className='mw-100 h-200px h-sm-325px'
+													/>
+												</div> */}
+												<h3 className='fs-2x fw-bold mb-0'>
+													{currentUser.teacherName}!
+												</h3>
+											</div>
+										</>
+									)}
+								</div>
 							</div>
 						</div>
-						<Calendar />
+						<div className='col-xl-8'>
+							<div className='card h-lg-100'>
+								<div className='card-body'>
+									<div className='card-px text-center pt-15 pb-15'>
+										<Calendar />
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<Tabs tabs={tabs} />
 					<Accords />
 					{/*delete modal*/}
 					{showDeleteModal ? (
-						<div className='modal'>
-							<div className='modal-content'>
-								<div className='modal-header'>
-									<h2>Remove book</h2>
-									<p
-										className='right-header'
-										onClick={() => setShowDeleteModal(false)}
-									>
-										X
-									</p>
-								</div>
-								<form className='form-control'>
-									<div className='modal-body'>
-										<p className='txt-danger'>
-											Are you sure you want to remove the book below?
+						<div className='modal fade' tabIndex='-1' id='remove-book'>
+							<div className='modal-dialog modal-dialog-centered'>
+								<div className='modal-content'>
+									<div className='modal-header'>
+										<h2>Remove book</h2>
+										<p
+											className='right-header'
+											onClick={() => setShowDeleteModal(false)}
+										>
+											X
 										</p>
-										<div className='form-row'>
-											<div className='form-label'>Student Id</div>
-											<input
-												type='text'
-												className='input-field'
-												onChange={handleChange}
-												value={inputs.studentId}
-												name='name'
-												disabled
-											/>
-										</div>
-										<div className='form-row'>
-											<div className='form-label'>Parent Id</div>
-											<input
-												type='text'
-												className='input-field'
-												onChange={handleChange}
-												value={inputs.parentId}
-												name='name'
-												disabled
-											/>
-										</div>
-										<div className='form-row'>
-											<div className='form-label'>Teacher Id</div>
-											<input
-												type='text'
-												className='input-field'
-												onChange={handleChange}
-												value={inputs.teacherId}
-												name='name'
-												disabled
-											/>
-										</div>
-										<div className='form-row'>
-											<div className='form-label'>Book ISBN</div>
-											<input
-												type='text'
-												className='input-field'
-												value={inputs.isbn}
-												name='isbn'
-												disabled
-											/>
-										</div>
-										{err && <p className='txt-danger'>{err}</p>}
-										{successMsg && <p className='txt-success'>{successMsg}</p>}
 									</div>
-									<div className='modal-footer'>
-										<button
-											className='btn btn-sm btn-danger outline'
-											onClick={() => {
-												handleCancelEdit()
-												setShowDeleteModal(false)
-											}}
-										>
-											No, cancel
-										</button>
-										<button
-											className='btn btn-sm btn-danger'
-											onClick={handleDelete}
-										>
-											Yes, remove
-										</button>
-									</div>
-								</form>
+									<form className='form-control'>
+										<div className='modal-body'>
+											<p className='txt-danger'>
+												Are you sure you want to remove the book below?
+											</p>
+											<div className='form-row'>
+												<div className='form-label'>Student Id</div>
+												<input
+													type='text'
+													className='input-field'
+													onChange={handleChange}
+													value={inputs.studentId}
+													name='name'
+													disabled
+												/>
+											</div>
+											<div className='form-row'>
+												<div className='form-label'>Parent Id</div>
+												<input
+													type='text'
+													className='input-field'
+													onChange={handleChange}
+													value={inputs.parentId}
+													name='name'
+													disabled
+												/>
+											</div>
+											<div className='form-row'>
+												<div className='form-label'>Teacher Id</div>
+												<input
+													type='text'
+													className='input-field'
+													onChange={handleChange}
+													value={inputs.teacherId}
+													name='name'
+													disabled
+												/>
+											</div>
+											<div className='form-row'>
+												<div className='form-label'>Book ISBN</div>
+												<input
+													type='text'
+													className='input-field'
+													value={inputs.isbn}
+													name='isbn'
+													disabled
+												/>
+											</div>
+											{err && <p className='txt-danger'>{err}</p>}
+											{successMsg && (
+												<p className='txt-success'>{successMsg}</p>
+											)}
+										</div>
+										<div className='modal-footer'>
+											<button
+												className='btn btn-sm btn-danger outline'
+												onClick={() => {
+													handleCancelEdit()
+													setShowDeleteModal(false)
+												}}
+											>
+												No, cancel
+											</button>
+											<button
+												className='btn btn-sm btn-danger'
+												onClick={handleDelete}
+											>
+												Yes, remove
+											</button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					) : null}

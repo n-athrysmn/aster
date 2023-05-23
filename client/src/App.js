@@ -1,5 +1,6 @@
-//import './style.scss'
 import './style.bundle.css'
+import './plugins.bundle.css'
+import './plugins.bundle.js'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
