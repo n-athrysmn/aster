@@ -31,7 +31,7 @@ const UsersList = () => {
 				)
 				console.log('Response:', response)
 				const data = response.data
-				console.log('Data:', data)
+				console.log('Student:', data)
 				setStudents(data)
 			} catch (error) {
 				console.error(error)
@@ -46,7 +46,7 @@ const UsersList = () => {
 				)
 				console.log('Response:', response)
 				const data = response.data
-				console.log('Data:', data)
+				console.log('Parent:', data)
 				setParents(data)
 			} catch (error) {
 				console.error(error)
@@ -61,7 +61,7 @@ const UsersList = () => {
 				)
 				console.log('Response:', response)
 				const data = response.data
-				console.log('Data:', data)
+				console.log('Teacher:', data)
 				setTeachers(data)
 			} catch (error) {
 				console.error(error)
@@ -160,6 +160,8 @@ const UsersList = () => {
 									<th>Name</th>
 									<th>Email</th>
 									<th>Phone number</th>
+									<th>Parent Name</th>
+									<th>Parent number</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -171,6 +173,8 @@ const UsersList = () => {
 											<td>{student.studentName}</td>
 											<td>{student.studentEmail}</td>
 											<td>{student.studentNumber}</td>
+											<td>{student.studentPar}</td>
+											<td>{student.studentParNum}</td>
 										</tr>
 									))}
 							</tbody>

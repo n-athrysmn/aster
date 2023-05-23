@@ -13,6 +13,8 @@ const Student = () => {
 		studentSch: '',
 		studentLevel: '',
 		studentGrade: '',
+		studentPar: '',
+		studentParNum: '',
 	})
 
 	useEffect(() => {
@@ -52,6 +54,20 @@ const Student = () => {
 		setIsDisabled(true)
 		setIsEditing(false)
 		e.preventDefault()
+		if (!/^(?!0123456789)\d{10,11}$/.test(student.studentNumber)) {
+			setError('Invalid phone number')
+			setTimeout(() => {
+				window.location.reload()
+			}, 3000)
+			return
+		}
+		if (!/^(?!0123456789)\d{10,11}$/.test(student.studentParNum)) {
+			setError('Invalid parent number')
+			setTimeout(() => {
+				window.location.reload()
+			}, 3000)
+			return
+		}
 		try {
 			await axios.put(
 				`${process.env.REACT_APP_API_URL}/users/student-edit/${email}`,
@@ -151,6 +167,30 @@ const Student = () => {
 							/>
 						</div>
 						{/*end::Col*/}
+					</div>
+					<div className='form-row'>
+						<div className='form-label'>Parent Name</div>
+						<div className='input-group input-group-icon'>
+							<input
+								type={'text'}
+								value={student.studentPar}
+								name='studentPar'
+								disabled={isDisabled}
+								onChange={handleChange}
+							/>
+						</div>
+					</div>
+					<div className='form-row'>
+						<div className='form-label'>Parent Number</div>
+						<div className='input-group input-group-icon'>
+							<input
+								type={'tel'}
+								value={student.studentParNum}
+								name='studentParNum'
+								disabled={isDisabled}
+								onChange={handleChange}
+							/>
+						</div>
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}

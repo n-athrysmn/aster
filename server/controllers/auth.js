@@ -37,7 +37,7 @@ export const register = (req, res) => {
 					const hash = bcrypt.hashSync(req.body.password, salt)
 
 					const q =
-						'INSERT INTO students(`studentName`,`studentEmail`,`studentNumber`, `studentBirth`, `studentAddr`, `studentSch`, `studentLevel`, `studentGrade`, `studentPass`) VALUES (?)'
+						'INSERT INTO students(`studentName`,`studentEmail`,`studentNumber`, `studentBirth`, `studentAddr`, `studentSch`, `studentLevel`, `studentGrade`, `studentPass`, `studentPar`, `studentParNum`) VALUES (?)'
 					const values = [
 						req.body.name,
 						req.body.email,
@@ -48,6 +48,8 @@ export const register = (req, res) => {
 						req.body.level,
 						req.body.grade,
 						hash,
+						req.body.parName,
+						req.body.parNum,
 					]
 
 					db.query(q, [values], (err, data) => {
