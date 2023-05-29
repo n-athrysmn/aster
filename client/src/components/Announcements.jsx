@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { FaBullhorn } from 'react-icons/fa'
 
 const Announcement = () => {
 	const [announcement, setAnnouncement] = useState(null)
@@ -23,17 +22,14 @@ const Announcement = () => {
 	}, [])
 
 	return (
-		<div className='announce mb20'>
-			<div className='ann-icon'>
-				<div className='icon'>
-					<FaBullhorn />
-				</div>
+		<div className='card mb-5 mb-xl-10'>
+			<div className='card-body announce'>
+				{announcement && (
+					<div className='ann-text'>
+						<h4>{announcement.announcement}</h4>
+					</div>
+				)}
 			</div>
-			{announcement && (
-				<div className='ann-text'>
-					<p>{announcement.announcement}</p>
-				</div>
-			)}
 		</div>
 	)
 }

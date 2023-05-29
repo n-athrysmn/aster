@@ -1,9 +1,11 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { FaEnvelope, FaIdCard, FaUser } from 'react-icons/fa'
 import { AuthContext } from '../context/authContext'
+import Toolbar from '../layout/Toolbar'
 
 const AdminProfile = () => {
+	const pageTitle = 'Profile'
+	const pageDescription = 'Welcome to the profile page'
 	const { currentAdmin } = useContext(AuthContext)
 
 	const id = currentAdmin?.id
@@ -77,80 +79,123 @@ const AdminProfile = () => {
 	const [successMsg, setSuccessMsg] = useState('')
 
 	return (
-		<div className='profile'>
-			<div className='profile-card'>
-				<div className='info'>
-					<form className='form-profile'>
-						<div className='form-row'>
-							<div className='form-label'>Name</div>
-							<div className='input-group input-group-icon'>
-								<input
-									type={'text'}
-									value={admin.adminName}
-									name='adminName'
-									disabled={isDisabled}
-									onChange={handleChange}
-								/>
-								<div className='input-icon'>
-									<FaUser />
-								</div>
+		<>
+			<Toolbar pageTitle={pageTitle} pageDescription={pageDescription} />
+			<div
+				id='kt_content'
+				className='content d-flex flex-column flex-column-fluid'
+			>
+				<div id='kt_content_container' className='container-xxl'>
+					<div className='card'>
+						{/*begin::Card header*/}
+						<div className='card-header'>
+							{/*begin::Card title*/}
+							<div className='card-title m-0'>
+								<h3 className='fw-bold m-0'>Profile Details</h3>
 							</div>
+							{/*end::Card title*/}
 						</div>
-						<div className='form-row'>
-							<div className='form-label'>Email</div>
-							<div className='input-group input-group-icon'>
-								<input
-									type={'email'}
-									value={admin.adminEmail}
-									name='adminEmail'
-									disabled
-								/>
-								<div className='input-icon'>
-									<FaEnvelope />
+						{/*end::Card header*/}
+						<form className='form'>
+							<div className='card-body'>
+								{/*begin::Input group*/}
+								<div className='row mb-6'>
+									{/*begin::Label*/}
+									<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+										Name
+									</label>
+									{/*end::Label*/}
+									{/*begin::Col*/}
+									<div className='col-lg-8 fv-row'>
+										<input
+											type={'text'}
+											value={admin.adminName}
+											name='adminName'
+											disabled={isDisabled}
+											onChange={handleChange}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Col*/}
 								</div>
-							</div>
-						</div>
-						<div className='form-row'>
-							<div className='form-label'>Staff ID</div>
-							<div className='input-group input-group-icon'>
-								<input
-									type={'text'}
-									value={admin.staffId}
-									name='staffId'
-									disabled={isDisabled}
-									onChange={handleChange}
-								/>
-								<div className='input-icon'>
-									<FaIdCard />
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='row mb-6'>
+									{/*begin::Label*/}
+									<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+										Email
+									</label>
+									{/*end::Label*/}
+									{/*begin::Col*/}
+									<div className='col-lg-8 fv-row'>
+										<input
+											type={'email'}
+											value={admin.adminEmail}
+											name='adminEmail'
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+										<div className='form-text'>
+											Want to change email?{' '}
+											<a
+												className='link'
+												href={`/change-email/${admin.adminEmail}`}
+											>
+												Reset email here
+											</a>
+										</div>
+									</div>
+									{/*end::Col*/}
 								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='row mb-6'>
+									{/*begin::Label*/}
+									<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+										Staff ID
+									</label>
+									{/*end::Label*/}
+									{/*begin::Col*/}
+									<div className='col-lg-8 fv-row'>
+										<input
+											type={'text'}
+											value={admin.staffId}
+											name='staffId'
+											disabled={isDisabled}
+											onChange={handleChange}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Col*/}
+								</div>
+								{/*end::Input group*/}
 							</div>
+						</form>
+						{err && <p className='text-danger'>{err}</p>}
+						{successMsg && <p className='text-success'>{successMsg}</p>}
+						<div className='card-footer d-flex justify-content-end py-6 px-9'>
+							{isEditing ? (
+								<>
+									<button
+										onClick={handleCancelClick}
+										className='btn btn-light btn-active-light-danger me-2'
+									>
+										Cancel
+									</button>
+									<button onClick={handleSaveClick} className='btn btn-success'>
+										Save
+									</button>
+								</>
+							) : (
+								<button onClick={handleEditClick} className='btn btn-primary'>
+									Edit
+								</button>
+							)}
 						</div>
-						<p>
-							Want to change email?{' '}
-							<a className='link' href={`/change-email/${admin.adminEmail}`}>
-								Reset email here
-							</a>
-						</p>
-					</form>
-					{err && <p className='txt-danger'>{err}</p>}
-					{successMsg && <p className='txt-success'>{successMsg}</p>}
-					{isEditing ? (
-						<>
-							<button onClick={handleSaveClick} className='btn btn-success'>
-								Save
-							</button>
-							<button onClick={handleCancelClick} className='btn btn-danger'>
-								Cancel
-							</button>
-						</>
-					) : (
-						<button onClick={handleEditClick} className='btn btn-primary'>
-							Edit
-						</button>
-					)}
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 

@@ -9,8 +9,11 @@ import {
 } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
+import Toolbar from '../layout/Toolbar'
 
 const UsersList = () => {
+	const pageTitle = 'Users List'
+	const pageDescription = 'Manage list of users'
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [showStudents, setShowStudents] = useState(true)
 	const [showParents, setShowParents] = useState(false)
@@ -111,158 +114,184 @@ const UsersList = () => {
 	}
 
 	return (
-		<div className='home'>
-			<div className='row center'>
-				<button
-					className={
-						activeBtn === 'students' ? 'toggle-btn active' : 'toggle-btn'
-					}
-					onClick={handleStudentsClick}
-				>
-					<FaUserGraduate /> Students List
-				</button>
-				<button
-					className={
-						activeBtn === 'parents' ? 'toggle-btn active' : 'toggle-btn'
-					}
-					onClick={handleParentsClick}
-				>
-					<FaUserTie /> Parents List
-				</button>
-				<button
-					className={
-						activeBtn === 'teachers' ? 'toggle-btn active' : 'toggle-btn'
-					}
-					onClick={handleTeachersClick}
-				>
-					<FaChalkboardTeacher /> Teachers List
-				</button>
+		<>
+			<Toolbar pageTitle={pageTitle} pageDescription={pageDescription} />
+			<div
+				id='kt_content'
+				className='content d-flex flex-column flex-column-fluid'
+			>
+				<div id='kt_content_container' className='container-xxl'>
+					<div className='row mb-10'>
+						<div className='col-lg-4'>
+							<button
+								className={
+									activeBtn === 'students'
+										? 'w-100 btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary p-7 d-flex align-items-center mb-5 fs-5'
+										: 'w-100 btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5 fs-5'
+								}
+								onClick={handleStudentsClick}
+							>
+								<FaUserGraduate className='me-10' /> Students List
+							</button>
+						</div>
+						<div className='col-lg-4'>
+							<button
+								className={
+									activeBtn === 'parents'
+										? 'w-100 btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary p-7 d-flex align-items-center mb-5 fs-5'
+										: 'w-100 btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5 fs-5'
+								}
+								onClick={handleParentsClick}
+							>
+								<FaUserTie className='me-10' /> Parents List
+							</button>
+						</div>
+						<div className='col-lg-4'>
+							<button
+								className={
+									activeBtn === 'teachers'
+										? 'w-100 btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary p-7 d-flex align-items-center mb-5 fs-5'
+										: 'w-100 btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5 fs-5'
+								}
+								onClick={handleTeachersClick}
+							>
+								<FaChalkboardTeacher className='me-10' /> Teachers List
+							</button>
+						</div>
+					</div>
+					{showStudents && (
+						<div className='card' id='students'>
+							<div className='card-header'>
+								<div className='card-title'>List of students</div>
+								<div className='card-toolbar'>
+									<CSVLink
+										data={csvData}
+										filename={'student-list.csv'}
+										className='btn btn-sm btn-success'
+									>
+										<FaFileCsv /> Export
+									</CSVLink>
+								</div>
+							</div>
+							<div className='card-body'>
+								<div className='table-responsive mh-500px scroll-y'>
+									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+										<thead>
+											<tr>
+												<th className='fs-6 fw-bold'>Id</th>
+												<th className='fs-6 fw-bold'>Name</th>
+												<th className='fs-6 fw-bold'>Email</th>
+												<th className='fs-6 fw-bold'>Phone number</th>
+												<th className='fs-6 fw-bold'>Parent Name</th>
+												<th className='fs-6 fw-bold'>Parent number</th>
+											</tr>
+										</thead>
+										<tbody>
+											{Array.isArray(students) &&
+												students.length > 0 &&
+												students.map((student) => (
+													<tr key={student.studentId}>
+														<td>{student.studentId}</td>
+														<td>{student.studentName}</td>
+														<td>{student.studentEmail}</td>
+														<td>{student.studentNumber}</td>
+														<td>{student.studentPar}</td>
+														<td>{student.studentParNum}</td>
+													</tr>
+												))}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					)}
+					{showParents && (
+						<div className='card' id='parents'>
+							<div className='card-header'>
+								<div className='card-title'>List of parents</div>
+								<div className='card-toolbar'>
+									<CSVLink
+										data={csvData}
+										filename={'parents-list.csv'}
+										className='btn btn-sm btn-success'
+									>
+										<FaFileCsv /> Export
+									</CSVLink>
+								</div>
+							</div>
+							<div className='card-body'>
+								<div className='table-responsive mh-500px scroll-y'>
+									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+										<thead>
+											<tr>
+												<th className='fs-6 fw-bold'>Id</th>
+												<th className='fs-6 fw-bold'>Name</th>
+												<th className='fs-6 fw-bold'>Email</th>
+												<th className='fs-6 fw-bold'>Phone number</th>
+											</tr>
+										</thead>
+										<tbody>
+											{Array.isArray(parents) &&
+												parents.length > 0 &&
+												parents.map((parent) => (
+													<tr key={parent.parentId}>
+														<td>{parent.parentId}</td>
+														<td>{parent.parentName}</td>
+														<td>{parent.parentEmail}</td>
+														<td>{parent.parentNumber}</td>
+													</tr>
+												))}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					)}
+					{showTeachers && (
+						<div className='card' id='teachers'>
+							<div className='card-header'>
+								<div className='card-title'>List of teachers</div>
+								<div className='card-toolbar'>
+									<CSVLink
+										data={csvData}
+										filename={'teachers-list.csv'}
+										className='btn btn-sm btn-success'
+									>
+										<FaFileCsv /> Export
+									</CSVLink>
+								</div>
+							</div>
+							<div className='card-body'>
+								<div className='table-responsive mh-500px scroll-y'>
+									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+										<thead>
+											<tr>
+												<th className='fs-6 fw-bold'>Id</th>
+												<th className='fs-6 fw-bold'>Name</th>
+												<th className='fs-6 fw-bold'>Email</th>
+												<th className='fs-6 fw-bold'>Phone number</th>
+											</tr>
+										</thead>
+										<tbody>
+											{Array.isArray(teachers) &&
+												teachers.length > 0 &&
+												teachers.map((teacher) => (
+													<tr key={teacher.teacherId}>
+														<td>{teacher.teacherId}</td>
+														<td>{teacher.teacherName}</td>
+														<td>{teacher.teacherEmail}</td>
+														<td>{teacher.teacherNumber}</td>
+													</tr>
+												))}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
-			{showStudents && (
-				<div className='card' id='students'>
-					<div className='card-header'>
-						<div className='card-title'>List of students</div>
-						<div className='card-tools'>
-							<CSVLink
-								data={csvData}
-								filename={'student-list.csv'}
-								className='btn btn-sm btn-success'
-							>
-								<FaFileCsv /> Export
-							</CSVLink>
-						</div>
-					</div>
-					<div className='card-body'>
-						<table className='tables'>
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>Phone number</th>
-									<th>Parent Name</th>
-									<th>Parent number</th>
-								</tr>
-							</thead>
-							<tbody>
-								{Array.isArray(students) &&
-									students.length > 0 &&
-									students.map((student) => (
-										<tr key={student.studentId}>
-											<td>{student.studentId}</td>
-											<td>{student.studentName}</td>
-											<td>{student.studentEmail}</td>
-											<td>{student.studentNumber}</td>
-											<td>{student.studentPar}</td>
-											<td>{student.studentParNum}</td>
-										</tr>
-									))}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			)}
-			{showParents && (
-				<div className='card' id='parents'>
-					<div className='card-header'>
-						<div className='card-title'>List of parents</div>
-						<div className='card-tools'>
-							<CSVLink
-								data={csvData}
-								filename={'parents-list.csv'}
-								className='btn btn-sm btn-success'
-							>
-								<FaFileCsv /> Export
-							</CSVLink>
-						</div>
-					</div>
-					<div className='card-body'>
-						<table className='tables'>
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>Phone number</th>
-								</tr>
-							</thead>
-							<tbody>
-								{Array.isArray(parents) &&
-									parents.length > 0 &&
-									parents.map((parent) => (
-										<tr key={parent.parentId}>
-											<td>{parent.parentId}</td>
-											<td>{parent.parentName}</td>
-											<td>{parent.parentEmail}</td>
-											<td>{parent.parentNumber}</td>
-										</tr>
-									))}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			)}
-			{showTeachers && (
-				<div className='card' id='teachers'>
-					<div className='card-header'>
-						<div className='card-title'>List of teachers</div>
-						<div className='card-tools'>
-							<CSVLink
-								data={csvData}
-								filename={'teachers-list.csv'}
-								className='btn btn-sm btn-success'
-							>
-								<FaFileCsv /> Export
-							</CSVLink>
-						</div>
-					</div>
-					<div className='card-body'>
-						<table className='tables'>
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>Phone number</th>
-								</tr>
-							</thead>
-							<tbody>
-								{Array.isArray(teachers) &&
-									teachers.length > 0 &&
-									teachers.map((teacher) => (
-										<tr key={teacher.teacherId}>
-											<td>{teacher.teacherId}</td>
-											<td>{teacher.teacherName}</td>
-											<td>{teacher.teacherEmail}</td>
-											<td>{teacher.teacherNumber}</td>
-										</tr>
-									))}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			)}
-		</div>
+		</>
 	)
 }
 

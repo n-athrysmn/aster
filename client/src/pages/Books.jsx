@@ -3,6 +3,7 @@ import Tabs from '../components/Tab'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AuthContext } from '../context/authContext'
+import Toolbar from '../layout/Toolbar'
 
 const Books = () => {
 	const { currentUser, isLoggedIn } = useContext(AuthContext)
@@ -329,7 +330,7 @@ const Books = () => {
 		return (
 			<iframe
 				title={vids.title}
-				className='videos'
+				className='embed-responsive-item rounded h-300px w-100'
 				src={vids.link}
 				allowFullScreen={true}
 			/>
@@ -340,503 +341,577 @@ const Books = () => {
 		{
 			title: 'Q1-Q50',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q1 to Q50</h2>
-					{videos.length > 0 ? (
-						<div className='answer'>
-							{activeQuestionTab1 && (
-								<div className='vid'>
-									<QuestionComponent
-										vids={videos.find((v) => v.id === activeQuestionTab1)}
-									/>
-								</div>
-							)}
-							<div className='vid-links'>
-								{videos.slice(0, 50).map((v) => {
-									console.log(v.id)
-									return (
-										<div key={v.id} onClick={() => setActiveQuestionTab1(v.id)}>
-											<Link
-												to={`/books/${bookIsbn}`}
-												className={`link ${
-													activeQuestionTab1 === v.id ? 'active' : ''
-												}`}
-											>
-												<h3>{v.title}</h3>
-											</Link>
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q1 to Q50</h2>
+						{videos.length > 0 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab1 && (
+										<div className=' mb-10'>
+											<QuestionComponent
+												vids={videos.find((v) => v.id === activeQuestionTab1)}
+											/>
 										</div>
-									)
-								})}
+									)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(0, 50).map((v) => {
+										console.log(v.id)
+										return (
+											<div
+												key={v.id}
+												onClick={() => setActiveQuestionTab1(v.id)}
+											>
+												<Link to={`/books/${bookIsbn}`}>
+													<h3
+														className={`text-hover-primary fw-bold ${
+															activeQuestionTab1 === v.id ? 'text-primary' : ''
+														}`}
+													>
+														{v.title}
+													</h3>
+												</Link>
+											</div>
+										)
+									})}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q51 - Q100',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q51 to Q100</h2>
-					{videos.length > 50 ? (
-						<div className='answer'>
-							{activeQuestionTab2 &&
-								videos.find((v) => v.id === activeQuestionTab2) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab2)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(50, 100).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab2(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab2 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q51 to Q100</h2>
+						{videos.length > 50 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab2 &&
+										videos.find((v) => v.id === activeQuestionTab2) && (
+											<div className=' mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab2)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(50, 100).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab2(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab2 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q101 - Q150',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q101 to Q150</h2>
-					{videos.length > 100 ? (
-						<div className='answer'>
-							{activeQuestionTab3 &&
-								videos.find((v) => v.id === activeQuestionTab3) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab3)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(100, 150).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab3(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab3 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q101 to Q150</h2>
+						{videos.length > 100 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab3 &&
+										videos.find((v) => v.id === activeQuestionTab3) && (
+											<div className=' mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab3)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(100, 150).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab3(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab3 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q151 - Q200',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q151 to Q200</h2>
-					{videos.length > 150 ? (
-						<div className='answer'>
-							{activeQuestionTab4 &&
-								videos.find((v) => v.id === activeQuestionTab4) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab4)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(150, 200).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab4(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab4 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q151 to Q200</h2>
+						{videos.length > 150 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab4 &&
+										videos.find((v) => v.id === activeQuestionTab4) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab4)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(150, 200).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab4(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab4 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q201 - Q250',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q201 to Q250</h2>
-					{videos.length > 200 ? (
-						<div className='answer'>
-							{activeQuestionTab5 &&
-								videos.find((v) => v.id === activeQuestionTab5) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab5)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(200, 250).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab5(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab5 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q201 to Q250</h2>
+						{videos.length > 200 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab5 &&
+										videos.find((v) => v.id === activeQuestionTab5) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab5)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(200, 250).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab5(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab5 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q251 - Q300',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q251 to Q300</h2>
-					{videos.length > 250 ? (
-						<div className='answer'>
-							{activeQuestionTab6 &&
-								videos.find((v) => v.id === activeQuestionTab6) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab6)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(250, 300).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab6(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab6 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q251 to Q300</h2>
+						{videos.length > 250 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab6 &&
+										videos.find((v) => v.id === activeQuestionTab6) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab6)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(250, 300).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab6(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab6 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q301 - Q350',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q301 to Q350</h2>
-					{videos.length > 300 ? (
-						<div className='answer'>
-							{activeQuestionTab7 &&
-								videos.find((v) => v.id === activeQuestionTab7) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab7)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(300, 350).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab7(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab7 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q301 to Q350</h2>
+						{videos.length > 300 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab7 &&
+										videos.find((v) => v.id === activeQuestionTab7) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab7)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(300, 350).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab7(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab7 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q351 - Q400',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q351 to Q400</h2>
-					{videos.length > 350 ? (
-						<div className='answer'>
-							{activeQuestionTab8 &&
-								videos.find((v) => v.id === activeQuestionTab8) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab8)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(350, 400).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab8(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab8 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q351 to Q400</h2>
+						{videos.length > 350 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab8 &&
+										videos.find((v) => v.id === activeQuestionTab8) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab8)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(350, 400).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab8(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab8 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q401 - Q450',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q401 to Q450</h2>
-					{videos.length > 400 ? (
-						<div className='answer'>
-							{activeQuestionTab9 &&
-								videos.find((v) => v.id === activeQuestionTab9) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab9)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(400, 450).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab9(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab9 === v.id ? 'active' : ''
-											}`}
-										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q401 to Q450</h2>
+						{videos.length > 400 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab9 &&
+										videos.find((v) => v.id === activeQuestionTab9) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find((v) => v.id === activeQuestionTab9)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(400, 450).map((v) => (
+										<div key={v.id} onClick={() => setActiveQuestionTab9(v.id)}>
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab9 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q451 - Q500',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q451 to Q500</h2>
-					{videos.length > 450 ? (
-						<div className='answer'>
-							{activeQuestionTab10 &&
-								videos.find((v) => v.id === activeQuestionTab10) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab10)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(450, 500).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab10(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab10 === v.id ? 'active' : ''
-											}`}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q451 to Q500</h2>
+						{videos.length > 450 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab10 &&
+										videos.find((v) => v.id === activeQuestionTab10) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find(
+														(v) => v.id === activeQuestionTab10
+													)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(450, 500).map((v) => (
+										<div
+											key={v.id}
+											onClick={() => setActiveQuestionTab10(v.id)}
 										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab10 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q501 - Q550',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q501 to Q550</h2>
-					{videos.length > 500 ? (
-						<div className='answer'>
-							{activeQuestionTab11 &&
-								videos.find((v) => v.id === activeQuestionTab11) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab11)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(500, 550).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab11(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab11 === v.id ? 'active' : ''
-											}`}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q501 to Q550</h2>
+						{videos.length > 500 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab11 &&
+										videos.find((v) => v.id === activeQuestionTab11) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find(
+														(v) => v.id === activeQuestionTab11
+													)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(500, 550).map((v) => (
+										<div
+											key={v.id}
+											onClick={() => setActiveQuestionTab11(v.id)}
 										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab11 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 		{
 			title: 'Q551 - Q600',
 			content: (
-				<div className='answers'>
-					<h2 className='title'>Q551 to Q600</h2>
-					{videos.length > 550 ? (
-						<div className='answer'>
-							{activeQuestionTab12 &&
-								videos.find((v) => v.id === activeQuestionTab12) && (
-									<div className='vid'>
-										<QuestionComponent
-											vids={videos.find((v) => v.id === activeQuestionTab12)}
-										/>
-									</div>
-								)}
-							<div className='vid-links'>
-								{videos.slice(550, 650).map((v) => (
-									<div key={v.id} onClick={() => setActiveQuestionTab12(v.id)}>
-										<Link
-											to={`/books/${bookIsbn}`}
-											className={`link ${
-												activeQuestionTab12 === v.id ? 'active' : ''
-											}`}
+				<div className='card'>
+					<div className='card-body'>
+						<h2 className='mb-10'>Q551 to Q600</h2>
+						{videos.length > 550 ? (
+							<div className='row'>
+								<div className='col-md-6'>
+									{activeQuestionTab12 &&
+										videos.find((v) => v.id === activeQuestionTab12) && (
+											<div className='mb-10'>
+												<QuestionComponent
+													vids={videos.find(
+														(v) => v.id === activeQuestionTab12
+													)}
+												/>
+											</div>
+										)}
+								</div>
+								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
+									{videos.slice(550, 650).map((v) => (
+										<div
+											key={v.id}
+											onClick={() => setActiveQuestionTab12(v.id)}
 										>
-											<h3>{v.title}</h3>
-										</Link>
-									</div>
-								))}
+											<Link
+												to={`/books/${bookIsbn}`}
+												className={`link ${
+													activeQuestionTab12 === v.id ? 'active' : ''
+												}`}
+											>
+												<h3>{v.title}</h3>
+											</Link>
+										</div>
+									))}
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className='txt-danger'>
-							Answers have not been posted, please check from time to time for
-							updates!
-						</p>
-					)}
+						) : (
+							<p className='text-danger'>
+								Answers have not been posted, please check from time to time for
+								updates!
+							</p>
+						)}
+					</div>
 				</div>
 			),
 		},
 	]
 
 	const navigate = useNavigate()
+	const pageTitle = 'Book Answers'
+	const pageDescription = `${book.name}`
 
 	if (!isLoggedIn || !currentUser) {
 		return navigate('/')
 	}
 
 	return (
-		<div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
-			<div id='kt_content_container' className='container-xxl'>
-				<div className='books'>
-					<h2 className='mb-3'>{`${book.name}`} </h2>
-					<h3 className='mb-8'>{`${book.desc}`}</h3>
-					<p>Click on the question's number to watch solution video</p>
-					<Tabs tabs={tabs} />
-					<div className='mt-10 text-center'>
-						<a
-							className='btn btn-primary'
-							type='button'
-							href={`${book.pdf}`}
-							target='_blank'
-							rel='noreferrer'
-						>
-							Download Answers in PDF
-						</a>
+		<>
+			<Toolbar pageTitle={pageTitle} pageDescription={pageDescription} />
+			<div
+				id='kt_content'
+				className='content d-flex flex-column flex-column-fluid'
+			>
+				<div id='kt_content_container' className='container-xxl'>
+					<div className='books'>
+						<h3 className='mb-8'>{`${book.desc}`}</h3>
+						<p>Click on the question's number to watch solution video</p>
+						<Tabs tabs={tabs} />
+						<div className='mt-10 text-center'>
+							<a
+								className='btn btn-primary'
+								type='button'
+								href={`${book.pdf}`}
+								target='_blank'
+								rel='noreferrer'
+							>
+								Download Answers in PDF
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 

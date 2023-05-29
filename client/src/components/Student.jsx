@@ -95,9 +95,9 @@ const Student = () => {
 	const [successMsg, setSuccessMsg] = useState('')
 
 	return (
-		<div id='kt_account_settings_profile_details' className='collapse show'>
-			<form id='kt_account_profile_details_form' className='form'>
-				<div className='card-body border-top p-9'>
+		<>
+			<form className='form'>
+				<div className='card-body'>
 					{/*begin::Input group*/}
 					<div className='row mb-6'>
 						{/*begin::Label*/}
@@ -168,29 +168,47 @@ const Student = () => {
 						</div>
 						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Parent Name</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Parent Name
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								value={student.studentPar}
 								name='studentPar'
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Parent Number</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Parent Number
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'tel'}
 								value={student.studentParNum}
 								name='studentParNum'
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
 						</div>
+						{/*end::Col*/}
 					</div>
 					{/*end::Input group*/}
 					{/*begin::Input group*/}
@@ -303,8 +321,8 @@ const Student = () => {
 					{/*end::Input group*/}
 				</div>
 			</form>
-			{err && <p className='txt-danger'>{err}</p>}
-			{successMsg && <p className='txt-success'>{successMsg}</p>}
+			{err && <p className='text-danger'>{err}</p>}
+			{successMsg && <p className='text-success'>{successMsg}</p>}
 			<div className='card-footer d-flex justify-content-end py-6 px-9'>
 				{isEditing ? (
 					<>
@@ -324,7 +342,7 @@ const Student = () => {
 					</button>
 				)}
 			</div>
-		</div>
+		</>
 	)
 }
 

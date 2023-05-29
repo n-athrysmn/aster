@@ -8,11 +8,23 @@ const Accordion = ({ title, content }) => {
 	}
 
 	return (
-		<div className='accordion'>
-			<div className='accordion-title' onClick={toggleAccordion}>
-				{title}
+		<div className='accordion-item'>
+			<div className='accordion-header' id='kt_accordion_1_header_1'>
+				<button
+					className={`accordion-button fs-4 fw-semibold ${
+						isOpen ? '' : 'collapsed'
+					}`}
+					type='button'
+					onClick={toggleAccordion}
+				>
+					{title}
+				</button>
 			</div>
-			{isOpen && <div className='accordion-content'>{content}</div>}
+			{isOpen && (
+				<div className={`accordion-collapse collapse ${isOpen ? 'show' : ''}`}>
+					<div className='accordion-body'>{content}</div>
+				</div>
+			)}
 		</div>
 	)
 }

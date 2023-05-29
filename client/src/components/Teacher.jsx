@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
-import {
-	FaEnvelope,
-	FaHome,
-	FaMoneyCheckAlt,
-	FaPhoneAlt,
-	FaSchool,
-	FaUser,
-} from 'react-icons/fa'
 
 const Teacher = () => {
 	const location = useLocation()
@@ -61,6 +53,13 @@ const Teacher = () => {
 		setIsDisabled(true)
 		setIsEditing(false)
 		e.preventDefault()
+		if (!/^(?!0123456789)\d{10,11}$/.test(teacher.teacherNumber)) {
+			setError('Invalid phone number')
+			setTimeout(() => {
+				window.location.reload()
+			}, 3000)
+			return
+		}
 		try {
 			await axios.put(
 				`${process.env.REACT_APP_API_URL}/users/teacher-edit/${email}`,
@@ -88,117 +87,162 @@ const Teacher = () => {
 	const [successMsg, setSuccessMsg] = useState('')
 
 	return (
-		<div className='profile-card'>
-			<div className='info'>
-				<form className='form-profile'>
-					<div className='form-row'>
-						<div className='form-label'>Name</div>
-						<div className='input-group input-group-icon'>
+		<>
+			<form className='form'>
+				<div className='card-body border-top p-9'>
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Name
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								value={teacher.teacherName}
 								name='teacherName'
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaUser />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Email</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Email
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'email'}
 								value={teacher.teacherEmail}
 								name='teacherEmail'
 								disabled
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaEnvelope />
+							<div className='form-text'>
+								Want to change email?{' '}
+								<a
+									className='link'
+									href={`/reset-email/${teacher.teacherEmail}`}
+								>
+									Reset email here
+								</a>
 							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Number</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Phone Number
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'tel'}
 								value={teacher.teacherNumber}
 								name='teacherNumber'
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaPhoneAlt />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Address</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Address
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<textarea
 								name='teacherAddr'
 								value={teacher.teacherAddr}
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
+								rows='3'
 							/>
-							<div className='input-icon'>
-								<FaHome />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>School Name</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							School Name
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'text'}
-								name='teacherSch'
 								value={teacher.teacherSch}
-								onChange={handleChange}
+								name='teacherSch'
 								disabled={isDisabled}
+								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaSchool />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Salary range</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Salary range
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<select
 								name='teacherSalary'
 								value={teacher.teacherSalary}
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-select form-select-solid form-select-lg fw-semibold'
 							>
 								<option value=''>Select salary range</option>
 								<option value='T20'>T20</option>
 								<option value='M40'>M40</option>
 								<option value='B40'>B40</option>
 							</select>
-							<div className='input-icon'>
-								<FaMoneyCheckAlt />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<p>
-						Want to change email?{' '}
-						<a className='link' href={`/reset-email/${teacher.teacherEmail}`}>
-							Reset email here
-						</a>
-					</p>
-				</form>
-				{err && <p className='txt-danger'>{err}</p>}
-				{successMsg && <p className='txt-success'>{successMsg}</p>}
+					{/*end::Input group*/}
+				</div>
+			</form>
+			{err && <p className='text-danger'>{err}</p>}
+			{successMsg && <p className='text-success'>{successMsg}</p>}
+			<div className='card-footer d-flex justify-content-end py-6 px-9'>
 				{isEditing ? (
 					<>
+						<button
+							onClick={handleCancelClick}
+							className='btn btn-light btn-active-light-danger me-2'
+						>
+							Cancel
+						</button>
 						<button onClick={handleSaveClick} className='btn btn-success'>
 							Save
-						</button>
-						<button onClick={handleCancelClick} className='btn btn-danger'>
-							Cancel
 						</button>
 					</>
 				) : (
@@ -207,7 +251,7 @@ const Teacher = () => {
 					</button>
 				)}
 			</div>
-		</div>
+		</>
 	)
 }
 

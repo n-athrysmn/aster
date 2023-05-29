@@ -3,8 +3,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
+import Toolbar from '../layout/Toolbar'
 
 const Videos = () => {
+	const pageTitle = 'Videos Management'
+	const pageDescription = 'List of Videos'
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [videos, setVideos] = useState({})
 
@@ -53,7 +56,7 @@ const Videos = () => {
 		setShowEditModal(false)
 		setInputs({
 			title: selected.title,
-			announce: selected.announce,
+			link: selected.link,
 		})
 	}
 
@@ -105,186 +108,231 @@ const Videos = () => {
 	}
 
 	return (
-		<div className='home'>
-			<div className='card'>
-				<div className='card-header'>
-					<div className='card-title'>List of Videos</div>
-				</div>
-				<div className='card-body'>
-					{Array.isArray(videos) && videos.length > 0 ? (
-						<table className='tables'>
-							<thead>
-								<tr>
-									<th>Title</th>
-									<th>Link</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{videos.map((video) => (
-									<tr key={video.id}>
-										<td>{video.title}</td>
-										<td>{video.link}</td>
-										<td>
-											<div className='row'>
-												<a
-													href={video.link}
-													className='btn btn-sm btn-success'
-													target='_blank'
-													rel='noopener noreferrer'
-												>
-													<FaEye />
-												</a>
-												<button
-													className='btn btn-sm btn-warning'
-													onClick={() => {
-														setSelected(video)
-														setShowEditModal(true)
-													}}
-												>
-													<FaEdit />
-												</button>
-												<button
-													className='btn btn-sm btn-danger'
-													onClick={() => {
-														setSelected(video)
-														setShowDeleteModal(true)
-													}}
-												>
-													<FaTrash />
-												</button>
-											</div>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					) : (
-						<p className='txt-danger'>No videos yet</p>
-					)}
-				</div>
-			</div>
-			{/*edit modal*/}
-			{showEditModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Edit video</h2>
-							<p
-								className='right-header'
-								onClick={() => {
-									handleCancelEdit()
-									setShowEditModal(false)
-								}}
-							>
-								X
-							</p>
+		<>
+			<Toolbar pageTitle={pageTitle} pageDescription={pageDescription} />
+			<div
+				id='kt_content'
+				className='content d-flex flex-column flex-column-fluid'
+			>
+				<div id='kt_content_container' className='container-xxl'>
+					<div className='card'>
+						<div className='card-header'>
+							<div className='card-title'>List of Videos</div>
 						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<p className='mb10'>Enter video title</p>
-								<input
-									type={'text'}
-									onChange={handleChange}
-									className='input-field'
-									value={inputs.title}
-									name='title'
-								/>
-								<p className='mb10'>Enter video link</p>
-								<input
-									type={'url'}
-									onChange={handleChange}
-									className='input-field'
-									value={inputs.link}
-									name='link'
-								/>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
-							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
+						<div className='card-body'>
+							{Array.isArray(videos) && videos.length > 0 ? (
+								<div className='table-responsive mh-500px scroll-y'>
+									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+										<thead>
+											<tr>
+												<th className='fs-6 fw-bold'>Title</th>
+												<th className='fs-6 fw-bold'>Link</th>
+												<th className='fs-6 fw-bold'>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											{videos.map((video) => (
+												<tr key={video.id}>
+													<td>{video.title}</td>
+													<td>{video.link}</td>
+													<td>
+														<div className='row'>
+															<div className='col-md-4'>
+																<a
+																	href={video.link}
+																	className='btn btn-icon btn-success btn-sm me-1'
+																	target='_blank'
+																	rel='noopener noreferrer'
+																>
+																	<FaEye />
+																</a>
+															</div>
+															<div className='col-md-4'>
+																<button
+																	className='btn btn-icon btn-warning btn-sm me-1'
+																	onClick={() => {
+																		setSelected(video)
+																		setShowEditModal(true)
+																	}}
+																>
+																	<FaEdit />
+																</button>
+															</div>
+															<div className='col-md-4'>
+																<button
+																	className='btn btn-icon btn-danger btn-sm me-1'
+																	onClick={() => {
+																		setSelected(video)
+																		setShowDeleteModal(true)
+																	}}
+																>
+																	<FaTrash />
+																</button>
+															</div>
+														</div>
+													</td>
+												</tr>
+											))}
+										</tbody>
+									</table>
+								</div>
+							) : (
+								<p className='text-danger fw-bold fs-3'>No videos yet</p>
+							)}
+						</div>
+					</div>
+				</div>
+				{/*edit modal*/}
+				{showEditModal ? (
+					<div className='modal'>
+						<div className='modal-content'>
+							<div className='modal-header'>
+								<h2>Edit video</h2>
+								<p
+									className='right-header'
 									onClick={() => {
 										handleCancelEdit()
 										setShowEditModal(false)
 									}}
 								>
-									Cancel
-								</button>
-								<button
-									className='btn btn-sm btn-success'
-									onClick={handleEdit}
-									disabled={!formChanged}
-								>
-									Update
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			) : null}
-			{/*delete modal*/}
-			{showDeleteModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Delete video</h2>
-							<p
-								className='right-header'
-								onClick={() => setShowDeleteModal(false)}
-							>
-								X
-							</p>
-						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<p className='txt-danger'>
-									Are you sure you want to delete the video below?
+									X
 								</p>
-								<div className='form-row'>
-									<div className='form-label'>Video Title</div>
-									<input
-										type='text'
-										className='input-field'
-										value={inputs.title}
-										name='title'
-										disabled
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Video Link</div>
-									<input
-										type='url'
-										className='input-field'
-										value={inputs.link}
-										name='link'
-										disabled
-									/>
-								</div>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
 							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
-									onClick={() => {
-										setShowDeleteModal(false)
-									}}
-								>
-									No, cancel
-								</button>
-								<button
-									className='btn btn-sm btn-success'
-									onClick={handleDelete}
-								>
-									Yes, delete
-								</button>
-							</div>
-						</form>
+							<form className='form'>
+								<div className='modal-body p-10'>
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Video Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='vidTitle'
+											value={inputs.title}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Video URL
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'url'}
+											onChange={handleChange}
+											name='vidUrl'
+											value={inputs.link}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{err && <p className='text-danger'>{err}</p>}
+									{successMsg && <p className='text-success'>{successMsg}</p>}
+								</div>
+								<div className='modal-footer'>
+									<button
+										className='btn btn-sm btn-danger'
+										onClick={() => {
+											handleCancelEdit()
+											setShowEditModal(false)
+										}}
+									>
+										Cancel
+									</button>
+									<button
+										className='btn btn-sm btn-success'
+										onClick={handleEdit}
+										disabled={!formChanged}
+									>
+										Update
+									</button>
+								</div>
+							</form>
+						</div>
 					</div>
-				</div>
-			) : null}
-		</div>
+				) : null}
+				{/*delete modal*/}
+				{showDeleteModal ? (
+					<div className='modal'>
+						<div className='modal-content'>
+							<div className='modal-header'>
+								<h2>Delete video</h2>
+								<p
+									className='right-header'
+									onClick={() => setShowDeleteModal(false)}
+								>
+									X
+								</p>
+							</div>
+							<form className='form'>
+								<div className='modal-body p-10'>
+									<p className='text-danger fw-bold fs-6'>
+										Are you sure you want to delete the video below?
+									</p>
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Video Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='vidTitle'
+											value={inputs.title}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Video Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='vidUrl'
+											value={inputs.link}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{err && <p className='text-danger'>{err}</p>}
+									{successMsg && <p className='text-success'>{successMsg}</p>}
+								</div>
+								<div className='modal-footer'>
+									<button
+										className='btn btn-sm btn-danger'
+										onClick={() => {
+											setShowDeleteModal(false)
+										}}
+									>
+										No, cancel
+									</button>
+									<button
+										className='btn btn-sm btn-success'
+										onClick={handleDelete}
+									>
+										Yes, delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				) : null}
+			</div>
+		</>
 	)
 }
 

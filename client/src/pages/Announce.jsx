@@ -3,8 +3,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import { AuthContext } from '../context/authContext'
 import { useNavigate } from 'react-router-dom'
+import Toolbar from '../layout/Toolbar'
 
 const Announce = () => {
+	const pageTitle = 'Announcements Management'
+	const pageDescription = 'List of Announcements'
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [announcements, setAnnouncements] = useState([])
 
@@ -104,188 +107,240 @@ const Announce = () => {
 	}
 
 	return (
-		<div className='home'>
-			<div className='card'>
-				<div className='card-header'>
-					<div className='card-title'>List of Announcements</div>
-				</div>
-				<div className='card-body'>
-					<table className='tables'>
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Announcement</th>
-								<th>Date</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{Array.isArray(announcements) &&
-								announcements.length > 0 &&
-								announcements.map((announcement) => {
-									const date = new Date(announcement.createdAt)
-									const formattedDate = date
-										.toLocaleDateString('en-GB', {
-											day: 'numeric',
-											month: 'numeric',
-											year: 'numeric',
-										})
-										.replace(/\//g, '/')
-									return (
-										<tr key={announcement.id}>
-											<td>{announcement.title}</td>
-											<td>{announcement.announcement}</td>
-											<td>{formattedDate}</td>
-											<td>
-												<div className='row'>
-													<button
-														className='btn btn-sm btn-warning'
-														onClick={() => {
-															setSelected(announcement)
-															setShowEditModal(true)
-														}}
-														title='Edit'
-													>
-														<FaEdit />
-													</button>
-													<button
-														className='btn btn-sm btn-danger'
-														onClick={() => {
-															setSelected(announcement)
-															setShowDeleteModal(true)
-														}}
-														title='Delete'
-													>
-														<FaTrash />
-													</button>
-												</div>
-											</td>
-										</tr>
-									)
-								})}
-						</tbody>
-					</table>
-				</div>
-			</div>
-			{/*edit modal*/}
-			{showEditModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Edit announcement</h2>
-							<p
-								className='right-header'
-								onClick={() => {
-									handleCancelEdit()
-									setShowEditModal(false)
-								}}
-							>
-								X
-							</p>
+		<>
+			<Toolbar pageTitle={pageTitle} pageDescription={pageDescription} />
+			<div
+				id='kt_content'
+				className='content d-flex flex-column flex-column-fluid'
+			>
+				<div id='kt_content_container' className='container-xxl'>
+					<div className='card'>
+						<div className='card-header'>
+							<div className='card-title'>List of Announcements</div>
 						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<p className='mb10'>Enter announcement title</p>
-								<input
-									type={'text'}
-									onChange={handleChange}
-									className='input-field'
-									value={inputs.title}
-									name='title'
-								/>
-								<span className='small mb20'>
-									Other users won't be able to see this, this is for admin only.
-								</span>
-								<p className='mb10'>Write announcement in the box</p>
-								<textarea
-									className='textarea-field mb20'
-									onChange={handleChange}
-									value={inputs.announcement}
-									name='announcement'
-								/>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
+						<div className='card-body'>
+							<div className='table-responsive mh-500px scroll-y'>
+								<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+									<thead>
+										<tr>
+											<th className='fs-6 fw-bold'>Title</th>
+											<th className='fs-6 fw-bold'>Announcement</th>
+											<th className='fs-6 fw-bold'>Date Created</th>
+											<th className='fs-6 fw-bold'>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{Array.isArray(announcements) &&
+											announcements.length > 0 &&
+											announcements.map((announcement) => {
+												const date = new Date(announcement.createdAt)
+												const formattedDate = date
+													.toLocaleDateString('en-GB', {
+														day: 'numeric',
+														month: 'numeric',
+														year: 'numeric',
+													})
+													.replace(/\//g, '/')
+												return (
+													<tr key={announcement.id}>
+														<td>{announcement.title}</td>
+														<td>{announcement.announcement}</td>
+														<td>{formattedDate}</td>
+														<td>
+															<div className='row'>
+																<div className='col-md-6'>
+																	<button
+																		className='btn btn-icon btn-warning btn-sm me-1'
+																		onClick={() => {
+																			setSelected(announcement)
+																			setShowEditModal(true)
+																		}}
+																		title='Edit'
+																	>
+																		<FaEdit />
+																	</button>
+																</div>
+																<div className='col-md-6'>
+																	<button
+																		className='btn btn-icon btn-danger btn-sm me-1'
+																		onClick={() => {
+																			setSelected(announcement)
+																			setShowDeleteModal(true)
+																		}}
+																		title='Delete'
+																	>
+																		<FaTrash />
+																	</button>
+																</div>
+															</div>
+														</td>
+													</tr>
+												)
+											})}
+									</tbody>
+								</table>
 							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
+						</div>
+					</div>
+				</div>
+				{/*edit modal*/}
+				{showEditModal ? (
+					<div className='modal'>
+						<div className='modal-content'>
+							<div className='modal-header'>
+								<h2>Edit announcement</h2>
+								<p
+									className='right-header'
 									onClick={() => {
 										handleCancelEdit()
 										setShowEditModal(false)
 									}}
 								>
-									Cancel
-								</button>
-								<button
-									className='btn btn-sm btn-success'
-									onClick={handleEdit}
-									disabled={!formChanged}
-								>
-									Edit
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			) : null}
-			{/*delete modal*/}
-			{showDeleteModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Delete announcement</h2>
-							<p
-								className='right-header'
-								onClick={() => setShowDeleteModal(false)}
-							>
-								X
-							</p>
-						</div>
-						<form action='' className='form-control'>
-							<div className='modal-body'>
-								<p className='txt-danger'>
-									Are you sure you want to delete the announcement below?
+									X
 								</p>
-								<p className='mb10'>Announcement title</p>
-								<input
-									type='text'
-									className='input-field'
-									name='title'
-									value={inputs.title}
-									disabled
-								/>
-								<span className='small mb20'>
-									Other users won't be able to see this, this is for admin only.
-								</span>
-								<p className='mb10'>Announcement</p>
-								<textarea
-									className='textarea-field mb20'
-									value={inputs.announcement}
-									name='announcement'
-									disabled
-								/>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
 							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
+							<form className='form'>
+								<div className='modal-body p-10'>
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Announcement Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='vidTitle'
+											value={inputs.title}
+											className='form-control form-control-lg form-control-solid'
+										/>
+										<div className='form-text text-primary'>
+											Other users won't be able to see this, this is for admin
+											only.
+										</div>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Announcement Content
+										</label>
+										{/*end::Label*/}
+										<textarea
+											onChange={handleChange}
+											value={inputs.announcement}
+											name='announcement'
+											className='form-control form-control-lg form-control-solid'
+											rows='4'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{err && <p className='text-danger'>{err}</p>}
+									{successMsg && <p className='text-success'>{successMsg}</p>}
+								</div>
+								<div className='modal-footer'>
+									<button
+										className='btn btn-sm btn-danger'
+										onClick={() => {
+											handleCancelEdit()
+											setShowEditModal(false)
+										}}
+									>
+										Cancel
+									</button>
+									<button
+										className='btn btn-sm btn-success'
+										onClick={handleEdit}
+										disabled={!formChanged}
+									>
+										Edit
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				) : null}
+				{/*delete modal*/}
+				{showDeleteModal ? (
+					<div className='modal'>
+						<div className='modal-content'>
+							<div className='modal-header'>
+								<h2>Delete announcement</h2>
+								<p
+									className='right-header'
 									onClick={() => setShowDeleteModal(false)}
 								>
-									No, cancel
-								</button>
-								<button
-									className='btn btn-sm btn-success'
-									onClick={handleDelete}
-								>
-									Yes, delete
-								</button>
+									X
+								</p>
 							</div>
-						</form>
+							<form className='form'>
+								<div className='modal-body p-10'>
+									<p className='text-danger fw-bold fs-6'>
+										Are you sure you want to delete the announcement below?
+									</p>
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Announcement Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='vidTitle'
+											value={inputs.title}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+										<div className='form-text text-primary'>
+											Other users won't be able to see this, this is for admin
+											only.
+										</div>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Announcement Content
+										</label>
+										{/*end::Label*/}
+										<textarea
+											onChange={handleChange}
+											value={inputs.announcement}
+											name='announcement'
+											disabled
+											className='form-control form-control-lg form-control-solid'
+											rows='4'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{err && <p className='text-danger'>{err}</p>}
+									{successMsg && <p className='text-success'>{successMsg}</p>}
+								</div>
+								<div className='modal-footer'>
+									<button
+										className='btn btn-sm btn-light-danger'
+										onClick={() => setShowDeleteModal(false)}
+									>
+										No, cancel
+									</button>
+									<button
+										className='btn btn-sm btn-danger'
+										onClick={handleDelete}
+									>
+										Yes, delete
+									</button>
+								</div>
+							</form>
+						</div>
 					</div>
-				</div>
-			) : null}
-		</div>
+				) : null}
+			</div>
+		</>
 	)
 }
 

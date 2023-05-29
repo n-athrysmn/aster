@@ -59,9 +59,9 @@ function Calendar() {
 	return (
 		<div className='calendar'>
 			<h2 className='month'>{monthName}</h2>
-			<table>
+			<table className='cal'>
 				<thead>
-					<tr className='days'>
+					<tr className='days cal-tr'>
 						<th className='date'>Sun</th>
 						<th className='date'>Mon</th>
 						<th className='date'>Tue</th>
@@ -73,7 +73,7 @@ function Calendar() {
 				</thead>
 				<tbody>
 					{[...Array(Math.ceil(dates.length / 7)).keys()].map((weekIndex) => (
-						<tr key={weekIndex}>
+						<tr key={weekIndex} className='cal-tr'>
 							{[...Array(7).keys()].map((dayIndex) => {
 								const dateIndex = weekIndex * 7 + dayIndex
 								const date = dates[dateIndex]
@@ -90,7 +90,7 @@ function Calendar() {
 										: []
 								return (
 									<td
-										className='date'
+										className='date cal-td'
 										key={dayIndex}
 										style={{
 											backgroundColor:
@@ -126,12 +126,13 @@ function Calendar() {
 			</table>
 			{activeEvent ? (
 				<div>
-					<p className='txt-secondary'>{activeEvent.title}</p>
+					<p className='text-primary'>{activeEvent.title}</p>
 				</div>
 			) : (
 				<div>
-					<p className='txt-danger'>
-						Hover/Click on the calendar to check available event.
+					<p className='text-danger'>
+						No selected event. Hover/Click on the calendar to check available
+						event.
 					</p>
 				</div>
 			)}

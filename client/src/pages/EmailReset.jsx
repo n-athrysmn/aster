@@ -112,8 +112,8 @@ const ResetEmail = () => {
 					{/*end::Input group*/}
 				</div>
 			</form>
-			{err && <p className='txt-danger'>{err}</p>}
-			{successMsg && <p className='txt-success'>{successMsg}</p>}
+			{err && <p className='text-danger'>{err}</p>}
+			{successMsg && <p className='text-success'>{successMsg}</p>}
 			<div className='card-footer d-flex justify-content-end py-6 px-9'>
 				{isEditing ? (
 					<>

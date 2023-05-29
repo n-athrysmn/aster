@@ -123,12 +123,12 @@ const Tasks = () => {
 	}
 
 	return (
-		<div className='card'>
+		<div className='card h-lg-100'>
 			<div className='card-header'>
 				<div className='card-title'>
 					{currentAdmin.adminName} tasks for today!
 				</div>
-				<div className='card-tools'>
+				<div className='card-toolbar'>
 					<button
 						className='btn btn-sm btn-primary'
 						onClick={() => setShowAddModal(true)}
@@ -140,55 +140,55 @@ const Tasks = () => {
 
 			<div className='card-body'>
 				{Array.isArray(tasks) && tasks.length > 0 ? (
-					<table className='tables center'>
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Priority</th>
-								<th>Deadline</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{Array.isArray(tasks) &&
-								tasks.map((task) => {
-									const deadline = new Date(task.deadline)
-									const formattedDate = deadline.toLocaleDateString('en-GB', {
-										day: 'numeric',
-										month: 'numeric',
-										year: 'numeric',
-									})
+					<div className='table-responsive mh-400px scroll-y'>
+						<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+							<thead>
+								<tr>
+									<th className='fs-6 fw-bold'>Title</th>
+									<th className='fs-6 fw-bold'>Priority</th>
+									<th className='fs-6 fw-bold'>Deadline</th>
+									<th className='fs-6 fw-bold'>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{Array.isArray(tasks) &&
+									tasks.map((task) => {
+										const deadline = new Date(task.deadline)
+										const formattedDate = deadline.toLocaleDateString('en-GB', {
+											day: 'numeric',
+											month: 'numeric',
+											year: 'numeric',
+										})
 
-									let priorityClassName
-									switch (task.priority) {
-										case 'High':
-											priorityClassName = 'tag small-tag tag-danger'
-											break
-										case 'Medium':
-											priorityClassName = 'tag small-tag tag-warning'
-											break
-										case 'Low':
-											priorityClassName = 'tag small-tag tag-success'
-											break
-										default:
-											priorityClassName = 'tag small-tag untag'
-									}
+										let priorityClassName
+										switch (task.priority) {
+											case 'High':
+												priorityClassName = 'badge badge-light-danger'
+												break
+											case 'Medium':
+												priorityClassName = 'badge badge-light-warning'
+												break
+											case 'Low':
+												priorityClassName = 'badge badge-light-success'
+												break
+											default:
+												priorityClassName = 'badge badge-light-dark'
+										}
 
-									return (
-										<tr key={task.id}>
-											<td>
-												<p>{task.title}</p>
-											</td>
-											<td>
-												<p className={priorityClassName}>{task.priority}</p>
-											</td>
-											<td>
-												<p>{formattedDate}</p>
-											</td>
-											<td>
-												<div className='row'>
+										return (
+											<tr key={task.id}>
+												<td>
+													<p>{task.title}</p>
+												</td>
+												<td>
+													<p className={priorityClassName}>{task.priority}</p>
+												</td>
+												<td>
+													<p>{formattedDate}</p>
+												</td>
+												<td>
 													<button
-														className='btn btn-sm btn-warning'
+														className='btn btn-icon btn-warning btn-sm me-1'
 														title='Edit'
 														onClick={() => {
 															setSelected(task)
@@ -198,7 +198,7 @@ const Tasks = () => {
 														<FaEdit />
 													</button>
 													<button
-														className='btn btn-sm btn-danger'
+														className='btn btn-icon btn-danger btn-sm me-1'
 														title='Delete'
 														onClick={() => {
 															setSelected(task)
@@ -207,15 +207,15 @@ const Tasks = () => {
 													>
 														<FaTrash />
 													</button>
-												</div>
-											</td>
-										</tr>
-									)
-								})}
-						</tbody>
-					</table>
+												</td>
+											</tr>
+										)
+									})}
+							</tbody>
+						</table>
+					</div>
 				) : (
-					<p className='txt-danger'>No tasks available</p>
+					<p className='text-danger fw-bold fs-3'>No tasks available</p>
 				)}
 			</div>
 			{/*add task modal*/}
@@ -231,35 +231,60 @@ const Tasks = () => {
 								X
 							</p>
 						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<div className='form-label'>Title</div>
-								<input
-									type='text'
-									className='input-field'
-									onChange={handleChange}
-									name='title'
-								/>
-								<div className='form-label'>Priority</div>
-								<select
-									name='priority'
-									className='select-field'
-									onChange={handleChange}
-								>
-									<option value={'Untagged'}>Choose Priority</option>
-									<option value={'High'}>High</option>
-									<option value={'Medium'}>Medium</option>
-									<option value={'Low'}>Low</option>
-								</select>
-								<div className='form-label'>Deadline</div>
-								<input
-									type='date'
-									className='input-field'
-									onChange={handleChange}
-									name='deadline'
-								/>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
+						<form className='form'>
+							<div className='modal-body p-10'>
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Title
+									</label>
+									{/*end::Label*/}
+									<input
+										type={'text'}
+										onChange={handleChange}
+										name='title'
+										placeholder='Ex: Update June calendar'
+										className='form-control form-control-lg form-control-solid'
+									/>
+								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Priority
+									</label>
+									{/*end::Label*/}
+									<select
+										name='priority'
+										onChange={handleChange}
+										className='form-select form-select-solid form-select-lg fw-semibold'
+									>
+										<option value={'Untagged'}>Choose Priority</option>
+										<option value={'High'}>High</option>
+										<option value={'Medium'}>Medium</option>
+										<option value={'Low'}>Low</option>
+									</select>
+								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Deadline
+									</label>
+									{/*end::Label*/}
+									<input
+										type={'date'}
+										onChange={handleChange}
+										name='deadline'
+										className='form-control form-control-lg form-control-solid'
+									/>
+								</div>
+								{/*end::Input group*/}
+								{err && <p className='text-danger'>{err}</p>}
+								{successMsg && <p className='text-success'>{successMsg}</p>}
 							</div>
 							<div className='modal-footer'>
 								<button
@@ -292,38 +317,75 @@ const Tasks = () => {
 								X
 							</p>
 						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<div className='form-label'>Title</div>
-								<input
-									type='text'
-									className='input-field'
-									onChange={handleChange}
-									name='title'
-									value={inputs.title}
-								/>
-								<div className='form-label'>Priority</div>
-								<select
-									name='priority'
-									className='select-field'
-									onChange={handleChange}
-									value={inputs.priority}
-								>
-									<option value={'Untagged'}>Choose Priority</option>
-									<option value={'High'}>High</option>
-									<option value={'Medium'}>Medium</option>
-									<option value={'Low'}>Low</option>
-								</select>
-								<div className='form-label'>Deadline</div>
-								<input
-									type='date'
-									className='input-field'
-									onChange={handleChange}
-									name='deadline'
-									value={inputs.deadline}
-								/>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
+						<form className='form'>
+							<div className='modal-body p-10'>
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Title
+									</label>
+									{/*end::Label*/}
+									{/*begin::Col*/}
+									<div className='col-lg-8 fv-row'>
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='title'
+											value={inputs.title}
+											placeholder='Ex: Update June calendar'
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Col*/}
+								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Priority
+									</label>
+									{/*end::Label*/}
+									{/*begin::Col*/}
+									<div className='col-lg-8 fv-row'>
+										<select
+											name='priority'
+											onChange={handleChange}
+											value={inputs.priority}
+											className='form-select form-select-solid form-select-lg fw-semibold'
+										>
+											<option value={'Untagged'}>Choose Priority</option>
+											<option value={'High'}>High</option>
+											<option value={'Medium'}>Medium</option>
+											<option value={'Low'}>Low</option>
+										</select>
+									</div>
+									{/*end::Col*/}
+								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Deadline
+									</label>
+									{/*end::Label*/}
+									{/*begin::Col*/}
+									<div className='col-lg-8 fv-row'>
+										<input
+											type={'date'}
+											onChange={handleChange}
+											name='deadline'
+											value={inputs.deadline}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Col*/}
+								</div>
+								{/*end::Input group*/}
+								{err && <p className='text-danger'>{err}</p>}
+								{successMsg && <p className='text-success'>{successMsg}</p>}
 							</div>
 							<div className='modal-footer'>
 								<button
@@ -360,40 +422,69 @@ const Tasks = () => {
 								X
 							</p>
 						</div>
-						<form action='' className='form-control'>
-							<div className='modal-body'>
-								<p className='txt-danger'>
+						<form action='' className='form'>
+							<div className='modal-body p-10'>
+								<p className='text-danger fw-bold'>
 									Are you sure you want to delete the task below?
 								</p>
-								<label className='form-label'>Title</label>
-								<input
-									type='text'
-									className='input-field'
-									onChange={handleChange}
-									name='title'
-									value={inputs.title}
-									disabled
-								/>
-								<label className='form-label'>Priority</label>
-								<input
-									type='text'
-									className='input-field'
-									onChange={handleChange}
-									name='title'
-									value={inputs.priority}
-									disabled
-								/>
-								<label className='form-label'>Deadline</label>
-								<input
-									type='text'
-									className='input-field'
-									onChange={handleChange}
-									name='deadline'
-									value={inputs.deadline}
-									disabled
-								/>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Title
+									</label>
+									{/*end::Label*/}
+									<input
+										type={'text'}
+										onChange={handleChange}
+										name='title'
+										value={inputs.title}
+										disabled
+										placeholder='Ex: Update June calendar'
+										className='form-control form-control-solid'
+									/>
+								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Priority
+									</label>
+									{/*end::Label*/}
+									<select
+										name='priority'
+										onChange={handleChange}
+										value={inputs.priority}
+										disabled
+										className='form-select form-control-solid'
+									>
+										<option value={'Untagged'}>Choose Priority</option>
+										<option value={'High'}>High</option>
+										<option value={'Medium'}>Medium</option>
+										<option value={'Low'}>Low</option>
+									</select>
+								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Deadline
+									</label>
+									{/*end::Label*/}
+									<input
+										type={'text'}
+										onChange={handleChange}
+										name='deadline'
+										disabled
+										value={inputs.deadline}
+										className='form-control form-control-solid'
+									/>
+								</div>
+								{/*end::Input group*/}
+								{err && <p className='text-danger'>{err}</p>}
+								{successMsg && <p className='text-success'>{successMsg}</p>}
 							</div>
 							<div className='modal-footer'>
 								<button

@@ -106,13 +106,42 @@ export const editEvent = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
 	console.log('id:', id)
 
-	const q = 'UPDATE event SET `title`=? WHERE id = ?'
-
-	const values = [req.body.title]
-
-	db.query(q, [...values, id], (err, data) => {
+	const q = 'SELECT * FROM event WHERE id = ?'
+	db.query(q, [id], (err, results) => {
 		if (err) return res.status(500).json(err)
-		return res.status(200).json(data)
+
+		if (results.length === 0) {
+			return res.status(404).json('Event not found')
+		}
+
+		const event = results[0]
+		const newEvent = {
+			title: req.body.title || event.title,
+			date: req.body.date || event.title,
+		}
+
+		const updatedFields = []
+		const values = []
+
+		// Check which fields have been updated
+		if (newEvent.title !== event.title) {
+			updatedFields.push('title = ?')
+			values.push(newEvent.title)
+		}
+		if (newEvent.date !== event.date) {
+			updatedFields.push('date = ?')
+			values.push(newEvent.date)
+		}
+		if (updatedFields.length === 0) {
+			return res.status(400).json('No fields updated')
+		}
+
+		const q = 'UPDATE event SET ' + updatedFields.join(', ') + ' WHERE id = ?'
+
+		db.query(q, [...values, id], (err, data) => {
+			if (err) return res.status(500).json(err)
+			return res.status(200).json('Event data has been updated.')
+		})
 	})
 }
 

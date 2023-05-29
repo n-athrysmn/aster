@@ -1,6 +1,5 @@
 import './style.bundle.css'
-import './plugins.bundle.css'
-import './plugins.bundle.js'
+import './style.scss'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -27,24 +26,87 @@ import ResetPassword from './pages/Reset'
 import ResetEmail from './pages/EmailReset'
 import Videos from './pages/Videos'
 import UserEmail from './pages/UserEmail'
+import Aside from './layout/Aside'
+import { useEffect, useState } from 'react'
+import AsideAdmin from './layout/AsideAdmin'
 
 const Layout = () => {
+	const [isAsideVisible, setIsAsideVisible] = useState(false)
+
+	const toggleAside = () => {
+		setIsAsideVisible((prevState) => !prevState)
+	}
+
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (event.target.closest('.aside') === null && isAsideVisible) {
+				setIsAsideVisible(false)
+			}
+		}
+
+		document.addEventListener('mousedown', handleClickOutside)
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [isAsideVisible])
+
 	return (
-		<>
-			<Navbar />
-			<Outlet />
-			<Footer />
-		</>
+		<div className='page d-flex flex-row flex-column-fluid'>
+			{isAsideVisible && (
+				<div style={{ zIndex: 109 }} className='drawer-overlay'></div>
+			)}
+			<Aside isAsideVisible={isAsideVisible} />
+			<div
+				className='wrapper d-flex flex-column flex-row-fluid'
+				id='kt_wrapper'
+			>
+				<Navbar toggleAside={toggleAside} />
+				<Outlet />
+				<Footer />
+			</div>
+		</div>
 	)
 }
 
+export { Layout }
+
 const AdminLayout = () => {
+	const [isAsideVisible, setIsAsideVisible] = useState(false)
+
+	const toggleAside = () => {
+		setIsAsideVisible((prevState) => !prevState)
+	}
+
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (event.target.closest('.aside') === null && isAsideVisible) {
+				setIsAsideVisible(false)
+			}
+		}
+
+		document.addEventListener('mousedown', handleClickOutside)
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [isAsideVisible])
+
 	return (
-		<>
-			<AdminNav />
-			<Outlet />
-			<Footer />
-		</>
+		<div className='page d-flex flex-row flex-column-fluid'>
+			{isAsideVisible && (
+				<div style={{ zIndex: 109 }} className='drawer-overlay'></div>
+			)}
+			<AsideAdmin isAsideVisible={isAsideVisible} />
+			<div
+				className='wrapper d-flex flex-column flex-row-fluid'
+				id='kt_wrapper'
+			>
+				<AdminNav toggleAside={toggleAside} />
+				<Outlet />
+				<Footer />
+			</div>
+		</div>
 	)
 }
 

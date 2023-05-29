@@ -45,7 +45,7 @@ const Accords = () => {
 	])
 
 	return (
-		<div className='accords'>
+		<div className='accordion mt-5' id='kt_accordion_1'>
 			<Accordion
 				title={
 					<span>
@@ -78,7 +78,7 @@ const Accords = () => {
 									<hr />
 								</div>
 							))}
-						<p className='txt-danger small'>
+						<p className='text-danger small'>
 							Did not find anything that could help you? Chat with us using the
 							live chat.
 						</p>

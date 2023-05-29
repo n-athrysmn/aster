@@ -65,8 +65,11 @@ function BookModal({ setBooks }) {
 	}
 
 	return (
-		<div className='addbook'>
-			<button className='btn btn-success' onClick={() => setShowModal(true)}>
+		<>
+			<button
+				className='btn btn-success w-50'
+				onClick={() => setShowModal(true)}
+			>
 				Add Book
 			</button>
 			{showModal ? (
@@ -78,25 +81,32 @@ function BookModal({ setBooks }) {
 								X
 							</p>
 						</div>
-						<div className='modal-body'>
-							<p>
+						<div className='modal-body p-10'>
+							<p className='mt-10'>
 								Enter your book barcode number here in the box, then click the
 								"Add Book" button.
 							</p>
-							<input
-								className='form-input'
-								type={'text'}
-								onChange={handleChange}
-								placeholder={
-									'Enter your 13-digit ISBN number. Ex: 978-967-24437-1-0'
-								}
-								name='isbn'
-							/>
-							<p className='small txt-danger'>
-								Do include the dash "-" when entering the ISBN.
-							</p>
-							{err && <p className='txt-danger'>{err}</p>}
-							{successMsg && <p className='txt-success'>{successMsg}</p>}
+							{/* <!--begin::Input group--> */}
+							<div class='d-flex flex-column mb-10 fv-row'>
+								{/* <!--begin::Label--> */}
+								<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+									<span>13-digits ISBN number</span>
+								</label>
+								{/* <!--end::Label--> */}
+								<input
+									type='text'
+									class='form-control form-control-solid'
+									onChange={handleChange}
+									placeholder={'Ex: 978-967-24437-1-0'}
+									name='isbn'
+								/>
+								<div className='form-text text-danger'>
+									Do include the dash "-" when entering the ISBN.
+								</div>
+							</div>
+							{/* <!--end::Input group--> */}
+							{err && <p className='text-danger'>{err}</p>}
+							{successMsg && <p className='text-success'>{successMsg}</p>}
 						</div>
 						<div className='modal-footer'>
 							<button
@@ -112,7 +122,7 @@ function BookModal({ setBooks }) {
 					</div>
 				</div>
 			) : null}
-		</div>
+		</>
 	)
 }
 

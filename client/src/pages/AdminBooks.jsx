@@ -3,8 +3,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
+import Toolbar from '../layout/Toolbar'
 
 const AdminBook = () => {
+	const pageTitle = 'Books Management'
+	const pageDescription = 'List of Books'
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [books, setBooks] = useState([])
 
@@ -132,353 +135,468 @@ const AdminBook = () => {
 	}
 
 	return (
-		<div className='home'>
-			<div className='card'>
-				<div className='card-header'>
-					<div className='card-title'>List of book</div>
-					<div className='card-tools'>
-						<button
-							className='btn btn-sm btn-primary'
-							onClick={() => setShowAddModal(true)}
-						>
-							Add book <FaPlus />
-						</button>
+		<>
+			<Toolbar pageTitle={pageTitle} pageDescription={pageDescription} />
+			<div
+				id='kt_content'
+				className='content d-flex flex-column flex-column-fluid'
+			>
+				<div id='kt_content_container' className='container-xxl'>
+					<div className='card'>
+						<div className='card-header'>
+							<div className='card-title'>List of book</div>
+							<div className='card-toolbar'>
+								<button
+									className='btn btn-sm btn-primary'
+									onClick={() => setShowAddModal(true)}
+								>
+									Add book <FaPlus />
+								</button>
+							</div>
+						</div>
+						<div className='card-body'>
+							<div className='table-responsive mh-500px scroll-y'>
+								<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+									<thead>
+										<tr>
+											<th className='fs-6 fw-bold'>Id</th>
+											<th className='fs-6 fw-bold'>Image</th>
+											<th className='fs-6 fw-bold'>Name</th>
+											<th className='fs-6 fw-bold'>Details</th>
+											<th className='fs-6 fw-bold'>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{books.length > 0 &&
+											books.map((book) => (
+												<tr key={book.id}>
+													<td>{book.id}</td>
+													<td>
+														<a href={book.img} target='_blank' rel='noreferrer'>
+															<img className='h-100px' src={book.img} alt='' />
+														</a>
+													</td>
+													<td>{book.name}</td>
+													<td>
+														<p className='mb20'>Description: {book.desc}</p>
+														<p className='mb20'>ISBN: {book.isbn}</p>
+														<p>
+															PDF Answer:{' '}
+															<Link
+																to={`${book.pdf}`}
+																target='_blank'
+																className='link'
+															>
+																Click to view
+															</Link>
+														</p>
+													</td>
+													<td>
+														<div className='row'>
+															<div className='col-md-4'>
+																<Link
+																	to={`/book-details/${book.id}`}
+																	className='btn btn-icon btn-success btn-sm me-1'
+																>
+																	<FaEye />
+																</Link>
+															</div>
+															<div className='col-md-4'>
+																<button
+																	className='btn btn-icon btn-warning btn-sm me-1'
+																	onClick={() => {
+																		setSelectedBook(book)
+																		setShowEditModal(true)
+																	}}
+																>
+																	<FaEdit />
+																</button>
+															</div>
+															<div className='col-md-4'>
+																<button
+																	className='btn btn-icon btn-danger btn-sm me-1'
+																	onClick={() => {
+																		setSelectedBook(book)
+																		setShowDeleteModal(true)
+																	}}
+																>
+																	<FaTrash />
+																</button>
+															</div>
+														</div>
+													</td>
+												</tr>
+											))}
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div className='card-body'>
-					<table className='tables'>
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Image</th>
-								<th>Name</th>
-								<th>Details</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{books.length > 0 &&
-								books.map((book) => (
-									<tr key={book.id}>
-										<td>{book.id}</td>
-										<td>
-											<a href={book.img} target='_blank' rel='noreferrer'>
-												<img className='tbl-img' src={book.img} alt='' />
-											</a>
-										</td>
-										<td>{book.name}</td>
-										<td>
-											<p className='mb20'>Description: {book.desc}</p>
-											<p className='mb20'>ISBN: {book.isbn}</p>
-											<p>
-												PDF Answer:{' '}
-												<Link
-													to={`${book.pdf}`}
-													target='_blank'
-													className='link'
-												>
-													Click to view
-												</Link>
-											</p>
-										</td>
-										<td>
-											<div className='row'>
-												<Link
-													to={`/book-details/${book.id}`}
-													className='btn btn-sm btn-success'
-												>
-													<FaEye />
-												</Link>
-												<button
-													className='btn btn-sm btn-warning'
-													onClick={() => {
-														setSelectedBook(book)
-														setShowEditModal(true)
-													}}
-												>
-													<FaEdit />
-												</button>
-												<button
-													className='btn btn-sm btn-danger'
-													onClick={() => {
-														setSelectedBook(book)
-														setShowDeleteModal(true)
-													}}
-												>
-													<FaTrash />
-												</button>
-											</div>
-										</td>
-									</tr>
-								))}
-						</tbody>
-					</table>
-				</div>
-			</div>
-			{/*add modal*/}
-			{showAddModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Add book</h2>
-							<p
-								className='right-header'
-								onClick={() => setShowAddModal(false)}
-							>
-								X
-							</p>
-						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<div className='form-row'>
-									<div className='form-label'>Book Name</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										name='name'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book Image URL</div>
-									<input
-										type='url'
-										className='input-field'
-										onChange={handleChange}
-										name='img'
-									/>
-								</div>
-
-								<div className='form-row'>
-									<div className='form-label'>Book Description</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										name='desc'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book ISBN</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										name='isbn'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book PDF Answer</div>
-									<input
-										type='url'
-										className='input-field'
-										onChange={handleChange}
-										name='pdf'
-									/>
-								</div>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
-							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
+				{/*add modal*/}
+				{showAddModal ? (
+					<div className='modal'>
+						<div className='modal-content'>
+							<div className='modal-header'>
+								<h2>Add book</h2>
+								<p
+									className='right-header'
 									onClick={() => setShowAddModal(false)}
 								>
-									Cancel
-								</button>
-								<button className='btn btn-sm btn-success' onClick={handleAdd}>
-									Add Book
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			) : null}
-			{/*edit modal*/}
-			{showEditModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Edit book</h2>
-							<p
-								className='right-header'
-								onClick={() => setShowEditModal(false)}
-							>
-								X
-							</p>
-						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<div className='form-row'>
-									<div className='form-label'>Book Name</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.name}
-										name='name'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book Image</div>
-									<input
-										type='url'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.img}
-										name='img'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book Description</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.desc}
-										name='desc'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book ISBN</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.isbn}
-										name='isbn'
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book PDF Answer</div>
-									<input
-										type='url'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.pdf}
-										name='pdf'
-									/>
-								</div>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
-							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
-									onClick={() => {
-										handleCancelEdit()
-										setShowEditModal(false)
-									}}
-								>
-									Cancel
-								</button>
-								<button
-									className='btn btn-sm btn-success'
-									onClick={handleEdit}
-									disabled={!formChanged}
-								>
-									Edit book
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			) : null}
-			{/*delete modal*/}
-			{showDeleteModal ? (
-				<div className='modal'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h2>Delete book</h2>
-							<p
-								className='right-header'
-								onClick={() => setShowDeleteModal(false)}
-							>
-								X
-							</p>
-						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<p className='txt-danger'>
-									Are you sure you want to delete the book below?
+									X
 								</p>
-								<div className='form-row'>
-									<div className='form-label'>Book Name</div>
-									<input
-										type='text'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.name}
-										name='name'
-										disabled
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book Image</div>
-									<input
-										type='url'
-										className='input-field'
-										onChange={handleChange}
-										value={inputs.img}
-										name='img'
-										disabled
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book Description</div>
-									<input
-										type='text'
-										className='input-field'
-										value={inputs.desc}
-										name='desc'
-										disabled
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book ISBN</div>
-									<input
-										type='text'
-										className='input-field'
-										value={inputs.isbn}
-										name='isbn'
-										disabled
-									/>
-								</div>
-								<div className='form-row'>
-									<div className='form-label'>Book PDF Answer</div>
-									<input
-										type='url'
-										className='input-field'
-										value={inputs.pdf}
-										name='pdf'
-										disabled
-									/>
-								</div>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
 							</div>
-							<div className='modal-footer'>
-								<button
-									className='btn btn-sm btn-danger'
-									onClick={() => {
-										handleCancelEdit()
-										setShowDeleteModal(false)
-									}}
-								>
-									No, cancel
-								</button>
-								<button
-									className='btn btn-sm btn-success'
-									onClick={handleDelete}
-								>
-									Yes, delete
-								</button>
-							</div>
-						</form>
+							<form className='form'>
+								<div className='modal-body p-10'>
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='name'
+											placeholder='Enter book title'
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Image URL
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'url'}
+											onChange={handleChange}
+											name='img'
+											placeholder='https://image-url.png'
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Description
+										</label>
+										{/*end::Label*/}
+										<textarea
+											onChange={handleChange}
+											name='desc'
+											placeholder='Book Volume 1'
+											className='form-control form-control-lg form-control-solid'
+											rows='3'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book ISBN
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='isbn'
+											placeholder='Enter book isbn'
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book PDF Answer Link
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'url'}
+											onChange={handleChange}
+											name='pdf'
+											placeholder='https://drive.google.com/pdf-answer/view'
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{err && <p className='text-danger'>{err}</p>}
+									{successMsg && <p className='text-success'>{successMsg}</p>}
+								</div>
+								<div className='modal-footer'>
+									<button
+										className='btn btn-sm btn-danger'
+										onClick={() => setShowAddModal(false)}
+									>
+										Cancel
+									</button>
+									<button
+										className='btn btn-sm btn-success'
+										onClick={handleAdd}
+									>
+										Add Book
+									</button>
+								</div>
+							</form>
+						</div>
 					</div>
-				</div>
-			) : null}
-		</div>
+				) : null}
+				{/*edit modal*/}
+				{showEditModal ? (
+					<div className='modal'>
+						<div className='modal-content'>
+							<div className='modal-header'>
+								<h2>Edit book</h2>
+								<p
+									className='right-header'
+									onClick={() => setShowEditModal(false)}
+								>
+									X
+								</p>
+							</div>
+							<form className='form'>
+								<div className='modal-body p-10'>
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='name'
+											value={inputs.name}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Image URL
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'url'}
+											onChange={handleChange}
+											name='img'
+											value={inputs.img}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Description
+										</label>
+										{/*end::Label*/}
+										<textarea
+											onChange={handleChange}
+											name='desc'
+											value={inputs.desc}
+											className='form-control form-control-lg form-control-solid'
+											rows='4'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book ISBN
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='isbn'
+											value={inputs.isbn}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book PDF Answer Link
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'url'}
+											onChange={handleChange}
+											name='pdf'
+											value={inputs.pdf}
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{err && <p className='text-danger'>{err}</p>}
+									{successMsg && <p className='text-success'>{successMsg}</p>}
+								</div>
+								<div className='modal-footer'>
+									<button
+										className='btn btn-sm btn-danger'
+										onClick={() => {
+											handleCancelEdit()
+											setShowEditModal(false)
+										}}
+									>
+										Cancel
+									</button>
+									<button
+										className='btn btn-sm btn-success'
+										onClick={handleEdit}
+										disabled={!formChanged}
+									>
+										Edit book
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				) : null}
+				{/*delete modal*/}
+				{showDeleteModal ? (
+					<div className='modal'>
+						<div className='modal-content'>
+							<div className='modal-header'>
+								<h2>Delete book</h2>
+								<p
+									className='right-header'
+									onClick={() => setShowDeleteModal(false)}
+								>
+									X
+								</p>
+							</div>
+							<form className='form'>
+								<div className='modal-body p-10'>
+									<p className='text-danger fw-bold fs-6'>
+										Are you sure you want to delete the book below?
+									</p>
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Title
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='name'
+											value={inputs.name}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Image URL
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'url'}
+											onChange={handleChange}
+											name='img'
+											value={inputs.img}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book Description
+										</label>
+										{/*end::Label*/}
+										<textarea
+											onChange={handleChange}
+											name='desc'
+											value={inputs.desc}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+											rows='4'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book ISBN
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'text'}
+											onChange={handleChange}
+											name='isbn'
+											value={inputs.isbn}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{/*end::Input group*/}
+									{/*begin::Input group*/}
+									<div className='d-flex flex-column mb-8 fv-row'>
+										{/*begin::Label*/}
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											Book PDF Answer Link
+										</label>
+										{/*end::Label*/}
+										<input
+											type={'url'}
+											onChange={handleChange}
+											name='pdf'
+											value={inputs.pdf}
+											disabled
+											className='form-control form-control-lg form-control-solid'
+										/>
+									</div>
+									{err && <p className='text-danger'>{err}</p>}
+									{successMsg && <p className='text-success'>{successMsg}</p>}
+								</div>
+								<div className='modal-footer'>
+									<button
+										className='btn btn-sm btn-danger'
+										onClick={() => {
+											handleCancelEdit()
+											setShowDeleteModal(false)
+										}}
+									>
+										No, cancel
+									</button>
+									<button
+										className='btn btn-sm btn-success'
+										onClick={handleDelete}
+									>
+										Yes, delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				) : null}
+			</div>
+		</>
 	)
 }
 

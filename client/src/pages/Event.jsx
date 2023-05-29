@@ -3,8 +3,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
+import Toolbar from '../layout/Toolbar'
 
 const Event = () => {
+	const pageTitle = 'Events Management'
+	const pageDescription = 'List of Events'
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [events, setEvents] = useState([])
 
@@ -106,67 +109,75 @@ const Event = () => {
 	}
 
 	return (
-		<div className='home'>
-			<div className='card'>
-				<div className='card-header'>
-					<div className='card-title'>List of Events</div>
-				</div>
-				<div className='card-body'>
-					<table className='tables'>
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Title</th>
-								<th>Date</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{Array.isArray(events) &&
-								events.length > 0 &&
-								events.map((event) => {
-									const date = new Date(event.date)
-									const formattedDate = date
-										.toLocaleDateString('en-GB', {
-											day: 'numeric',
-											month: 'numeric',
-											year: 'numeric',
-										})
-										.replace(/\//g, '/')
-									return (
-										<tr key={event.id}>
-											<td>{event.id}</td>
-											<td>{event.title}</td>
-											<td>{formattedDate}</td>
-											<td>
-												<div className='row'>
-													<button
-														className='btn btn-sm btn-warning'
-														onClick={() => {
-															setSelectedEvent(event)
-															setShowEditModal(true)
-														}}
-														title='Edit'
-													>
-														<FaEdit />
-													</button>
-													<button
-														className='btn btn-sm btn-danger'
-														onClick={() => {
-															setSelectedEvent(event)
-															setShowDeleteModal(true)
-														}}
-														title='Delete'
-													>
-														<FaTrash />
-													</button>
-												</div>
-											</td>
+		<>
+			<Toolbar pageTitle={pageTitle} pageDescription={pageDescription} />
+			<div
+				id='kt_content'
+				className='content d-flex flex-column flex-column-fluid'
+			>
+				<div id='kt_content_container' className='container-xxl'>
+					<div className='card'>
+						<div className='card-header'>
+							<div className='card-title'>List of Events</div>
+						</div>
+						<div className='card-body'>
+							<div className='table-responsive mh-500px scroll-y'>
+								<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
+									<thead>
+										<tr>
+											<th className='fs-6 fw-bold'>Id</th>
+											<th className='fs-6 fw-bold'>Title</th>
+											<th className='fs-6 fw-bold'>Date</th>
+											<th className='fs-6 fw-bold'>Actions</th>
 										</tr>
-									)
-								})}
-						</tbody>
-					</table>
+									</thead>
+									<tbody>
+										{Array.isArray(events) &&
+											events.length > 0 &&
+											events.map((event) => {
+												const date = new Date(event.date)
+												const formattedDate = date
+													.toLocaleDateString('en-GB', {
+														day: 'numeric',
+														month: 'numeric',
+														year: 'numeric',
+													})
+													.replace(/\//g, '/')
+												return (
+													<tr key={event.id}>
+														<td>{event.id}</td>
+														<td>{event.title}</td>
+														<td>{formattedDate}</td>
+														<td>
+															<button
+																className='btn btn-icon btn-warning btn-sm me-1'
+																onClick={() => {
+																	setSelectedEvent(event)
+																	setShowEditModal(true)
+																}}
+																title='Edit'
+															>
+																<FaEdit />
+															</button>
+															<button
+																className='btn btn-icon btn-danger btn-sm me-1'
+																onClick={() => {
+																	setSelectedEvent(event)
+																	setShowDeleteModal(true)
+																}}
+																title='Delete'
+															>
+																<FaTrash />
+															</button>
+														</td>
+													</tr>
+												)
+											})}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			{showEditModal ? (
@@ -181,19 +192,40 @@ const Event = () => {
 								X
 							</p>
 						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<div className='form-row'>
-									<div className='form-label'>Title</div>
+						<form className='form'>
+							<div className='modal-body p-10'>
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Title
+									</label>
+									{/*end::Label*/}
 									<input
-										type='text'
-										className='input-field'
-										placeholder='Enter event title'
+										type={'text'}
+										onChange={handleChange}
 										name='title'
 										value={inputs.title}
-										onChange={handleChange}
+										className='form-control form-control-lg form-control-solid'
 									/>
 								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								{/* <div className='d-flex flex-column mb-8 fv-row'> */}
+								{/*begin::Label*/}
+								{/* <label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Date
+									</label> */}
+								{/*end::Label*/}
+								{/* <input
+										type={'date'}
+										onChange={handleChange}
+										name='date'
+										value={inputs.date}
+										className='form-control form-control-lg form-control-solid'
+									/> */}
+								{/* </div> */}
+								{/*end::Input group*/}
 								{/*<div className='form-row'>
 									<div className='form-label'>Date</div>
 									<input
@@ -204,8 +236,8 @@ const Event = () => {
 										onChange={handleChange}
 									/>
 								</div>*/}
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
+								{err && <p className='text-danger'>{err}</p>}
+								{successMsg && <p className='text-success'>{successMsg}</p>}
 							</div>
 							<div className='modal-footer'>
 								<button
@@ -237,33 +269,47 @@ const Event = () => {
 								X
 							</p>
 						</div>
-						<form className='form-control'>
-							<div className='modal-body'>
-								<p className='txt-danger'>
+						<form className='form'>
+							<div className='modal-body p-10'>
+								<p className='text-danger fw-bold fs-6'>
 									Are you sure you want to delete the event below?
 								</p>
-								<div className='form-row'>
-									<div className='form-label'>Title</div>
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Title
+									</label>
+									{/*end::Label*/}
 									<input
-										type='text'
-										className='input-field'
+										type={'text'}
+										onChange={handleChange}
 										name='title'
 										value={inputs.title}
 										disabled
+										className='form-control form-control-lg form-control-solid'
 									/>
 								</div>
-								<div className='form-row'>
-									<div className='form-label'>Date</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Date
+									</label>
+									{/*end::Label*/}
 									<input
-										type='text'
-										className='input-field'
+										type={'text'}
+										onChange={handleChange}
 										name='date'
 										value={newDate}
 										disabled
+										className='form-control form-control-lg form-control-solid'
 									/>
 								</div>
-								{err && <p className='txt-danger'>{err}</p>}
-								{successMsg && <p className='txt-success'>{successMsg}</p>}
+								{/*end::Input group*/}
+								{err && <p className='text-danger'>{err}</p>}
+								{successMsg && <p className='text-success'>{successMsg}</p>}
 							</div>
 							<div className='modal-footer'>
 								<button
@@ -283,7 +329,7 @@ const Event = () => {
 					</div>
 				</div>
 			) : null}
-		</div>
+		</>
 	)
 }
 

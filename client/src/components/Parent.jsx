@@ -1,13 +1,5 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import {
-	FaBriefcase,
-	FaEnvelope,
-	FaHome,
-	FaMoneyCheckAlt,
-	FaPhoneAlt,
-	FaUser,
-} from 'react-icons/fa'
 import { useLocation } from 'react-router-dom'
 
 const Parent = () => {
@@ -59,6 +51,13 @@ const Parent = () => {
 		setIsDisabled(true)
 		setIsEditing(false)
 		e.preventDefault()
+		if (!/^(?!0123456789)\d{10,11}$/.test(parent.parentNumber)) {
+			setError('Invalid phone number')
+			setTimeout(() => {
+				window.location.reload()
+			}, 3000)
+			return
+		}
 		try {
 			await axios.put(
 				`${process.env.REACT_APP_API_URL}/users/parent-edit/${email}`,
@@ -86,117 +85,159 @@ const Parent = () => {
 	const [successMsg, setSuccessMsg] = useState('')
 
 	return (
-		<div className='profile-card'>
-			<div className='info'>
-				<form className='form-profile'>
-					<div className='form-row'>
-						<div className='form-label'>Name</div>
-						<div className='input-group input-group-icon'>
+		<>
+			<form className='form'>
+				<div className='card-body border-top p-9'>
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Name
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								value={parent.parentName}
 								name='parentName'
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaUser />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Email</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Email
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'email'}
 								value={parent.parentEmail}
 								name='parentEmail'
 								disabled
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaEnvelope />
+							<div className='form-text'>
+								Want to change email?{' '}
+								<a className='link' href={`/reset-email/${parent.parentEmail}`}>
+									Reset email here
+								</a>
 							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Number</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Phone Number
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'tel'}
 								value={parent.parentNumber}
 								name='parentNumber'
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaPhoneAlt />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Address</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Address
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<textarea
 								name='parentAddr'
 								value={parent.parentAddr}
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
+								rows='3'
 							/>
-							<div className='input-icon'>
-								<FaHome />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Job</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Occupation
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<input
 								type={'text'}
 								name='parentJob'
 								value={parent.parentJob}
-								onChange={handleChange}
 								disabled={isDisabled}
+								onChange={handleChange}
+								className='form-control form-control-lg form-control-solid'
 							/>
-							<div className='input-icon'>
-								<FaBriefcase />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<div className='form-row'>
-						<div className='form-label'>Salary range</div>
-						<div className='input-group input-group-icon'>
+					{/*end::Input group*/}
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Salary range
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8 fv-row'>
 							<select
 								name='parentSalary'
 								value={parent.parentSalary}
 								disabled={isDisabled}
 								onChange={handleChange}
+								className='form-select form-select-solid form-select-lg fw-semibold'
 							>
 								<option value=''>Select salary range</option>
 								<option value='T20'>T20</option>
 								<option value='M40'>M40</option>
 								<option value='B40'>B40</option>
 							</select>
-							<div className='input-icon'>
-								<FaMoneyCheckAlt />
-							</div>
 						</div>
+						{/*end::Col*/}
 					</div>
-					<p>
-						Want to change email?{' '}
-						<a className='link' href={`/reset-email/${parent.parentEmail}`}>
-							Reset email here
-						</a>
-					</p>
-				</form>
-				{err && <p className='txt-danger'>{err}</p>}
-				{successMsg && <p className='txt-success'>{successMsg}</p>}
+					{/*end::Input group*/}
+				</div>
+			</form>
+			{err && <p className='text-danger'>{err}</p>}
+			{successMsg && <p className='text-success'>{successMsg}</p>}
+			<div className='card-footer d-flex justify-content-end py-6 px-9'>
 				{isEditing ? (
 					<>
+						<button
+							onClick={handleCancelClick}
+							className='btn btn-light btn-active-light-danger me-2'
+						>
+							Cancel
+						</button>
 						<button onClick={handleSaveClick} className='btn btn-success'>
 							Save
-						</button>
-						<button onClick={handleCancelClick} className='btn btn-danger'>
-							Cancel
 						</button>
 					</>
 				) : (
@@ -205,7 +246,7 @@ const Parent = () => {
 					</button>
 				)}
 			</div>
-		</div>
+		</>
 	)
 }
 
