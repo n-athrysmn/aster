@@ -31,6 +31,11 @@ const Home = () => {
 		? 'parent'
 		: 'teacher'
 
+	const email =
+		currentUser?.studentEmail ||
+		currentUser?.parentEmail ||
+		currentUser?.teacherEmail
+
 	useEffect(() => {
 		const fetchBooks = async () => {
 			try {
@@ -71,6 +76,61 @@ const Home = () => {
 
 		fetchBooks()
 	}, [currentUser, userId, userType])
+
+	const [student, setStudent] = useState([])
+	const [parent, setParent] = useState([])
+	const [teacher, setTeacher] = useState([])
+
+	useEffect(() => {
+		const fetchStudent = async () => {
+			try {
+				console.log('Fetching student…')
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/users/getStudent/${email}`
+				)
+				console.log('Student:', res)
+				const data = res.data
+				console.log('Student Data:', data)
+				setStudent(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		const fetchParent = async () => {
+			try {
+				console.log('Fetching parent…')
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/users/getParent/${email}`
+				)
+				console.log('Parent:', res)
+				const data = res.data
+				console.log('Parent Data:', data)
+				setParent(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		const fetchTeacher = async () => {
+			try {
+				console.log('Fetching teacher…')
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/users/getTeacher/${email}`
+				)
+				console.log('Teacher:', res)
+				const data = res.data
+				console.log('Teacher Data:', data)
+				setTeacher(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchStudent()
+		fetchParent()
+		fetchTeacher()
+	}, [email])
 
 	useEffect(() => {
 		const fetchVideos = async () => {
@@ -351,10 +411,10 @@ const Home = () => {
 													Hello <MdCelebration />
 												</h2>
 												<div className='text-center pb-15 px-5'>
-													{currentUser?.studentPfp ? (
+													{student.studentPfp ? (
 														<img
-															src={`http://localhost:8800/student/${currentUser?.studentPfp}`}
-															alt={currentUser?.studentName}
+															src={`https://aster-server-z9ckn.ondigitalocean.app/student/${student.studentPfp}`}
+															alt={student.studentName}
 															className='w-100 h-200px h-sm-325px'
 														/>
 													) : (
@@ -362,7 +422,7 @@ const Home = () => {
 													)}
 												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
-													{currentUser.studentName}!
+													{student.studentName}!
 												</h3>
 											</div>
 										</>
@@ -374,10 +434,10 @@ const Home = () => {
 													Hello <MdCelebration />
 												</h2>
 												<div className='text-center pb-15 px-5'>
-													{currentUser?.parentPfp ? (
+													{parent.parentPfp ? (
 														<img
-															src={`http://localhost:8800/parent/${currentUser?.parentPfp}`}
-															alt={currentUser?.parentName}
+															src={`https://aster-server-z9ckn.ondigitalocean.app/parent/${parent.parentPfp}`}
+															alt={parent.parentName}
 															className='w-100 h-200px h-sm-325px'
 														/>
 													) : (
@@ -385,7 +445,7 @@ const Home = () => {
 													)}
 												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
-													{currentUser.parentName}!
+													{parent.parentName}!
 												</h3>
 											</div>
 										</>
@@ -397,10 +457,10 @@ const Home = () => {
 													Hello <MdCelebration />
 												</h2>
 												<div className='text-center pb-15 px-5'>
-													{currentUser?.teacherPfp ? (
+													{teacher.teacherPfp ? (
 														<img
-															src={`http://localhost:8800/teacher/${currentUser.teacherPfp}`}
-															alt={currentUser.teacherName}
+															src={`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`}
+															alt={teacher.teacherName}
 															className='w-100 h-200px h-sm-325px'
 														/>
 													) : (
@@ -408,7 +468,7 @@ const Home = () => {
 													)}
 												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
-													{currentUser.teacherName}!
+													{teacher.teacherName}!
 												</h3>
 											</div>
 										</>

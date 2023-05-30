@@ -145,7 +145,7 @@ const Teacher = () => {
 										>
 											{teacher.teacherPfp ? (
 												<img
-													src={`http://localhost:8800/teacher/${teacher.teacherPfp}`}
+													src={`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`}
 													alt={teacher.teacherName}
 													className='w-100 h-100'
 												/>
@@ -191,7 +191,7 @@ const Teacher = () => {
 										>
 											{teacher.teacherPfp ? (
 												<img
-													src={`http://localhost:8800/teacher/${teacher.teacherPfp}`}
+													src={`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`}
 													alt={teacher.teacherName}
 													className='w-100 h-100'
 												/>

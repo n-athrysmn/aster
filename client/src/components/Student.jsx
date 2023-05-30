@@ -154,7 +154,7 @@ const Student = () => {
 										>
 											{student.studentPfp ? (
 												<img
-													src={`http://localhost:8800/student/${student.studentPfp}`}
+													src={`https://aster-server-z9ckn.ondigitalocean.app/student/${student.studentPfp}`}
 													alt={student.studentName}
 													className='w-100 h-100'
 												/>
@@ -200,7 +200,7 @@ const Student = () => {
 										>
 											{student.studentPfp ? (
 												<img
-													src={`http://localhost:8800/student/${student.studentPfp}`}
+													src={`https://aster-server-z9ckn.ondigitalocean.app/student/${student.studentPfp}`}
 													alt={student.studentName}
 													className='w-100 h-100'
 												/>

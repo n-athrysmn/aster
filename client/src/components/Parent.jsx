@@ -143,7 +143,7 @@ const Parent = () => {
 										>
 											{parent.parentPfp ? (
 												<img
-													src={`http://localhost:8800/parent/${parent.parentPfp}`}
+													src={`https://aster-server-z9ckn.ondigitalocean.app/parent/${parent.parentPfp}`}
 													alt={parent.parentName}
 													className='w-100 h-100'
 												/>
@@ -189,7 +189,7 @@ const Parent = () => {
 										>
 											{parent.parentPfp ? (
 												<img
-													src={`http://localhost:8800/parent/${parent.parentPfp}`}
+													src={`https://aster-server-z9ckn.ondigitalocean.app/parent/${parent.parentPfp}`}
 													alt={parent.parentName}
 													className='w-100 h-100'
 												/>
