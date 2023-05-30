@@ -94,9 +94,9 @@ const Parent = () => {
 								{/* <!--end::Separator--> */}
 								<div className='mh-300px scroll-y mb-10'>
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your name</span>
 										</label>
 										{/* <!--end::Label--> */}
@@ -111,9 +111,9 @@ const Parent = () => {
 									</div>
 									{/* <!--end::Input group=--> */}
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your number</span>
 										</label>
 										{/* <!--end::Label--> */}
@@ -128,9 +128,9 @@ const Parent = () => {
 									</div>
 									{/* <!--end::Input group=--> */}
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your occupation</span>
 										</label>
 										{/* <!--end::Label--> */}
@@ -145,9 +145,9 @@ const Parent = () => {
 									</div>
 									{/* <!--end::Input group=--> */}
 									{/*begin::Input group*/}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/*begin::Label*/}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											Enter Address
 										</label>
 										{/*end::Label*/}
@@ -164,9 +164,9 @@ const Parent = () => {
 									</div>
 									{/*end::Input group*/}
 									{/*begin::Input group*/}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/*begin::Label*/}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											Salary
 										</label>
 										{/*end::Label*/}
@@ -184,9 +184,9 @@ const Parent = () => {
 									</div>
 									{/*end::Input group*/}
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your email</span>
 										</label>
 										{/* <!--end::Label--> */}
@@ -202,9 +202,9 @@ const Parent = () => {
 									</div>
 									{/* <!--end::Input group=--> */}
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column fv-row'>
+									<div className='d-flex flex-column fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your password</span>
 										</label>
 										{/* <!--end::Label--> */}

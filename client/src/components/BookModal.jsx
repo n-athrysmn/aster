@@ -87,15 +87,15 @@ function BookModal({ setBooks }) {
 								"Add Book" button.
 							</p>
 							{/* <!--begin::Input group--> */}
-							<div class='d-flex flex-column mb-10 fv-row'>
+							<div className='d-flex flex-column mb-10 fv-row'>
 								{/* <!--begin::Label--> */}
-								<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+								<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 									<span>13-digits ISBN number</span>
 								</label>
 								{/* <!--end::Label--> */}
 								<input
 									type='text'
-									class='form-control form-control-solid'
+									className='form-control form-control-solid'
 									onChange={handleChange}
 									placeholder={'Ex: 978-967-24437-1-0'}
 									name='isbn'

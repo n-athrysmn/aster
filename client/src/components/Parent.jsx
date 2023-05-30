@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { FaUserCircle } from 'react-icons/fa'
 import { useLocation } from 'react-router-dom'
 
 const Parent = () => {
@@ -12,6 +13,7 @@ const Parent = () => {
 		parentAddr: '',
 		parentJob: '',
 		parentSalary: '',
+		parentPfp: '',
 	})
 
 	useEffect(() => {
@@ -84,10 +86,126 @@ const Parent = () => {
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
 
+	const [errUp, setErrorUp] = useState(null)
+	const [successUp, setSuccessUp] = useState('')
+
+	const [file, setFile] = useState()
+
+	const handleFile = (e) => {
+		setFile(e.target.files[0])
+	}
+
+	const handleUpdload = async (e) => {
+		e.preventDefault()
+		const formData = new FormData()
+		try {
+			formData.append('image', file)
+			await axios.post(
+				`${process.env.REACT_APP_API_URL}/upload/parentImg/${email}`,
+				formData
+			)
+			setSuccessUp('Profile picture updated!')
+			setErrorUp('')
+			setTimeout(() => {
+				setSuccessUp('')
+				window.location.reload()
+			}, 3000)
+		} catch (errUp) {
+			setErrorUp(`Error: file too large!`)
+			console.log(err)
+		}
+	}
+
 	return (
 		<>
 			<form className='form'>
 				<div className='card-body border-top p-9'>
+					{/*begin::Input group*/}
+					<div className='row mb-6'>
+						{/*begin::Label*/}
+						<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+							Avatar
+						</label>
+						{/*end::Label*/}
+						{/*begin::Col*/}
+						<div className='col-lg-8'>
+							{isEditing ? (
+								<>
+									{/*begin::Image input*/}
+									<div
+										className='image-input image-input-outline'
+										data-kt-image-input='true'
+									>
+										{/*begin::Preview existing avatar*/}
+										<div
+											className='image-input-wrapper w-125px h-125px'
+											id='avatar-preview'
+										>
+											{parent.parentPfp ? (
+												<img
+													src={`http://localhost:8800/parent/${parent.parentPfp}`}
+													alt={parent.parentName}
+													className='w-100 h-100'
+												/>
+											) : (
+												<FaUserCircle className='w-100 h-100' />
+											)}
+										</div>
+
+										{/*end::Preview existing avatar*/}
+									</div>
+									<div className='form-text'>
+										<input type={'file'} onChange={handleFile} />
+										<button
+											className='btn btn-sm btn-primary'
+											onClick={handleUpdload}
+										>
+											Upload
+										</button>
+									</div>
+									{/*end::Image input*/}
+									{/*begin::Hint*/}
+									<div className='form-text'>
+										Allowed file types: png, jpg, jpeg. File size not more than
+										700kB.
+									</div>
+									{errUp && <p className='text-danger mt-8'>{errUp}</p>}
+									{successUp && (
+										<p className='text-success mt-8'>{successUp}</p>
+									)}
+									{/*end::Hint*/}
+								</>
+							) : (
+								<>
+									{/*begin::Image input*/}
+									<div
+										className='image-input image-input-outline'
+										data-kt-image-input='true'
+									>
+										{/*begin::Preview existing avatar*/}
+										<div
+											className='image-input-wrapper w-125px h-125px'
+											id='avatar-preview'
+										>
+											{parent.parentPfp ? (
+												<img
+													src={`http://localhost:8800/parent/${parent.parentPfp}`}
+													alt={parent.parentName}
+													className='w-100 h-100'
+												/>
+											) : (
+												<FaUserCircle className='w-100 h-100' />
+											)}
+										</div>
+
+										{/*end::Preview existing avatar*/}
+									</div>
+								</>
+							)}
+						</div>
+						{/*end::Col*/}
+					</div>
+					{/*end::Input group*/}
 					{/*begin::Input group*/}
 					<div className='row mb-6'>
 						{/*begin::Label*/}

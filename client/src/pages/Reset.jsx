@@ -74,9 +74,9 @@ const ResetPassword = () => {
 								<div className='separator my-14'></div>
 								{/* <!--end::Separator--> */}
 								{/* <!--begin::Input group=--> */}
-								<div class='d-flex flex-column mb-10 fv-row'>
+								<div className='d-flex flex-column mb-10 fv-row'>
 									{/* <!--begin::Label--> */}
-									<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 										<span>Enter your email</span>
 									</label>
 									{/* <!--end::Label--> */}
@@ -92,9 +92,9 @@ const ResetPassword = () => {
 								</div>
 								{/* <!--end::Input group=--> */}
 								{/* <!--begin::Input group=--> */}
-								<div class='d-flex flex-column mb-10 fv-row'>
+								<div className='d-flex flex-column mb-10 fv-row'>
 									{/* <!--begin::Label--> */}
-									<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 										<span>Enter new password</span>
 									</label>
 									{/* <!--end::Label--> */}

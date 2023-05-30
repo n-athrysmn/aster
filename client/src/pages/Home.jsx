@@ -350,14 +350,17 @@ const Home = () => {
 												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
 													Hello <MdCelebration />
 												</h2>
-												{/* <FaUserCircle className='w-150px h-150px mb-10 mt-10' /> */}
-												{/* <div className='text-center pb-15 px-5'>
-												<img
-													src={currentUser?.studentPfp}
-													alt={currentUser?.studentName}
-													className='mw-100 h-200px h-sm-325px'
-												/>
-											</div> */}
+												<div className='text-center pb-15 px-5'>
+													{currentUser?.studentPfp ? (
+														<img
+															src={`http://localhost:8800/student/${currentUser?.studentPfp}`}
+															alt={currentUser?.studentName}
+															className='w-100 h-200px h-sm-325px'
+														/>
+													) : (
+														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
+													)}
+												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
 													{currentUser.studentName}!
 												</h3>
@@ -370,14 +373,17 @@ const Home = () => {
 												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
 													Hello <MdCelebration />
 												</h2>
-												{/* <FaUserCircle className='w-150px h-150px mb-10 mt-10' /> */}
-												{/* <div className='text-center pb-15 px-5'>
-												<img
-													src={currentUser?.parentPfp}
-													alt={currentUser?.parentName}
-													className='mw-100 h-200px h-sm-325px'
-												/>
-											</div> */}
+												<div className='text-center pb-15 px-5'>
+													{currentUser?.parentPfp ? (
+														<img
+															src={`http://localhost:8800/parent/${currentUser?.parentPfp}`}
+															alt={currentUser?.parentName}
+															className='w-100 h-200px h-sm-325px'
+														/>
+													) : (
+														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
+													)}
+												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
 													{currentUser.parentName}!
 												</h3>
@@ -390,14 +396,17 @@ const Home = () => {
 												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
 													Hello <MdCelebration />
 												</h2>
-												{/* <FaUserCircle className='w-150px h-150px mb-10 mt-10' /> */}
-												{/* <div className='text-center pb-15 px-5'>
-												<img
-													src={currentUser?.teacherPfp}
-													alt={currentUser?.teacherName}
-													className='mw-100 h-200px h-sm-325px'
-												/>
-											</div> */}
+												<div className='text-center pb-15 px-5'>
+													{currentUser?.teacherPfp ? (
+														<img
+															src={`http://localhost:8800/teacher/${currentUser.teacherPfp}`}
+															alt={currentUser.teacherName}
+															className='w-100 h-200px h-sm-325px'
+														/>
+													) : (
+														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
+													)}
+												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
 													{currentUser.teacherName}!
 												</h3>
@@ -438,15 +447,15 @@ const Home = () => {
 											Are you sure you want to remove the book below?
 										</p>
 										{/* <!--begin::Input group--> */}
-										<div class='d-flex flex-column mb-8 fv-row'>
+										<div className='d-flex flex-column mb-8 fv-row'>
 											{/* <!--begin::Label--> */}
-											<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 												<span>Book Name</span>
 											</label>
 											{/* <!--end::Label--> */}
 											<input
 												type='text'
-												class='form-control form-control-solid'
+												className='form-control form-control-solid'
 												value={selectedBook ? selectedBook.name : ''}
 												name='bookName'
 												disabled
@@ -454,15 +463,15 @@ const Home = () => {
 										</div>
 										{/* <!--end::Input group--> */}
 										{/* <!--begin::Input group--> */}
-										<div class='d-flex flex-column fv-row'>
+										<div className='d-flex flex-column fv-row'>
 											{/* <!--begin::Label--> */}
-											<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 												<span>Book ISBN</span>
 											</label>
 											{/* <!--end::Label--> */}
 											<input
 												type='text'
-												class='form-control form-control-solid'
+												className='form-control form-control-solid'
 												value={inputs.isbn}
 												name='isbn'
 												disabled

@@ -82,9 +82,9 @@ const AdminRegister = () => {
 								{/* <!--end::Separator--> */}
 								<div className='mh-300px scroll-y mb-10'>
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your name</span>
 										</label>
 										{/* <!--end::Label--> */}
@@ -99,9 +99,9 @@ const AdminRegister = () => {
 									</div>
 									{/* <!--end::Input group=--> */}
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your staff ID</span>
 										</label>
 										{/* <!--end::Label--> */}
@@ -116,9 +116,9 @@ const AdminRegister = () => {
 									</div>
 									{/* <!--end::Input group=--> */}
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column mb-5 fv-row'>
+									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your email</span>
 										</label>
 										{/* <!--end::Label--> */}
@@ -134,9 +134,9 @@ const AdminRegister = () => {
 									</div>
 									{/* <!--end::Input group=--> */}
 									{/* <!--begin::Input group=--> */}
-									<div class='d-flex flex-column fv-row'>
+									<div className='d-flex flex-column fv-row'>
 										{/* <!--begin::Label--> */}
-										<label class='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 											<span>Enter your password</span>
 										</label>
 										{/* <!--end::Label--> */}
