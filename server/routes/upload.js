@@ -1,5 +1,10 @@
 import express from 'express'
-import { parentImg, studentImg, teacherImg } from '../controllers/upload.js'
+import {
+	adminImg,
+	parentImg,
+	studentImg,
+	teacherImg,
+} from '../controllers/upload.js'
 import multer from 'multer'
 import path from 'path'
 
@@ -47,10 +52,25 @@ const parentUpload = multer({
 	limits: { fileSize: maxSize }, // Set the file size limit
 })
 
+const adminStorage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'public/admin')
+	},
+	filename: (req, file, cb) => {
+		cb(null, 'admin_' + Date.now() + path.extname(file.originalname))
+	},
+})
+
+const adminUpload = multer({
+	storage: adminStorage,
+	limits: { fileSize: maxSize }, // Set the file size limit
+})
+
 const router = express.Router()
 
 router.post('/studentImg/:email', studentUp.single('image'), studentImg)
 router.post('/teacherImg/:email', teacherUpload.single('image'), teacherImg)
 router.post('/parentImg/:email', parentUpload.single('image'), parentImg)
+router.post('/adminImg/:id', adminUpload.single('image'), adminImg)
 
 export default router

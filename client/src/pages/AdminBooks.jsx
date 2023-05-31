@@ -155,7 +155,7 @@ const AdminBook = () => {
 							</div>
 						</div>
 						<div className='card-body'>
-							<div className='table-responsive mh-500px scroll-y'>
+							<div className='table-responsive mh-600px scroll-y p-10'>
 								<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
 									<thead>
 										<tr>
@@ -247,89 +247,91 @@ const AdminBook = () => {
 								</p>
 							</div>
 							<form className='form'>
-								<div className='modal-body p-10'>
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Title
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'text'}
-											onChange={handleChange}
-											name='name'
-											placeholder='Enter book title'
-											className='form-control form-control-lg form-control-solid'
-										/>
+								<div className='modal-body'>
+									<div className='min-h-250px scroll-y p-10'>
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Title
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'text'}
+												onChange={handleChange}
+												name='name'
+												placeholder='Enter book title'
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Image URL
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'url'}
+												onChange={handleChange}
+												name='img'
+												placeholder='https://image-url.png'
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Description
+											</label>
+											{/*end::Label*/}
+											<textarea
+												onChange={handleChange}
+												name='desc'
+												placeholder='Book Volume 1'
+												className='form-control form-control-lg form-control-solid'
+												rows='3'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book ISBN
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'text'}
+												onChange={handleChange}
+												name='isbn'
+												placeholder='Enter book isbn'
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book PDF Answer Link
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'url'}
+												onChange={handleChange}
+												name='pdf'
+												placeholder='https://drive.google.com/pdf-answer/view'
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{err && <p className='text-danger'>{err}</p>}
+										{successMsg && <p className='text-success'>{successMsg}</p>}
 									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Image URL
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'url'}
-											onChange={handleChange}
-											name='img'
-											placeholder='https://image-url.png'
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Description
-										</label>
-										{/*end::Label*/}
-										<textarea
-											onChange={handleChange}
-											name='desc'
-											placeholder='Book Volume 1'
-											className='form-control form-control-lg form-control-solid'
-											rows='3'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book ISBN
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'text'}
-											onChange={handleChange}
-											name='isbn'
-											placeholder='Enter book isbn'
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book PDF Answer Link
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'url'}
-											onChange={handleChange}
-											name='pdf'
-											placeholder='https://drive.google.com/pdf-answer/view'
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{err && <p className='text-danger'>{err}</p>}
-									{successMsg && <p className='text-success'>{successMsg}</p>}
 								</div>
 								<div className='modal-footer'>
 									<button
@@ -363,89 +365,91 @@ const AdminBook = () => {
 								</p>
 							</div>
 							<form className='form'>
-								<div className='modal-body p-10'>
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Title
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'text'}
-											onChange={handleChange}
-											name='name'
-											value={inputs.name}
-											className='form-control form-control-lg form-control-solid'
-										/>
+								<div className='modal-body'>
+									<div className='min-h-250px scroll-y p-10'>
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Title
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'text'}
+												onChange={handleChange}
+												name='name'
+												value={inputs.name}
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Image URL
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'url'}
+												onChange={handleChange}
+												name='img'
+												value={inputs.img}
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Description
+											</label>
+											{/*end::Label*/}
+											<textarea
+												onChange={handleChange}
+												name='desc'
+												value={inputs.desc}
+												className='form-control form-control-lg form-control-solid'
+												rows='4'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book ISBN
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'text'}
+												onChange={handleChange}
+												name='isbn'
+												value={inputs.isbn}
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book PDF Answer Link
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'url'}
+												onChange={handleChange}
+												name='pdf'
+												value={inputs.pdf}
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{err && <p className='text-danger'>{err}</p>}
+										{successMsg && <p className='text-success'>{successMsg}</p>}
 									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Image URL
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'url'}
-											onChange={handleChange}
-											name='img'
-											value={inputs.img}
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Description
-										</label>
-										{/*end::Label*/}
-										<textarea
-											onChange={handleChange}
-											name='desc'
-											value={inputs.desc}
-											className='form-control form-control-lg form-control-solid'
-											rows='4'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book ISBN
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'text'}
-											onChange={handleChange}
-											name='isbn'
-											value={inputs.isbn}
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book PDF Answer Link
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'url'}
-											onChange={handleChange}
-											name='pdf'
-											value={inputs.pdf}
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{err && <p className='text-danger'>{err}</p>}
-									{successMsg && <p className='text-success'>{successMsg}</p>}
 								</div>
 								<div className='modal-footer'>
 									<button
@@ -483,96 +487,98 @@ const AdminBook = () => {
 								</p>
 							</div>
 							<form className='form'>
-								<div className='modal-body p-10'>
-									<p className='text-danger fw-bold fs-6'>
-										Are you sure you want to delete the book below?
-									</p>
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Title
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'text'}
-											onChange={handleChange}
-											name='name'
-											value={inputs.name}
-											disabled
-											className='form-control form-control-lg form-control-solid'
-										/>
+								<div className='modal-body'>
+									<div className='min-h-250px scroll-y p-10'>
+										<p className='text-danger fw-bold fs-6'>
+											Are you sure you want to delete the book below?
+										</p>
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Title
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'text'}
+												onChange={handleChange}
+												name='name'
+												value={inputs.name}
+												disabled
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Image URL
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'url'}
+												onChange={handleChange}
+												name='img'
+												value={inputs.img}
+												disabled
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book Description
+											</label>
+											{/*end::Label*/}
+											<textarea
+												onChange={handleChange}
+												name='desc'
+												value={inputs.desc}
+												disabled
+												className='form-control form-control-lg form-control-solid'
+												rows='4'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book ISBN
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'text'}
+												onChange={handleChange}
+												name='isbn'
+												value={inputs.isbn}
+												disabled
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{/*end::Input group*/}
+										{/*begin::Input group*/}
+										<div className='d-flex flex-column mb-8 fv-row'>
+											{/*begin::Label*/}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												Book PDF Answer Link
+											</label>
+											{/*end::Label*/}
+											<input
+												type={'url'}
+												onChange={handleChange}
+												name='pdf'
+												value={inputs.pdf}
+												disabled
+												className='form-control form-control-lg form-control-solid'
+											/>
+										</div>
+										{err && <p className='text-danger'>{err}</p>}
+										{successMsg && <p className='text-success'>{successMsg}</p>}
 									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Image URL
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'url'}
-											onChange={handleChange}
-											name='img'
-											value={inputs.img}
-											disabled
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book Description
-										</label>
-										{/*end::Label*/}
-										<textarea
-											onChange={handleChange}
-											name='desc'
-											value={inputs.desc}
-											disabled
-											className='form-control form-control-lg form-control-solid'
-											rows='4'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book ISBN
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'text'}
-											onChange={handleChange}
-											name='isbn'
-											value={inputs.isbn}
-											disabled
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-8 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Book PDF Answer Link
-										</label>
-										{/*end::Label*/}
-										<input
-											type={'url'}
-											onChange={handleChange}
-											name='pdf'
-											value={inputs.pdf}
-											disabled
-											className='form-control form-control-lg form-control-solid'
-										/>
-									</div>
-									{err && <p className='text-danger'>{err}</p>}
-									{successMsg && <p className='text-success'>{successMsg}</p>}
 								</div>
 								<div className='modal-footer'>
 									<button

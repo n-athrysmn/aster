@@ -121,7 +121,7 @@ const UsersList = () => {
 				className='content d-flex flex-column flex-column-fluid'
 			>
 				<div id='kt_content_container' className='container-xxl'>
-					<div className='row mb-10'>
+					<div className='row mb-5'>
 						<div className='col-lg-4'>
 							<button
 								className={
@@ -174,7 +174,7 @@ const UsersList = () => {
 								</div>
 							</div>
 							<div className='card-body'>
-								<div className='table-responsive mh-500px scroll-y'>
+								<div className='table-responsive mh-600px scroll-y p-10'>
 									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
 										<thead>
 											<tr>
@@ -220,7 +220,7 @@ const UsersList = () => {
 								</div>
 							</div>
 							<div className='card-body'>
-								<div className='table-responsive mh-500px scroll-y'>
+								<div className='table-responsive mh-600px scroll-y p-10'>
 									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
 										<thead>
 											<tr>
@@ -262,7 +262,7 @@ const UsersList = () => {
 								</div>
 							</div>
 							<div className='card-body'>
-								<div className='table-responsive mh-500px scroll-y'>
+								<div className='table-responsive mh-600px scroll-y p-10'>
 									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
 										<thead>
 											<tr>

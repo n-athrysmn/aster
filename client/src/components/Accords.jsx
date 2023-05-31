@@ -45,7 +45,7 @@ const Accords = () => {
 	])
 
 	return (
-		<div className='accordion mt-5' id='kt_accordion_1'>
+		<div className='accordion mt-10' id='kt_accordion_1'>
 			<Accordion
 				title={
 					<span>

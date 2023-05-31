@@ -15,6 +15,7 @@ import {
 	getEvents,
 	getTask,
 	getVideos,
+	taskDone,
 	upload,
 } from '../controllers/others.js'
 
@@ -35,6 +36,7 @@ router.delete('/delete-announce/:id', delAnnounce)
 router.post('/add-task', addTask)
 router.get('/get-tasks/:adminId', getTask)
 router.put('/edit-tasks/:id', editTask)
+router.put('/task-done/:id', taskDone)
 router.delete('/delete-task/:id', delTask)
 
 export default router

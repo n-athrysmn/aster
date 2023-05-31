@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Reg from '../assets/register.svg'
+import Reg from '../assets/bg10.jpeg'
+import Test from '../assets/agency.png'
 
 const Teacher = () => {
 	const [inputs, setInputs] = useState({
@@ -55,7 +56,10 @@ const Teacher = () => {
 	}
 
 	return (
-		<div className='d-flex flex-column flex-lg-row flex-column-fluid'>
+		<div
+			className='d-flex flex-column flex-lg-row flex-column-fluid'
+			style={{ backgroundImage: `url(${Reg})` }}
+		>
 			<div className='d-flex flex-lg-row-fluid'>
 				<div className='d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100'>
 					{/* <img
@@ -65,7 +69,7 @@ const Teacher = () => {
 					/> */}
 					<img
 						className='theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20'
-						src={Reg}
+						src={Test}
 						alt='Aster Education'
 					/>
 					<h2 className='text-gray-800 fs-2qx fw-bold text-center mb-7'>
@@ -91,7 +95,7 @@ const Teacher = () => {
 								{/* <!--begin::Separator--> */}
 								<div className='separator my-14'></div>
 								{/* <!--end::Separator--> */}
-								<div className='mh-300px scroll-y mb-10'>
+								<div className='mh-300px scroll-y p-10 mb-10'>
 									{/* <!--begin::Input group=--> */}
 									<div className='d-flex flex-column mb-5 fv-row'>
 										{/* <!--begin::Label--> */}

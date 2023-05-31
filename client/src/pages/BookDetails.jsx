@@ -144,7 +144,7 @@ const BookDetails = () => {
 						</div>
 						<div className='card-body'>
 							{Array.isArray(videos) && videos.length > 0 ? (
-								<div className='table-responsive mh-500px scroll-y'>
+								<div className='table-responsive mh-600px scroll-y'>
 									<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
 										<thead>
 											<tr>

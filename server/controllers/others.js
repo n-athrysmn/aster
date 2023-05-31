@@ -73,7 +73,7 @@ export const dashVideos = (req, res) => {
 
 //get all events
 export const getEvents = (req, res) => {
-	const q = 'SELECT * FROM event'
+	const q = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') AS eventdate FROM event`
 
 	db.query(q, (err, data) => {
 		if (err) return res.status(500).json(err)
@@ -117,7 +117,7 @@ export const editEvent = (req, res) => {
 		const event = results[0]
 		const newEvent = {
 			title: req.body.title || event.title,
-			date: req.body.date || event.title,
+			date: req.body.eventdate || event.date,
 		}
 
 		const updatedFields = []
@@ -225,10 +225,10 @@ export const addTask = (req, res) => {
 
 //get task by admin id
 export const getTask = (req, res) => {
-	const { adminId } = req.params // Get the user id from the request parameters
+	const { adminId } = req.params
 	console.log('adminId:', adminId)
 
-	const q = 'SELECT * FROM tasks WHERE adminId = ?'
+	const q = `SELECT *, DATE_FORMAT(deadline, '%Y-%m-%d') AS formattedDeadline FROM tasks WHERE adminId = ?`
 	const values = [adminId]
 
 	db.query(q, values, (err, data) => {
@@ -254,7 +254,7 @@ export const editTask = (req, res) => {
 		const newTask = {
 			title: req.body.title || task.title,
 			priority: req.body.priority || task.priority,
-			deadline: req.body.deadline || task.deadline,
+			deadline: req.body.formattedDeadline || task.deadline,
 		}
 
 		const updatedFields = []
@@ -281,6 +281,30 @@ export const editTask = (req, res) => {
 		const q = 'UPDATE tasks SET ' + updatedFields.join(', ') + ' WHERE id = ?'
 
 		db.query(q, [...values, id], (err, data) => {
+			if (err) return res.status(500).json(err)
+			return res.status(200).json('Task has been updated.')
+		})
+	})
+}
+
+//edit task by id
+export const taskDone = (req, res) => {
+	const { id } = req.params // Get the task id from the request parameters
+	console.log('id:', id)
+	const done = req.body.isDone
+	console.log('done : ', done)
+
+	const q = 'SELECT * FROM tasks WHERE id = ?'
+	db.query(q, [id], (err, results) => {
+		if (err) return res.status(500).json(err)
+
+		if (results.length === 0) {
+			return res.status(404).json('Task not found')
+		}
+
+		const q = 'UPDATE tasks SET isDone = ? WHERE id = ?'
+
+		db.query(q, [done, id], (err, data) => {
 			if (err) return res.status(500).json(err)
 			return res.status(200).json('Task has been updated.')
 		})

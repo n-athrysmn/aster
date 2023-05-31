@@ -23,6 +23,28 @@ const AdminHome = () => {
 	const [showEvent, setShowEvent] = useState(false)
 	const [activeBtn, setActiveBtn] = useState('')
 
+	const id = currentAdmin?.id
+	const [admin, setAdmin] = useState([])
+
+	useEffect(() => {
+		const fetchAdmin = async () => {
+			try {
+				console.log('Fetching admin…')
+				const res = await axios.get(
+					`${process.env.REACT_APP_API_URL}/users/admin/${id}`
+				)
+				console.log('Response:', res)
+				const data = res.data
+				console.log('Data:', data)
+				setAdmin(data)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchAdmin()
+	}, [id])
+
 	const handleAnnouncementClick = () => {
 		setShowAnnouncement(true)
 		setShowUpload(false)
@@ -159,14 +181,17 @@ const AdminHome = () => {
 												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
 													Hello <MdCelebration />
 												</h2>
-												{/* <FaUserCircle className='w-150px h-150px mb-10 mt-10' /> */}
-												{/* <div className='text-center pb-15 px-5'>
-												<img
-													src={currentUser?.studentPfp}
-													alt={currentUser?.studentName}
-													className='mw-100 h-200px h-sm-325px'
-												/>
-											</div> */}
+												<div className='text-center pb-15 px-5'>
+													{admin.adminPfp ? (
+														<img
+															src={`https://aster-server-z9ckn.ondigitalocean.app/admin/${admin.adminPfp}`}
+															alt={currentAdmin.adminName}
+															className='w-250px h-250px mb-5 mt-5'
+														/>
+													) : (
+														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
+													)}
+												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
 													{currentAdmin.adminName}!
 												</h3>

@@ -9,7 +9,7 @@ import axios from 'axios'
 import Accords from '../components/Accords'
 import BookModal from '../components/BookModal'
 import Toolbar from '../layout/Toolbar'
-import { FaUser, FaUserCircle } from 'react-icons/fa'
+import { FaUserCircle } from 'react-icons/fa'
 
 const Home = () => {
 	const { currentUser, isLoggedIn } = useContext(AuthContext)
@@ -406,7 +406,7 @@ const Home = () => {
 								<div className='card-body'>
 									{currentUser?.studentName && (
 										<>
-											<div className='card-px text-center pt-15 pb-15'>
+											<div className='card-px text-center pt-10 pb-10'>
 												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
 													Hello <MdCelebration />
 												</h2>
@@ -415,14 +415,14 @@ const Home = () => {
 														<img
 															src={`https://aster-server-z9ckn.ondigitalocean.app/student/${student.studentPfp}`}
 															alt={student.studentName}
-															className='w-100 h-200px h-sm-325px'
+															className='w-250px h-250px mb-5 mt-5'
 														/>
 													) : (
 														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
 													)}
 												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
-													{student.studentName}!
+													{currentUser?.studentName}!
 												</h3>
 											</div>
 										</>
@@ -438,14 +438,14 @@ const Home = () => {
 														<img
 															src={`https://aster-server-z9ckn.ondigitalocean.app/parent/${parent.parentPfp}`}
 															alt={parent.parentName}
-															className='w-100 h-200px h-sm-325px'
+															className='w-250px h-250px mb-5 mt-5'
 														/>
 													) : (
 														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
 													)}
 												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
-													{parent.parentName}!
+													{currentUser?.parentName}!
 												</h3>
 											</div>
 										</>
@@ -461,14 +461,14 @@ const Home = () => {
 														<img
 															src={`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`}
 															alt={teacher.teacherName}
-															className='w-100 h-200px h-sm-325px'
+															className='w-250px h-250px mb-5 mt-5'
 														/>
 													) : (
 														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
 													)}
 												</div>
 												<h3 className='fs-2x fw-bold mb-0'>
-													{teacher.teacherName}!
+													{currentUser?.teacherName}!
 												</h3>
 											</div>
 										</>

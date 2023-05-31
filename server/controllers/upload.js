@@ -157,3 +157,52 @@ export const parentImg = (req, res) => {
 		})
 	})
 }
+
+export const adminImg = (req, res) => {
+	const { id } = req.params // Get the admin id from the request parameters
+	console.log('admin id:', id)
+
+	const q = 'SELECT * FROM admins WHERE id = ?'
+	db.query(q, [id], (err, results) => {
+		if (err) return res.status(500).json(err)
+
+		if (results.length === 0) {
+			return res.status(404).json('Admin not found')
+		}
+
+		const admin = results[0]
+		const newAdmin = {
+			adminPfp: req.file.filename || admin.adminPfp,
+		}
+
+		const updatedFields = []
+		const values = []
+
+		// Check which fields have been updated
+		if (newAdmin.adminPfp !== admin.adminPfp) {
+			// Delete previous file if it exists
+			if (admin.adminPfp) {
+				const filePath = path.join('public/admin', admin.adminPfp)
+				fs.unlink(filePath, (err) => {
+					if (err) {
+						console.error('Error deleting file:', err)
+					}
+				})
+			}
+
+			updatedFields.push('adminPfp = ?')
+			values.push(newAdmin.adminPfp)
+		}
+
+		if (updatedFields.length === 0) {
+			return res.status(400).json('No fields updated')
+		}
+
+		const q = 'UPDATE admins SET ' + updatedFields.join(', ') + ' WHERE id = ?'
+
+		db.query(q, [...values, id], (err, data) => {
+			if (err) return res.status(500).json(err)
+			return res.status(200).json('Admin profile picture has been updated.')
+		})
+	})
+}

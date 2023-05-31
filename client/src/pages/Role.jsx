@@ -2,10 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/dark-logo.png'
 import { FaChalkboardTeacher, FaUser, FaUserGraduate } from 'react-icons/fa'
+import Reg from '../assets/bg10-dark.jpeg'
 
 const Role = () => {
 	return (
-		<div className='d-flex flex-column flex-center flex-column-fluid'>
+		<div
+			className='d-flex flex-column flex-center flex-column-fluid'
+			style={{ backgroundImage: `url(${Reg})` }}
+		>
 			<div className='d-flex flex-column flex-center text-center p-10'>
 				{/*begin::Wrapper*/}
 				<div className='card card-flush w-md-650px py-5'>

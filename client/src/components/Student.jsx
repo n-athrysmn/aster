@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
-import { BsPencilFill, BsX } from 'react-icons/bs'
 import { FaUserCircle } from 'react-icons/fa'
 
 const Student = () => {

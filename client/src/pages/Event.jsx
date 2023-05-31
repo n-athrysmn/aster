@@ -36,23 +36,14 @@ const Event = () => {
 
 	const [inputs, setInputs] = useState({
 		title: selectedEvent ? selectedEvent.title : '',
-		date: selectedEvent ? selectedEvent.date : '',
+		eventdate: selectedEvent ? selectedEvent.eventdate : '',
 	})
-
-	const date = new Date(inputs.date)
-	const newDate = date
-		.toLocaleDateString('en-GB', {
-			day: 'numeric',
-			month: 'numeric',
-			year: 'numeric',
-		})
-		.replace(/\//g, '/')
 
 	useEffect(() => {
 		if (selectedEvent) {
 			setInputs({
 				title: selectedEvent.title,
-				date: selectedEvent.date,
+				eventdate: selectedEvent.eventdate,
 			})
 		}
 	}, [selectedEvent])
@@ -209,33 +200,23 @@ const Event = () => {
 										className='form-control form-control-lg form-control-solid'
 									/>
 								</div>
-								{/*end::Input group*/}
+								{/* end::Input group*/}
 								{/*begin::Input group*/}
-								{/* <div className='d-flex flex-column mb-8 fv-row'> */}
-								{/*begin::Label*/}
-								{/* <label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+								<div className='d-flex flex-column mb-8 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 										Date
-									</label> */}
-								{/*end::Label*/}
-								{/* <input
+									</label>
+									{/*end::Label*/}
+									<input
 										type={'date'}
 										onChange={handleChange}
-										name='date'
-										value={inputs.date}
+										name='eventdate'
+										value={inputs.eventdate}
 										className='form-control form-control-lg form-control-solid'
-									/> */}
-								{/* </div> */}
-								{/*end::Input group*/}
-								{/*<div className='form-row'>
-									<div className='form-label'>Date</div>
-									<input
-										type='date'
-										className='input-field'
-										name='date'
-										value={newDate}
-										onChange={handleChange}
 									/>
-								</div>*/}
+								</div>
+								{/*end::Input group*/}
 								{err && <p className='text-danger'>{err}</p>}
 								{successMsg && <p className='text-success'>{successMsg}</p>}
 							</div>
@@ -299,10 +280,10 @@ const Event = () => {
 									</label>
 									{/*end::Label*/}
 									<input
-										type={'text'}
+										type={'date'}
 										onChange={handleChange}
 										name='date'
-										value={newDate}
+										value={inputs.eventdate}
 										disabled
 										className='form-control form-control-lg form-control-solid'
 									/>
