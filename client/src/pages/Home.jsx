@@ -279,7 +279,7 @@ const Home = () => {
 											<img
 												src={book.img}
 												alt={book.desc}
-												className='mw-400px mh-400px'
+												className='mw-50 mh-25'
 											/>
 										</Link>
 										<Link to={`/books/${book.isbn}`}>
@@ -403,24 +403,22 @@ const Home = () => {
 					<div className='row g-5 g-xl-10 mb-5 mb-xl-10'>
 						<div className='col-xl-4'>
 							<div className='card h-lg-100'>
-								<div className='card-body'>
+								<div className='card-body pt-15 pb-15'>
 									{currentUser?.studentName && (
 										<>
-											<div className='card-px text-center pt-10 pb-10'>
-												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
+											<div className='text-center'>
+												<h2 className='text-gray-400 fs-4 fw-semibold'>
 													Hello <MdCelebration />
 												</h2>
-												<div className='text-center pb-15 px-5'>
-													{student.studentPfp ? (
-														<img
-															src={`https://aster-server-z9ckn.ondigitalocean.app/student/${student.studentPfp}`}
-															alt={student.studentName}
-															className='w-250px h-250px mb-5 mt-5'
-														/>
-													) : (
-														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
-													)}
-												</div>
+												{student.studentPfp ? (
+													<img
+														src={`https://aster-server-z9ckn.ondigitalocean.app/student/${student.studentPfp}`}
+														alt={student.studentName}
+														className='w-250px h-250px mb-5 mt-5'
+													/>
+												) : (
+													<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
+												)}
 												<h3 className='fs-2x fw-bold mb-0'>
 													{currentUser?.studentName}!
 												</h3>
@@ -429,21 +427,19 @@ const Home = () => {
 									)}
 									{currentUser?.parentName && (
 										<>
-											<div className='card-px text-center pt-15 pb-15'>
-												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
+											<div className='text-center'>
+												<h2 className='text-gray-400 fs-4 fw-semibold'>
 													Hello <MdCelebration />
 												</h2>
-												<div className='text-center pb-15 px-5'>
-													{parent.parentPfp ? (
-														<img
-															src={`https://aster-server-z9ckn.ondigitalocean.app/parent/${parent.parentPfp}`}
-															alt={parent.parentName}
-															className='w-250px h-250px mb-5 mt-5'
-														/>
-													) : (
-														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
-													)}
-												</div>
+												{parent.parentPfp ? (
+													<img
+														src={`https://aster-server-z9ckn.ondigitalocean.app/parent/${parent.parentPfp}`}
+														alt={parent.parentName}
+														className='w-250px h-250px mb-5 mt-5'
+													/>
+												) : (
+													<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
+												)}
 												<h3 className='fs-2x fw-bold mb-0'>
 													{currentUser?.parentName}!
 												</h3>
@@ -452,21 +448,19 @@ const Home = () => {
 									)}
 									{currentUser?.teacherName && (
 										<>
-											<div className='card-px text-center pt-15 pb-15'>
-												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
+											<div className='text-center'>
+												<h2 className='text-gray-400 fs-4 fw-semibold'>
 													Hello <MdCelebration />
 												</h2>
-												<div className='text-center pb-15 px-5'>
-													{teacher.teacherPfp ? (
-														<img
-															src={`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`}
-															alt={teacher.teacherName}
-															className='w-250px h-250px mb-5 mt-5'
-														/>
-													) : (
-														<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
-													)}
-												</div>
+												{teacher.teacherPfp ? (
+													<img
+														src={`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`}
+														alt={teacher.teacherName}
+														className='w-250px h-250px mb-5 mt-5'
+													/>
+												) : (
+													<FaUserCircle className='w-150px h-150px mb-10 mt-10' />
+												)}
 												<h3 className='fs-2x fw-bold mb-0'>
 													{currentUser?.teacherName}!
 												</h3>
@@ -478,10 +472,8 @@ const Home = () => {
 						</div>
 						<div className='col-xl-8'>
 							<div className='card h-lg-100'>
-								<div className='card-body'>
-									<div className='card-px text-center pt-15 pb-15'>
-										<Calendar />
-									</div>
+								<div className='card-body pt-15 pb-15'>
+									<Calendar />
 								</div>
 							</div>
 						</div>

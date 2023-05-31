@@ -57,18 +57,18 @@ function Calendar() {
 	}
 
 	return (
-		<div className='calendar'>
-			<h2 className='month'>{monthName}</h2>
-			<table className='cal'>
+		<div className='text-center'>
+			<h2 className='month mb-8'>{monthName}</h2>
+			<table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 text-center'>
 				<thead>
 					<tr className='days cal-tr'>
-						<th className='date'>Sun</th>
-						<th className='date'>Mon</th>
-						<th className='date'>Tue</th>
-						<th className='date'>Wed</th>
-						<th className='date'>Thu</th>
-						<th className='date'>Fri</th>
-						<th className='date'>Sat</th>
+						<th className='fs-6 fw-bold'>Sun</th>
+						<th className='fs-6 fw-bold'>Mon</th>
+						<th className='fs-6 fw-bold'>Tue</th>
+						<th className='fs-6 fw-bold'>Wed</th>
+						<th className='fs-6 fw-bold'>Thu</th>
+						<th className='fs-6 fw-bold'>Fri</th>
+						<th className='fs-6 fw-bold'>Sat</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -90,7 +90,7 @@ function Calendar() {
 										: []
 								return (
 									<td
-										className='date cal-td'
+										className='fs-7 fw-bold'
 										key={dayIndex}
 										style={{
 											backgroundColor:

@@ -1,49 +1,6 @@
-.calendar {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 30px;
-
-	.month {
-		text-transform: uppercase;
-		letter-spacing: 2px;
-	}
-
-	.cal {
-		width: 100%;
-		height: auto;
-
-		.cal-tr,
-		.cal-td {
-			display: grid;
-			grid-template-columns: repeat(7, 1fr);
-		}
-
-		.cal-tr {
-			border-bottom: #7e8299 1px dashed;
-		}
-
-		.cal-td {
-			border-right: #fff 3px solid;
-		}
-
-		.cal-td:last-child {
-			border-right: none;
-		}
-
-		.days {
-			padding: 10px;
-		}
-
-		.date {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 10px;
-			font-weight: 700;
-			letter-spacing: 1px;
-		}
-	}
+.month {
+	text-transform: uppercase;
+	letter-spacing: 2px;
 }
 
 .announce {
