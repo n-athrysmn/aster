@@ -350,7 +350,6 @@ const Books = () => {
 								</div>
 								<div className='col-md-6 mh-300px scroll-y me-n7 pe-7'>
 									{videos.slice(0, 50).map((v) => {
-										console.log(v.id)
 										return (
 											<div
 												key={v.id}

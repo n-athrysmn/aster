@@ -17,7 +17,6 @@ const Parent = () => {
 	})
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
-	console.log(inputs)
 
 	const navigate = useNavigate()
 	const handleChange = (e) => {

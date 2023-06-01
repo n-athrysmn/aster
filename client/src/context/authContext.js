@@ -20,7 +20,6 @@ export const AuthContextProvider = ({ children }) => {
 			inputs
 		)
 		setCurrentUser(data)
-		console.log(data)
 	}
 
 	const admin = async (inputs) => {
@@ -29,7 +28,6 @@ export const AuthContextProvider = ({ children }) => {
 			inputs
 		)
 		setCurrentAdmin(data)
-		console.log(data)
 	}
 
 	const logout = async () => {

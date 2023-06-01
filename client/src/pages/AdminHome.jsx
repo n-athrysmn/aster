@@ -96,7 +96,6 @@ const AdminHome = () => {
 
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
-	console.log(inputs)
 
 	const handleChange = (e) => {
 		const value =

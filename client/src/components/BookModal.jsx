@@ -44,7 +44,6 @@ function BookModal({ setBooks }) {
 
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
-	console.log(inputs)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()

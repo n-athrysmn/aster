@@ -46,8 +46,6 @@ const BookDetails = () => {
 		book: bookId,
 	})
 
-	console.log(inputs)
-
 	useEffect(() => {
 		if (selected) {
 			setInputs({
