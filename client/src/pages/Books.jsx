@@ -16,13 +16,12 @@ const Books = () => {
 	useEffect(() => {
 		const fetchVideos = async () => {
 			try {
-				console.log('Fetching videos…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/answers/${bookIsbn}`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setVideos(data)
 			} catch (error) {
 				console.error(error)
@@ -35,13 +34,12 @@ const Books = () => {
 	useEffect(() => {
 		const fetchBookData = async () => {
 			try {
-				console.log('Fetching book…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/getPdf/${bookIsbn}`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setBook(data)
 			} catch (error) {
 				console.error(error)
@@ -50,9 +48,6 @@ const Books = () => {
 
 		fetchBookData()
 	}, [bookIsbn])
-
-	console.log('Book:', book)
-	console.log('pdf link:', book.pdf)
 
 	/*const questions = [
 		{
@@ -324,8 +319,6 @@ const Books = () => {
 		if (!vids) {
 			return null
 		}
-
-		console.log('vids:', vids)
 
 		return (
 			<iframe

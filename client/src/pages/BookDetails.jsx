@@ -15,13 +15,12 @@ const BookDetails = () => {
 	useEffect(() => {
 		const fetchBooks = async () => {
 			try {
-				console.log('Fetching book details…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/details/${bookId}`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setVideos(data)
 			} catch (error) {
 				console.error(error)
@@ -84,7 +83,6 @@ const BookDetails = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -102,7 +100,6 @@ const BookDetails = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -118,7 +115,6 @@ const BookDetails = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 

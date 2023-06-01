@@ -7,11 +7,10 @@ const Announcement = () => {
 	useEffect(() => {
 		const fetchAnnouncement = async () => {
 			try {
-				console.log('Fetching announcement…')
 				const { data } = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/get-announce`
 				)
-				console.log('Announcement:', data)
+
 				setAnnouncement(data)
 			} catch (error) {
 				console.error(error)

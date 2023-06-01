@@ -28,13 +28,12 @@ const UsersList = () => {
 	useEffect(() => {
 		const fetchStudents = async () => {
 			try {
-				console.log('Fetching students…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/students`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Student:', data)
+
 				setStudents(data)
 			} catch (error) {
 				console.error(error)
@@ -43,13 +42,11 @@ const UsersList = () => {
 
 		const fetchParents = async () => {
 			try {
-				console.log('Fetching parents…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/parents`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Parent:', data)
 				setParents(data)
 			} catch (error) {
 				console.error(error)
@@ -58,13 +55,11 @@ const UsersList = () => {
 
 		const fetchTeachers = async () => {
 			try {
-				console.log('Fetching teachers…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/teachers`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Teacher:', data)
 				setTeachers(data)
 			} catch (error) {
 				console.error(error)

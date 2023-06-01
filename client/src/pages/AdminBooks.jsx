@@ -14,13 +14,12 @@ const AdminBook = () => {
 	useEffect(() => {
 		const fetchBooks = async () => {
 			try {
-				console.log('Fetching books…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/get-books`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Data:', data)
+
 				setBooks(data)
 			} catch (error) {
 				console.error(error)
@@ -87,7 +86,7 @@ const AdminBook = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
+
 			setTimeout(() => {
 				window.location.reload()
 			}, 3000)
@@ -108,7 +107,6 @@ const AdminBook = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -124,7 +122,6 @@ const AdminBook = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 

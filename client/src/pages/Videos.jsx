@@ -14,13 +14,12 @@ const Videos = () => {
 	useEffect(() => {
 		const fetchVideos = async () => {
 			try {
-				console.log('Fetching videos that isnt connected to books...')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/get-videos`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setVideos(data)
 			} catch (error) {
 				console.error(error)
@@ -40,8 +39,6 @@ const Videos = () => {
 		title: selected ? selected.title : '',
 		link: selected ? selected.link : '',
 	})
-
-	console.log(inputs)
 
 	useEffect(() => {
 		if (selected) {
@@ -81,7 +78,6 @@ const Videos = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -97,7 +93,6 @@ const Videos = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 

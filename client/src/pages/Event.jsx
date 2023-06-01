@@ -14,13 +14,12 @@ const Event = () => {
 	useEffect(() => {
 		const fetchEvents = async () => {
 			try {
-				console.log('Fetching events…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/get-events`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Data:', data)
+
 				setEvents(data)
 			} catch (error) {
 				console.error(error)
@@ -66,7 +65,6 @@ const Event = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -89,7 +87,6 @@ const Event = () => {
 				setError('')
 				window.location.reload()
 			}, 3000)
-			console.log(err)
 		}
 	}
 

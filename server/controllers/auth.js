@@ -343,7 +343,6 @@ export const adminlogin = (req, res) => {
 //reset password
 export const reset = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	// Check if the user exists in the students table
 	const q1 = 'SELECT * FROM students WHERE studentEmail = ?'

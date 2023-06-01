@@ -26,8 +26,6 @@ const UserEmail = () => {
 		parentEmail: currentUser?.parentEmail || '',
 	})
 
-	console.log('email: ', user)
-
 	const [isDisabled, setIsDisabled] = useState(true)
 	const [isEditing, setIsEditing] = useState(false)
 
@@ -71,7 +69,6 @@ const UserEmail = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 

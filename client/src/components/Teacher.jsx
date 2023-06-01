@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { FaUserCircle } from 'react-icons/fa'
+import Compressor from 'compressorjs'
 
 const Teacher = () => {
 	const location = useLocation()
@@ -19,13 +20,12 @@ const Teacher = () => {
 	useEffect(() => {
 		const fetchTeacher = async () => {
 			try {
-				console.log('Fetching teacher…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/getTeacher/${email}`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setTeacher(data)
 			} catch (error) {
 				console.error(error)
@@ -34,8 +34,6 @@ const Teacher = () => {
 
 		fetchTeacher()
 	}, [email])
-
-	console.log('teacher: ', teacher)
 
 	const [isDisabled, setIsDisabled] = useState(true)
 	const [isEditing, setIsEditing] = useState(false)
@@ -75,7 +73,6 @@ const Teacher = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -90,17 +87,63 @@ const Teacher = () => {
 
 	const [errUp, setErrorUp] = useState(null)
 	const [successUp, setSuccessUp] = useState('')
+	const [compressedImage, setCompressedImage] = useState(null)
+	const [previewImage, setPreviewImage] = useState('')
 
-	const [file, setFile] = useState()
+	useEffect(() => {
+		if (teacher.teacherPfp) {
+			setPreviewImage(
+				`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`
+			)
+		}
+	}, [teacher.teacherPfp])
+
+	const compressImage = (file) => {
+		const maxSize = 400 * 1024 // Set the minimum size to 700kb (in bytes)
+
+		if (file.size > maxSize) {
+			try {
+				new Compressor(file, {
+					quality: 0.6,
+					maxWidth: 300,
+					maxHeight: 300,
+					crop: true, // Enable cropping
+					maxSize: 300 * 1024, // Set the maximum size to 500kb (in bytes)
+					success: (compressedFile) => {
+						// Handle the compressed image here
+						setCompressedImage(compressedFile)
+					},
+					error: (error) => {
+						console.error('Image compression error:', error)
+					},
+				})
+			} catch (error) {
+				console.error('Image compression error:', error)
+			}
+		} else {
+			// Image does not meet the minimum size requirement, handle it here (e.g., do not compress)
+			setCompressedImage(file)
+		}
+	}
 
 	const handleFile = (e) => {
-		setFile(e.target.files[0])
+		const selectedFile = e.target.files[0]
+		if (selectedFile) {
+			compressImage(selectedFile)
+
+			const reader = new FileReader()
+			reader.onload = () => {
+				setPreviewImage(reader.result)
+			}
+			reader.readAsDataURL(selectedFile)
+		}
 	}
 
 	const handleUpdload = async (e) => {
 		e.preventDefault()
 		const formData = new FormData()
 		try {
+			const file = new File([compressedImage], ' ', { type: 'image/jpeg' })
 			formData.append('image', file)
 			await axios.post(
 				`${process.env.REACT_APP_API_URL}/upload/teacherImg/${email}`,
@@ -114,7 +157,6 @@ const Teacher = () => {
 			}, 3000)
 		} catch (errUp) {
 			setErrorUp(`Error: file too large!`)
-			console.log(err)
 		}
 	}
 
@@ -145,7 +187,7 @@ const Teacher = () => {
 										>
 											{teacher.teacherPfp ? (
 												<img
-													src={`https://aster-server-z9ckn.ondigitalocean.app/teacher/${teacher.teacherPfp}`}
+													src={previewImage}
 													alt={teacher.teacherName}
 													className='w-100 h-100'
 												/>

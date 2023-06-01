@@ -60,14 +60,33 @@ function BookModal({ setBooks }) {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
+	const [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => {
+		// Function to check if the viewport is in mobile view
+		const checkIsMobile = () => {
+			const isMobileView = window.innerWidth <= 966 // Adjust the breakpoint as needed
+			setIsMobile(isMobileView)
+		}
+
+		// Add event listener to check on window resize
+		window.addEventListener('resize', checkIsMobile)
+
+		// Initial check when component mounts
+		checkIsMobile()
+
+		// Clean up event listener when component unmounts
+		return () => {
+			window.removeEventListener('resize', checkIsMobile)
+		}
+	}, [])
 
 	return (
 		<>
 			<button
-				className='btn btn-success w-50'
+				className={`btn btn-success ${isMobile ? 'w-100' : 'w-75'}`}
 				onClick={() => setShowModal(true)}
 			>
 				Add Book

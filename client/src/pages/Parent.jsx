@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Reg from '../assets/bg10.jpeg'
-import Test from '../assets/agency.png'
+import Reg from '../assets/bg10-dark.jpeg'
+import Test from '../assets/register.svg'
+import Logo from '../assets/logo.png'
 
 const Parent = () => {
 	const [inputs, setInputs] = useState({
@@ -56,203 +57,199 @@ const Parent = () => {
 	}
 
 	return (
-		<div
-			className='d-flex flex-column flex-lg-row flex-column-fluid'
-			style={{ backgroundImage: `url(${Reg})` }}
-		>
-			<div className='d-flex flex-lg-row-fluid'>
-				<div className='d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100'>
-					{/* <img
-					className='theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20'
-					src={Logo}
-					alt='Aster Education'
-				/> */}
+		<div className='d-flex flex-column flex-lg-row flex-column-fluid'>
+			<div
+				className='d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center'
+				style={{ backgroundImage: `url(${Reg})` }}
+			>
+				<div className='d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100'>
+					<a href='https://lms.aster.edu.my/' class='mb-0 mb-lg-12'>
+						<img alt='Logo' src={Logo} class='h-80px h-lg-100px' />
+					</a>
 					<img
-						className='theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20'
+						className='d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20'
 						src={Test}
 						alt='Aster Education'
 					/>
-					<h2 className='text-gray-800 fs-2qx fw-bold text-center mb-7'>
+					<h2 className='d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7'>
 						Learning Made Simple
 					</h2>
-					<p className='text-gray-600 fs-base text-center fw-semibold'>
+					<p className='d-none d-lg-block text-white fs-base text-center'>
 						Your one-stop destination for easy, convenient, and effective
 						learning. Achieve your goals with our user-friendly LMS designed for
 						students, employees, and lifelong learners.
 					</p>
 				</div>
 			</div>
-			<div className='d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12'>
-				<div className='bg-body d-flex flex-column flex-center rounded-4 w-md-600px p-10'>
-					<div className='d-flex flex-center flex-column align-items-stretch h-lg-100 w-md-400px'>
-						<div className='d-flex flex-center flex-column-fluid pb-15 pb-lg-20'>
-							<form className='form w-100' onSubmit={handleSubmit}>
-								<div className='text-center'>
-									<h2 className='text-gray-800 fs-2qx fw-bold'>
-										Parent Registration
-									</h2>
+			<div className='d-flex flex-column flex-lg-row-fluid w-lg-50 p-10'>
+				<div className='d-flex flex-center flex-column flex-lg-row-fluid'>
+					<div className='w-lg-500px p-10'>
+						<form className='form w-100' onSubmit={handleSubmit}>
+							<div className='text-center'>
+								<h2 className='text-gray-800 fs-2qx fw-bold'>
+									Parent Registration
+								</h2>
+							</div>
+							{/* <!--begin::Separator--> */}
+							<div className='separator my-14'></div>
+							{/* <!--end::Separator--> */}
+							<div className='mh-300px scroll-y p-10 mb-10'>
+								{/* <!--begin::Input group=--> */}
+								<div className='d-flex flex-column mb-5 fv-row'>
+									{/* <!--begin::Label--> */}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<span>Enter your name</span>
+									</label>
+									{/* <!--end::Label--> */}
+									<input
+										name={'name'}
+										onChange={handleChange}
+										type={'text'}
+										placeholder={'Full name'}
+										required
+										className='form-control bg-transparent'
+									/>
 								</div>
-								{/* <!--begin::Separator--> */}
-								<div className='separator my-14'></div>
-								{/* <!--end::Separator--> */}
-								<div className='mh-300px scroll-y p-10 mb-10'>
-									{/* <!--begin::Input group=--> */}
-									<div className='d-flex flex-column mb-5 fv-row'>
-										{/* <!--begin::Label--> */}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											<span>Enter your name</span>
-										</label>
-										{/* <!--end::Label--> */}
-										<input
-											name={'name'}
-											onChange={handleChange}
-											type={'text'}
-											placeholder={'Full name'}
-											required
-											className='form-control bg-transparent'
-										/>
-									</div>
-									{/* <!--end::Input group=--> */}
-									{/* <!--begin::Input group=--> */}
-									<div className='d-flex flex-column mb-5 fv-row'>
-										{/* <!--begin::Label--> */}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											<span>Enter your number</span>
-										</label>
-										{/* <!--end::Label--> */}
-										<input
-											name={'number'}
-											onChange={handleChange}
-											type={'tel'}
-											placeholder={'Ex: 0123456789'}
-											required
-											className='form-control bg-transparent'
-										/>
-									</div>
-									{/* <!--end::Input group=--> */}
-									{/* <!--begin::Input group=--> */}
-									<div className='d-flex flex-column mb-5 fv-row'>
-										{/* <!--begin::Label--> */}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											<span>Enter your occupation</span>
-										</label>
-										{/* <!--end::Label--> */}
-										<input
-											type={'text'}
-											name={'job'}
-											onChange={handleChange}
-											placeholder={'Ex: Housewife'}
-											required
-											className='form-control bg-transparent'
-										/>
-									</div>
-									{/* <!--end::Input group=--> */}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-5 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Enter Address
-										</label>
-										{/*end::Label*/}
-										<textarea
-											name={'address'}
-											onChange={handleChange}
-											placeholder={
-												'Ex: No. 121, Taman Yayasan, Jalan Utara Baru, 40150 Shah Alam, Selangor'
-											}
-											required
-											className='form-control bg-transparent'
-											rows='3'
-										/>
-									</div>
-									{/*end::Input group*/}
-									{/*begin::Input group*/}
-									<div className='d-flex flex-column mb-5 fv-row'>
-										{/*begin::Label*/}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Salary
-										</label>
-										{/*end::Label*/}
-										<select
-											name='salary'
-											onChange={handleChange}
-											required
-											className='form-select bg-transparent'
-										>
-											<option value=''>Select salary range</option>
-											<option value='T20'>T20</option>
-											<option value='M40'>M40</option>
-											<option value='B40'>B40</option>
-										</select>
-									</div>
-									{/*end::Input group*/}
-									{/* <!--begin::Input group=--> */}
-									<div className='d-flex flex-column mb-5 fv-row'>
-										{/* <!--begin::Label--> */}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											<span>Enter your email</span>
-										</label>
-										{/* <!--end::Label--> */}
-										<input
-											name={'email'}
-											onChange={handleChange}
-											type={'email'}
-											placeholder={'Enter email'}
-											required
-											pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
-											className='form-control bg-transparent'
-										/>
-									</div>
-									{/* <!--end::Input group=--> */}
-									{/* <!--begin::Input group=--> */}
-									<div className='d-flex flex-column fv-row'>
-										{/* <!--begin::Label--> */}
-										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											<span>Enter your password</span>
-										</label>
-										{/* <!--end::Label--> */}
-										<input
-											name={'password'}
-											onChange={handleChange}
-											type={'password'}
-											placeholder={'Enter password'}
-											required
-											className='form-control bg-transparent'
-										/>
-									</div>
-									{/* <!--end::Input group=--> */}
+								{/* <!--end::Input group=--> */}
+								{/* <!--begin::Input group=--> */}
+								<div className='d-flex flex-column mb-5 fv-row'>
+									{/* <!--begin::Label--> */}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<span>Enter your number</span>
+									</label>
+									{/* <!--end::Label--> */}
+									<input
+										name={'number'}
+										onChange={handleChange}
+										type={'tel'}
+										placeholder={'Ex: 0123456789'}
+										required
+										className='form-control bg-transparent'
+									/>
 								</div>
-								{/* <!--begin::Submit button--> */}
-								<div className='d-grid mb-10'>
-									<button
-										type='submit'
-										className='btn btn-primary'
-										onClick={handleSubmit}
+								{/* <!--end::Input group=--> */}
+								{/* <!--begin::Input group=--> */}
+								<div className='d-flex flex-column mb-5 fv-row'>
+									{/* <!--begin::Label--> */}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<span>Enter your occupation</span>
+									</label>
+									{/* <!--end::Label--> */}
+									<input
+										type={'text'}
+										name={'job'}
+										onChange={handleChange}
+										placeholder={'Ex: Housewife'}
+										required
+										className='form-control bg-transparent'
+									/>
+								</div>
+								{/* <!--end::Input group=--> */}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-5 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Enter Address
+									</label>
+									{/*end::Label*/}
+									<textarea
+										name={'address'}
+										onChange={handleChange}
+										placeholder={
+											'Ex: No. 121, Taman Yayasan, Jalan Utara Baru, 40150 Shah Alam, Selangor'
+										}
+										required
+										className='form-control bg-transparent'
+										rows='3'
+									/>
+								</div>
+								{/*end::Input group*/}
+								{/*begin::Input group*/}
+								<div className='d-flex flex-column mb-5 fv-row'>
+									{/*begin::Label*/}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										Salary
+									</label>
+									{/*end::Label*/}
+									<select
+										name='salary'
+										onChange={handleChange}
+										required
+										className='form-select bg-transparent'
 									>
-										Register
-									</button>
+										<option value=''>Select salary range</option>
+										<option value='T20'>T20</option>
+										<option value='M40'>M40</option>
+										<option value='B40'>B40</option>
+									</select>
 								</div>
-								{/* <!--end::Submit button--> */}
-								{err && <p className='text-danger'>{err}</p>}
-								{successMsg && <p className='text-success'>{successMsg}</p>}
-								{/* <!--begin::Sign in--> */}
-								<div className='text-gray-500 text-center fw-semibold fs-6 mb-3'>
-									Not a parent?{' '}
-									<Link className='link' to='/role'>
-										Change role here
-									</Link>
+								{/*end::Input group*/}
+								{/* <!--begin::Input group=--> */}
+								<div className='d-flex flex-column mb-5 fv-row'>
+									{/* <!--begin::Label--> */}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<span>Enter your email</span>
+									</label>
+									{/* <!--end::Label--> */}
+									<input
+										name={'email'}
+										onChange={handleChange}
+										type={'email'}
+										placeholder={'Enter email'}
+										required
+										pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+										className='form-control bg-transparent'
+									/>
 								</div>
-								<div className='text-gray-500 text-center fw-semibold fs-6'>
-									Already registered?{' '}
-									<Link className='link' to='/'>
-										Login here
-									</Link>
+								{/* <!--end::Input group=--> */}
+								{/* <!--begin::Input group=--> */}
+								<div className='d-flex flex-column fv-row'>
+									{/* <!--begin::Label--> */}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<span>Enter your password</span>
+									</label>
+									{/* <!--end::Label--> */}
+									<input
+										name={'password'}
+										onChange={handleChange}
+										type={'password'}
+										placeholder={'Enter password'}
+										required
+										className='form-control bg-transparent'
+									/>
 								</div>
-								{/* <!--end::Sign in--> */}
-							</form>
-						</div>
+								{/* <!--end::Input group=--> */}
+							</div>
+							{/* <!--begin::Submit button--> */}
+							<div className='d-grid mb-10'>
+								<button
+									type='submit'
+									className='btn btn-primary'
+									onClick={handleSubmit}
+								>
+									Register
+								</button>
+							</div>
+							{/* <!--end::Submit button--> */}
+							{err && <p className='text-danger'>{err}</p>}
+							{successMsg && <p className='text-success'>{successMsg}</p>}
+							{/* <!--begin::Sign in--> */}
+							<div className='text-gray-500 text-center fw-semibold fs-6 mb-3'>
+								Not a parent?{' '}
+								<Link className='link' to='/role'>
+									Change role here
+								</Link>
+							</div>
+							<div className='text-gray-500 text-center fw-semibold fs-6'>
+								Already registered?{' '}
+								<Link className='link' to='/'>
+									Login here
+								</Link>
+							</div>
+							{/* <!--end::Sign in--> */}
+						</form>
 					</div>
-					<div className='d-flex flex-stack'>
+					<div className='w-lg-500px d-flex flex-stack px-10 mx-auto'>
 						<p className='text-gray-500 text-center fw-semibold fs-6'>
 							By signing in and signing up, you already agreed to our terms and
 							conditions.

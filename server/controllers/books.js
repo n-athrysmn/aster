@@ -3,7 +3,6 @@ import { db } from '../db.js'
 //get owned books
 export const ownedBooks = (req, res) => {
 	const { userId } = req.params // Get the user id from the request parameters
-	console.log('userId:', userId)
 
 	let q = ''
 	let values = []
@@ -13,8 +12,6 @@ export const ownedBooks = (req, res) => {
 		q = `SELECT books.*, ownedbooks.* FROM ownedbooks JOIN books ON ownedbooks.isbn = books.isbn WHERE ownedbooks.studentId = ? OR ownedbooks.parentId = ? OR ownedbooks.teacherId = ? ORDER BY books.id ASC`
 		values = [userId, userId, userId]
 	}
-
-	console.log('values:', values)
 
 	db.query(q, values, (err, data) => {
 		if (err) return res.status(500).json(err)
@@ -78,10 +75,6 @@ export const addBooks = (req, res) => {
 //add more books - user dashboard
 export const removeBook = (req, res) => {
 	const { isbn, studentId, teacherId, parentId } = req.body
-	console.log('isbn:', isbn)
-	console.log('studentId:', studentId)
-	console.log('teacherId:', teacherId)
-	console.log('parentId:', parentId)
 
 	const query =
 		'DELETE FROM ownedbooks WHERE isbn = ? AND (`studentId` = ? OR `teacherId` = ? OR `parentId` = ?)'
@@ -102,7 +95,6 @@ export const removeBook = (req, res) => {
 //get book answers
 export const answers = (req, res) => {
 	const { bookIsbn } = req.params // Get the book isbn from the request parameters
-	console.log('bookIsbn:', bookIsbn)
 
 	const q = `SELECT v.*, CAST(SUBSTRING_INDEX(REPLACE(REPLACE(title, 'QUESTION', ''), 'Q', ''), ' ', -1) AS SIGNED) AS question_number 
 		FROM videos v 
@@ -123,7 +115,6 @@ export const answers = (req, res) => {
 //get book details by id
 export const bookDetails = (req, res) => {
 	const { bookId } = req.params
-	console.log('bookId:', bookId)
 
 	const q = `SELECT *, 
 	CAST(SUBSTRING_INDEX(REPLACE(REPLACE(title, 'QUESTION', ''), 'Q', ''), ' ', -1) AS SIGNED) AS question_number
@@ -169,7 +160,6 @@ export const addBook = (req, res) => {
 //edit book
 export const editBook = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q =
 		'UPDATE books SET `name`=?, `img`=?, `desc`=?, `isbn`=?, `pdf`=? WHERE id = ?'
@@ -191,7 +181,6 @@ export const editBook = (req, res) => {
 //delete book
 export const deleteBook = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q = 'DELETE FROM books WHERE id = ?'
 
@@ -210,7 +199,6 @@ export const deleteBook = (req, res) => {
 //edit video
 export const editVideo = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q = 'SELECT * FROM videos WHERE id = ?'
 	db.query(q, [id], (err, results) => {
@@ -255,7 +243,6 @@ export const editVideo = (req, res) => {
 //delete video
 export const deleteVideo = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q = 'DELETE FROM videos WHERE id = ?'
 

@@ -104,7 +104,6 @@ export const getAnnounce = (req, res) => {
 //edit event
 export const editEvent = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q = 'SELECT * FROM event WHERE id = ?'
 	db.query(q, [id], (err, results) => {
@@ -153,7 +152,6 @@ export const delEvent = (req, res) => {
 	jwt.verify(token, 'jwtkey', (err, userInfo) => {
 		if (err) return res.status(403).json('Token is not valid!')
 		const { id } = req.params // Get the event id from the request parameters
-		console.log('id:', id)
 
 		const q = 'DELETE FROM event WHERE id = ?'
 
@@ -173,7 +171,6 @@ export const delEvent = (req, res) => {
 //edit announcement
 export const editAnnounce = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q = 'UPDATE announce SET `title`=?, `announcement`=? WHERE id = ?'
 
@@ -188,7 +185,6 @@ export const editAnnounce = (req, res) => {
 //delete announcement
 export const delAnnounce = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q = 'DELETE FROM announce WHERE id = ?'
 
@@ -226,7 +222,6 @@ export const addTask = (req, res) => {
 //get task by admin id
 export const getTask = (req, res) => {
 	const { adminId } = req.params
-	console.log('adminId:', adminId)
 
 	const q = `SELECT *, DATE_FORMAT(deadline, '%Y-%m-%d') AS formattedDeadline FROM tasks WHERE adminId = ?`
 	const values = [adminId]
@@ -240,7 +235,6 @@ export const getTask = (req, res) => {
 //edit task by id
 export const editTask = (req, res) => {
 	const { id } = req.params // Get the task id from the request parameters
-	console.log('id:', id)
 
 	const q = 'SELECT * FROM tasks WHERE id = ?'
 	db.query(q, [id], (err, results) => {
@@ -290,9 +284,8 @@ export const editTask = (req, res) => {
 //edit task by id
 export const taskDone = (req, res) => {
 	const { id } = req.params // Get the task id from the request parameters
-	console.log('id:', id)
+
 	const done = req.body.isDone
-	console.log('done : ', done)
 
 	const q = 'SELECT * FROM tasks WHERE id = ?'
 	db.query(q, [id], (err, results) => {
@@ -314,7 +307,6 @@ export const taskDone = (req, res) => {
 //delete task
 export const delTask = (req, res) => {
 	const { id } = req.params // Get the event id from the request parameters
-	console.log('id:', id)
 
 	const q = 'DELETE FROM tasks WHERE id = ?'
 

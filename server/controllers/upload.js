@@ -4,7 +4,6 @@ import path from 'path'
 
 export const studentImg = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM students WHERE studentEmail = ?'
 	db.query(q, [email], (err, results) => {
@@ -56,7 +55,6 @@ export const studentImg = (req, res) => {
 
 export const teacherImg = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM teachers WHERE teacherEmail = ?'
 	db.query(q, [email], (err, results) => {
@@ -108,7 +106,6 @@ export const teacherImg = (req, res) => {
 
 export const parentImg = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM parents WHERE parentEmail = ?'
 	db.query(q, [email], (err, results) => {
@@ -160,7 +157,6 @@ export const parentImg = (req, res) => {
 
 export const adminImg = (req, res) => {
 	const { id } = req.params // Get the admin id from the request parameters
-	console.log('admin id:', id)
 
 	const q = 'SELECT * FROM admins WHERE id = ?'
 	db.query(q, [id], (err, results) => {

@@ -29,13 +29,12 @@ function Calendar() {
 	useEffect(() => {
 		const fetchEvents = async () => {
 			try {
-				console.log('Fetching events…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/get-events`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Data:', data)
+
 				setCalendar(data)
 			} catch (error) {
 				console.error(error)
@@ -47,7 +46,6 @@ function Calendar() {
 
 	const handleMouseEnter = (event) => {
 		if (event) {
-			console.log('Event ID:', event.id)
 			setActiveEvent(event)
 		}
 	}

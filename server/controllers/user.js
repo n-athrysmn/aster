@@ -36,7 +36,6 @@ export const teachers = (req, res) => {
 //get student data
 export const getStudent = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM students WHERE studentEmail = ? LIMIT 1'
 	const values = [email]
@@ -50,7 +49,6 @@ export const getStudent = (req, res) => {
 //get parent data
 export const getParent = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM parents WHERE parentEmail = ? LIMIT 1'
 	const values = [email]
@@ -64,7 +62,6 @@ export const getParent = (req, res) => {
 //get teacher data
 export const getTeacher = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM teachers WHERE teacherEmail = ? LIMIT 1'
 	const values = [email]
@@ -78,7 +75,6 @@ export const getTeacher = (req, res) => {
 // edit students
 export const studentEdit = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM students WHERE studentEmail = ?'
 	db.query(q, [email], (err, results) => {
@@ -161,7 +157,6 @@ export const studentEdit = (req, res) => {
 //edit parent profile
 export const parentEdit = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM parents WHERE parentEmail = ?'
 	db.query(q, [email], (err, results) => {
@@ -229,7 +224,6 @@ export const parentEdit = (req, res) => {
 //edit teacher profile
 export const teacherEdit = (req, res) => {
 	const { email } = req.params // Get the user email from the request parameters
-	console.log('email:', email)
 
 	const q = 'SELECT * FROM teachers WHERE teacherEmail = ?'
 	db.query(q, [email], (err, results) => {
@@ -297,7 +291,6 @@ export const teacherEdit = (req, res) => {
 //admin data
 export const admin = (req, res) => {
 	const { id } = req.params // Get the user id from the request parameters
-	console.log('id:', id)
 
 	const q = 'SELECT * FROM admins WHERE id = ? LIMIT 1'
 	const values = [id]
@@ -311,7 +304,6 @@ export const admin = (req, res) => {
 //edit admin profile
 export const adminEdit = (req, res) => {
 	const { id } = req.params // Get the user id from the request parameters
-	console.log('id:', id)
 
 	const q = 'SELECT * FROM admins WHERE id = ?'
 	db.query(q, [id], (err, results) => {
@@ -361,7 +353,6 @@ export const adminEdit = (req, res) => {
 //user data
 export const user = (req, res) => {
 	const { email } = req.params // Get the user id from the request parameters
-	console.log('email:', email)
 
 	const studentQuery = `SELECT * FROM students WHERE studentEmail = ? LIMIT 1`
 	const teacherQuery = `SELECT * FROM teachers WHERE teacherEmail = ? LIMIT 1`

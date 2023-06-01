@@ -6,7 +6,6 @@ import {
 	teacherImg,
 } from '../controllers/upload.js'
 import multer from 'multer'
-import path from 'path'
 
 const maxSize = 700 * 1024 // 700kB
 
@@ -15,7 +14,7 @@ const studentStore = multer.diskStorage({
 		cb(null, 'public/student')
 	},
 	filename: (req, file, cb) => {
-		cb(null, 'student_' + Date.now() + path.extname(file.originalname))
+		cb(null, 'student_' + Date.now() + '.jpeg')
 	},
 })
 
@@ -29,7 +28,7 @@ const teacherStorage = multer.diskStorage({
 		cb(null, 'public/teacher')
 	},
 	filename: (req, file, cb) => {
-		cb(null, 'teacher_' + Date.now() + path.extname(file.originalname))
+		cb(null, 'teacher_' + Date.now() + '.jpeg')
 	},
 })
 
@@ -43,7 +42,7 @@ const parentStorage = multer.diskStorage({
 		cb(null, 'public/parent')
 	},
 	filename: (req, file, cb) => {
-		cb(null, 'parent_' + Date.now() + path.extname(file.originalname))
+		cb(null, 'parent_' + Date.now() + '.jpeg')
 	},
 })
 
@@ -57,7 +56,7 @@ const adminStorage = multer.diskStorage({
 		cb(null, 'public/admin')
 	},
 	filename: (req, file, cb) => {
-		cb(null, 'admin_' + Date.now() + path.extname(file.originalname))
+		cb(null, 'admin_' + Date.now() + '.jpeg')
 	},
 })
 

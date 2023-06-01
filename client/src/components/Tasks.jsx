@@ -6,7 +6,6 @@ import axios from 'axios'
 const Tasks = () => {
 	const { currentAdmin } = useContext(AuthContext)
 	const adminId = currentAdmin?.id
-	console.log('admin id: ', adminId)
 	const [showAddModal, setShowAddModal] = useState(false)
 	const [showEditModal, setShowEditModal] = useState(false)
 	const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -16,13 +15,12 @@ const Tasks = () => {
 	useEffect(() => {
 		async function fetchTasks() {
 			try {
-				console.log('Fetching tasks…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/get-tasks/${adminId}`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Data:', data)
+
 				setTasks(data)
 			} catch (error) {
 				console.error(error)
@@ -31,8 +29,6 @@ const Tasks = () => {
 
 		fetchTasks()
 	}, [adminId])
-
-	console.log('tasks: ', tasks)
 
 	const [inputs, setInputs] = useState({
 		title: selected ? selected.title : '',
@@ -94,7 +90,6 @@ const Tasks = () => {
 			}, 1000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -120,7 +115,6 @@ const Tasks = () => {
 			}, 1000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -145,7 +139,6 @@ const Tasks = () => {
 			}, 1000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -167,7 +160,6 @@ const Tasks = () => {
 			setTasks(updatedTasks)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 

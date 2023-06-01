@@ -8,7 +8,6 @@ const ResetPassword = () => {
 		email: '',
 		password: '',
 	})
-	console.log('Inputs: ', inputs)
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
 
@@ -86,7 +85,7 @@ const ResetPassword = () => {
 										placeholder='Enter email'
 										name='email'
 										onChange={handleChange}
-										autocomplete='off'
+										autoComplete='off'
 										className='form-control bg-transparent'
 									/>
 								</div>
@@ -104,7 +103,7 @@ const ResetPassword = () => {
 										placeholder='Enter new password'
 										name='password'
 										onChange={handleChange}
-										autocomplete='off'
+										autoComplete='off'
 										className='form-control bg-transparent'
 									/>
 								</div>

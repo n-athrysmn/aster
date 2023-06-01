@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/authContext'
 import Toolbar from '../layout/Toolbar'
 import { FaUserCircle } from 'react-icons/fa'
+import Compressor from 'compressorjs'
 
 const AdminProfile = () => {
 	const pageTitle = 'Profile'
@@ -20,13 +21,12 @@ const AdminProfile = () => {
 	useEffect(() => {
 		const fetchAdmin = async () => {
 			try {
-				console.log('Fetching admin…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/admin/${id}`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setAdmin(data)
 			} catch (error) {
 				console.error(error)
@@ -67,7 +67,6 @@ const AdminProfile = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -82,17 +81,63 @@ const AdminProfile = () => {
 
 	const [errUp, setErrorUp] = useState(null)
 	const [successUp, setSuccessUp] = useState('')
+	const [compressedImage, setCompressedImage] = useState(null)
+	const [previewImage, setPreviewImage] = useState('')
 
-	const [file, setFile] = useState()
+	useEffect(() => {
+		if (admin.adminPfp) {
+			setPreviewImage(
+				`https://aster-server-z9ckn.ondigitalocean.app/admin/${admin.adminPfp}`
+			)
+		}
+	}, [admin.adminPfp])
+
+	const compressImage = (file) => {
+		const maxSize = 400 * 1024 // Set the minimum size to 700kb (in bytes)
+
+		if (file.size > maxSize) {
+			try {
+				new Compressor(file, {
+					quality: 0.6,
+					maxWidth: 300,
+					maxHeight: 300,
+					crop: true, // Enable cropping
+					maxSize: 300 * 1024, // Set the maximum size to 500kb (in bytes)
+					success: (compressedFile) => {
+						// Handle the compressed image here
+						setCompressedImage(compressedFile)
+					},
+					error: (error) => {
+						console.error('Image compression error:', error)
+					},
+				})
+			} catch (error) {
+				console.error('Image compression error:', error)
+			}
+		} else {
+			// Image does not meet the minimum size requirement, handle it here (e.g., do not compress)
+			setCompressedImage(file)
+		}
+	}
 
 	const handleFile = (e) => {
-		setFile(e.target.files[0])
+		const selectedFile = e.target.files[0]
+		if (selectedFile) {
+			compressImage(selectedFile)
+
+			const reader = new FileReader()
+			reader.onload = () => {
+				setPreviewImage(reader.result)
+			}
+			reader.readAsDataURL(selectedFile)
+		}
 	}
 
 	const handleUpdload = async (e) => {
 		e.preventDefault()
 		const formData = new FormData()
 		try {
+			const file = new File([compressedImage], ' ', { type: 'image/jpeg' })
 			formData.append('image', file)
 			await axios.post(
 				`${process.env.REACT_APP_API_URL}/upload/adminImg/${id}`,
@@ -106,7 +151,6 @@ const AdminProfile = () => {
 			}, 3000)
 		} catch (errUp) {
 			setErrorUp(`Error: file too large!`)
-			console.log(err)
 		}
 	}
 
@@ -153,7 +197,7 @@ const AdminProfile = () => {
 													>
 														{admin.adminPfp ? (
 															<img
-																src={`https://aster-server-z9ckn.ondigitalocean.app/admin/${admin.adminPfp}`}
+																src={previewImage}
 																alt={admin.adminName}
 																className='w-100 h-100'
 															/>

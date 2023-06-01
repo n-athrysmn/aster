@@ -17,7 +17,6 @@ const AdminHome = () => {
 	const pageDescription = 'Welcome to the admin home page'
 	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const adminId = currentAdmin?.id
-	console.log('admin id: ', adminId)
 	const [showAnnouncement, setShowAnnouncement] = useState(false)
 	const [showUpload, setShowUpload] = useState(false)
 	const [showEvent, setShowEvent] = useState(false)
@@ -29,13 +28,12 @@ const AdminHome = () => {
 	useEffect(() => {
 		const fetchAdmin = async () => {
 			try {
-				console.log('Fetching admin…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/admin/${id}`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setAdmin(data)
 			} catch (error) {
 				console.error(error)
@@ -71,13 +69,12 @@ const AdminHome = () => {
 	useEffect(() => {
 		async function fetchBooks() {
 			try {
-				console.log('Fetching books…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/get-books`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Data:', data)
+
 				setBooks(data)
 			} catch (error) {
 				console.error(error)
@@ -123,7 +120,6 @@ const AdminHome = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -138,7 +134,6 @@ const AdminHome = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -153,7 +148,6 @@ const AdminHome = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 

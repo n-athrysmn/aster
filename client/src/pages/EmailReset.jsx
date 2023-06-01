@@ -21,13 +21,12 @@ const ResetEmail = () => {
 	useEffect(() => {
 		const fetchAdmin = async () => {
 			try {
-				console.log('Fetching admin…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/admin/${id}`
 				)
-				console.log('Response:', res)
+
 				const data = res.data
-				console.log('Data:', data)
+
 				setAdmin(data)
 			} catch (error) {
 				console.error(error)
@@ -36,8 +35,6 @@ const ResetEmail = () => {
 
 		fetchAdmin()
 	}, [id])
-
-	console.log('admin email fetched: ', admin)
 
 	const [isDisabled, setIsDisabled] = useState(true)
 	const [isEditing, setIsEditing] = useState(false)
@@ -73,7 +70,6 @@ const ResetEmail = () => {
 			}, 5000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 

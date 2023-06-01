@@ -9,7 +9,7 @@ import axios from 'axios'
 import Accords from '../components/Accords'
 import BookModal from '../components/BookModal'
 import Toolbar from '../layout/Toolbar'
-import { FaUserCircle } from 'react-icons/fa'
+import { FaTrashAlt, FaUserCircle } from 'react-icons/fa'
 
 const Home = () => {
 	const { currentUser, isLoggedIn } = useContext(AuthContext)
@@ -39,11 +39,9 @@ const Home = () => {
 	useEffect(() => {
 		const fetchBooks = async () => {
 			try {
-				console.log('Fetching books…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/books/get-owned/${userId}`
 				)
-				console.log('Response:', response)
 				const data = response.data.filter((book) => {
 					if (userType === 'student') {
 						return (
@@ -67,7 +65,7 @@ const Home = () => {
 						return false
 					}
 				})
-				console.log('Data:', data)
+
 				setBooks(data)
 			} catch (error) {
 				console.error(error)
@@ -84,13 +82,12 @@ const Home = () => {
 	useEffect(() => {
 		const fetchStudent = async () => {
 			try {
-				console.log('Fetching student…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/getStudent/${email}`
 				)
-				console.log('Student:', res)
+
 				const data = res.data
-				console.log('Student Data:', data)
+
 				setStudent(data)
 			} catch (error) {
 				console.error(error)
@@ -99,13 +96,12 @@ const Home = () => {
 
 		const fetchParent = async () => {
 			try {
-				console.log('Fetching parent…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/getParent/${email}`
 				)
-				console.log('Parent:', res)
+
 				const data = res.data
-				console.log('Parent Data:', data)
+
 				setParent(data)
 			} catch (error) {
 				console.error(error)
@@ -114,13 +110,12 @@ const Home = () => {
 
 		const fetchTeacher = async () => {
 			try {
-				console.log('Fetching teacher…')
 				const res = await axios.get(
 					`${process.env.REACT_APP_API_URL}/users/getTeacher/${email}`
 				)
-				console.log('Teacher:', res)
+
 				const data = res.data
-				console.log('Teacher Data:', data)
+
 				setTeacher(data)
 			} catch (error) {
 				console.error(error)
@@ -135,13 +130,12 @@ const Home = () => {
 	useEffect(() => {
 		const fetchVideos = async () => {
 			try {
-				console.log('Fetching videos…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/tab-videos`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Data:', data)
+
 				setVideos(data)
 			} catch (error) {
 				console.error(error)
@@ -199,11 +193,8 @@ const Home = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
-
-	console.log('delete book: ', inputs)
 
 	const handleCancelEdit = () => {
 		setShowDeleteModal(false)
@@ -212,6 +203,26 @@ const Home = () => {
 			isbn: '',
 		}))
 	}
+	const [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => {
+		// Function to check if the viewport is in mobile view
+		const checkIsMobile = () => {
+			const isMobileView = window.innerWidth <= 966 // Adjust the breakpoint as needed
+			setIsMobile(isMobileView)
+		}
+
+		// Add event listener to check on window resize
+		window.addEventListener('resize', checkIsMobile)
+
+		// Initial check when component mounts
+		checkIsMobile()
+
+		// Clean up event listener when component unmounts
+		return () => {
+			window.removeEventListener('resize', checkIsMobile)
+		}
+	}, [])
 
 	const navigate = useNavigate()
 
@@ -260,6 +271,16 @@ const Home = () => {
 			img: 'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
 		},
 	]*/
+	const getTitle = (title) => {
+		const [bookTitle] = title.split(/\s*\(([^)]+)\)\s*/)
+		return bookTitle
+	}
+
+	const getVolume = (title) => {
+		const volumeRegex = /\(([^)]+)\)/
+		const match = volumeRegex.exec(title)
+		return match ? `(${match[1]})` : ''
+	}
 
 	const tabs = [
 		{
@@ -279,18 +300,20 @@ const Home = () => {
 											<img
 												src={book.img}
 												alt={book.desc}
-												className='mw-50 mh-25'
+												className={`${isMobile ? 'w-100 h-50' : 'w-50 h-25'}`}
 											/>
 										</Link>
 										<Link to={`/books/${book.isbn}`}>
 											<h2 className='text-gray-800 text-hover-primary fw-bold'>
-												{book.name}
+												{getTitle(book.name)}
+												<br />
+												{getVolume(book.name)}
 											</h2>
 										</Link>
-										<div className='d-flex justify-content-evenly mb-10 mt-10'>
+										<div className='d-flex justify-content-center mb-10 mt-10'>
 											{/* <!--begin::Link--> */}
 											<button
-												className='btn btn-danger'
+												className='btn btn-danger me-7'
 												onClick={() => {
 													setSelectedBook(book)
 													setInputs((prevInputs) => ({
@@ -300,13 +323,15 @@ const Home = () => {
 													setShowDeleteModal(true)
 												}}
 											>
-												Remove Book
+												<FaTrashAlt />
 											</button>
 											{/* <!--end::Link--> */}
 											{/* <!--begin::Link--> */}
 											<a
 												href={`/books/${book.isbn}`}
-												className='btn btn-primary'
+												className={`btn btn-primary ${
+													isMobile ? 'w-75' : 'w-50'
+												}`}
 												role='button'
 											>
 												View Answers
@@ -320,7 +345,9 @@ const Home = () => {
 									href='https://ezy.la/GroupSupportKPBA'
 									rel='noreferrer'
 									role='button'
-									className='btn btn-info mb-10 w-50'
+									className={`btn btn-info mb-10 ${
+										isMobile ? 'w-100' : 'w-75'
+									}`}
 								>
 									Join Telegram Kelab Pemilik Buku Aster
 								</a>

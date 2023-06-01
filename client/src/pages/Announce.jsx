@@ -14,13 +14,12 @@ const Announce = () => {
 	useEffect(() => {
 		const fetchAnnouncements = async () => {
 			try {
-				console.log('Fetching announcements…')
 				const response = await axios.get(
 					`${process.env.REACT_APP_API_URL}/others/announce`
 				)
-				console.log('Response:', response)
+
 				const data = response.data
-				console.log('Data:', data)
+
 				setAnnouncements(data)
 			} catch (error) {
 				console.error(error)
@@ -80,7 +79,6 @@ const Announce = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
@@ -96,7 +94,6 @@ const Announce = () => {
 			}, 3000)
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
-			console.log(err)
 		}
 	}
 
