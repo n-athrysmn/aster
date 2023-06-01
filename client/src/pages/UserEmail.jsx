@@ -91,14 +91,7 @@ const UserEmail = () => {
 				<div id='kt_content_container' className='container-xxl'>
 					<div className='card mb-5 mb-xl-10'>
 						{/*begin::Card header*/}
-						<div
-							className='card-header border-0 cursor-pointer'
-							role='button'
-							data-bs-toggle='collapse'
-							data-bs-target='#kt_account_profile_details'
-							aria-expanded='true'
-							aria-controls='kt_account_profile_details'
-						>
+						<div className='card-header border-0'>
 							{/*begin::Card title*/}
 							<div className='card-title m-0'>
 								<h3 className='fw-bold m-0'>
@@ -108,91 +101,83 @@ const UserEmail = () => {
 							{/*end::Card title*/}
 						</div>
 						{/*begin::Card header*/}
-						<div
-							id='kt_account_settings_profile_details'
-							className='collapse show'
-						>
-							<form id='kt_account_profile_details_form' className='form'>
-								<div className='card-body border-top p-9'>
-									{/*begin::Input group*/}
-									<div className='row mb-6'>
-										{/*begin::Label*/}
-										<label className='col-lg-4 col-form-label fw-semibold fs-6'>
-											Email
-										</label>
-										{/*end::Label*/}
-										{/*begin::Col*/}
-										{currentUser?.studentEmail && (
-											<>
-												<div className='col-lg-8 fv-row'>
-													<input
-														type='email'
-														value={user.studentEmail}
-														name='studentEmail'
-														disabled={isDisabled}
-														onChange={handleChange}
-														className='form-control form-control-lg form-control-solid'
-													/>
-												</div>
-											</>
-										)}
-										{currentUser?.parentEmail && (
-											<>
-												<div className='col-lg-8 fv-row'>
-													<input
-														type='email'
-														value={user.parentEmail}
-														name='parentEmail'
-														disabled={isDisabled}
-														onChange={handleChange}
-														className='form-control form-control-lg form-control-solid'
-													/>
-												</div>
-											</>
-										)}
-										{currentUser?.teacherEmail && (
-											<>
-												<div className='col-lg-8 fv-row'>
-													<input
-														type='email'
-														value={user.teacherEmail}
-														name='teacherEmail'
-														disabled={isDisabled}
-														onChange={handleChange}
-														className='form-control form-control-lg form-control-solid'
-													/>
-												</div>
-											</>
-										)}
-										{/*end::Col*/}
-									</div>
-									{/*end::Input group*/}
+						<form id='kt_account_profile_details_form' className='form'>
+							<div className='card-body border-top p-9'>
+								{/*begin::Input group*/}
+								<div className='row mb-6'>
+									{/*begin::Label*/}
+									<label className='col-lg-4 col-form-label fw-semibold fs-6'>
+										Email
+									</label>
+									{/*end::Label*/}
+									{/*begin::Col*/}
+									{currentUser?.studentEmail && (
+										<>
+											<div className='col-lg-8 fv-row'>
+												<input
+													type='email'
+													value={user.studentEmail}
+													name='studentEmail'
+													disabled={isDisabled}
+													onChange={handleChange}
+													className='form-control form-control-lg form-control-solid'
+												/>
+											</div>
+										</>
+									)}
+									{currentUser?.parentEmail && (
+										<>
+											<div className='col-lg-8 fv-row'>
+												<input
+													type='email'
+													value={user.parentEmail}
+													name='parentEmail'
+													disabled={isDisabled}
+													onChange={handleChange}
+													className='form-control form-control-lg form-control-solid'
+												/>
+											</div>
+										</>
+									)}
+									{currentUser?.teacherEmail && (
+										<>
+											<div className='col-lg-8 fv-row'>
+												<input
+													type='email'
+													value={user.teacherEmail}
+													name='teacherEmail'
+													disabled={isDisabled}
+													onChange={handleChange}
+													className='form-control form-control-lg form-control-solid'
+												/>
+											</div>
+										</>
+									)}
+									{/*end::Col*/}
 								</div>
-							</form>
-							{err && <p className='text-danger'>{err}</p>}
-							{successMsg && <p className='text-success'>{successMsg}</p>}
-							<div className='card-footer d-flex justify-content-end py-6 px-9'>
-								{isEditing ? (
-									<>
-										<button
-											onClick={handleCancelClick}
-											className='btn btn-light btn-active-light-danger me-2'
-										>
-											Cancel
-										</button>
-										<button
-											onClick={handleSaveClick}
-											className='btn btn-success'
-										>
-											Save
-										</button>
-									</>
-								) : (
-									<button onClick={handleEditClick} className='btn btn-primary'>
-										Edit
-									</button>
-								)}
+								{/*end::Input group*/}
 							</div>
+						</form>
+						{err && <p className='text-danger'>{err}</p>}
+						{successMsg && <p className='text-success'>{successMsg}</p>}
+						<div className='card-footer d-flex justify-content-end py-6 px-9'>
+							{isEditing ? (
+								<>
+									<button
+										onClick={handleCancelClick}
+										className='btn btn-light btn-active-light-danger me-2'
+									>
+										Cancel
+									</button>
+									<button onClick={handleSaveClick} className='btn btn-success'>
+										Save
+									</button>
+								</>
+							) : (
+								<button onClick={handleEditClick} className='btn btn-primary'>
+									Edit
+								</button>
+							)}
 						</div>
 					</div>
 				</div>
