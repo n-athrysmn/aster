@@ -42,8 +42,8 @@ const AdminLogin = () => {
 				style={{ backgroundImage: `url(${Reg})` }}
 			>
 				<div className='d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100'>
-					<a href='https://lms.aster.edu.my/' class='mb-0 mb-lg-12'>
-						<img alt='Logo' src={Logo} class='h-80px h-lg-100px' />
+					<a href='https://lms.aster.edu.my/' className='mb-0 mb-lg-12'>
+						<img alt='Logo' src={Logo} className='h-80px h-lg-100px' />
 					</a>
 					<img
 						className='d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20'

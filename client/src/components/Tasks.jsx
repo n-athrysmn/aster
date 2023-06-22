@@ -39,7 +39,6 @@ const Tasks = () => {
 
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
-	console.log(inputs)
 
 	useEffect(() => {
 		if (selected) {

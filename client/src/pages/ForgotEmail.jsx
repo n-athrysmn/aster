@@ -1,36 +1,78 @@
 import React, { useState } from 'react'
-import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
 import Reg from '../assets/bg10-dark.jpeg'
 import Test from '../assets/register.svg'
 import Logo from '../assets/logo.png'
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const ForgotEmail = () => {
 	const [inputs, setInputs] = useState({
 		email: '',
-		password: '',
+		confirm: '',
+		number: '',
 	})
 	const [err, setError] = useState(null)
+	const [successMsg, setSuccessMsg] = useState('')
+
+	const handleChange = (e) => {
+		const { name, value } = e.target
+		setInputs((prevInputs) => {
+			const updatedInputs = { ...prevInputs, [name]: value }
+			const { email, confirm } = updatedInputs
+
+			if (name === 'email' || name === 'confirm') {
+				if (email && confirm && email !== confirm) {
+					setError('Both emails must be the same')
+				} else {
+					setError('')
+				}
+			}
+
+			return updatedInputs
+		})
+	}
+
+	const handleCopy = (event) => {
+		event.preventDefault()
+	}
+
+	const handleCut = (event) => {
+		event.preventDefault()
+	}
+
+	const handlePaste = (event) => {
+		event.preventDefault()
+	}
 
 	const navigate = useNavigate()
 
-	const { login } = useContext(AuthContext)
-
-	const handleChange = (e) => {
-		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-	}
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-
-		if (!inputs.email || !inputs.password) {
-			setError('Please enter both email and password')
+		if (!Object.values(inputs).every((value) => value)) {
+			setError('Please enter all details in the form')
+			return
+		}
+		if (
+			!inputs.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i)
+		) {
+			setError('Please enter a valid email address')
+			return
+		}
+		if (inputs.email !== inputs.confirm) {
+			setError('Both emails must be the same')
 			return
 		}
 		try {
-			await login(inputs)
-			navigate('/dashboard')
+			await axios.put(
+				`${process.env.REACT_APP_API_URL}/auth/forgot/${inputs.number}`,
+				inputs
+			)
+			setSuccessMsg('Email reset successful, please login using your new email')
+			setError('') // Clear error message
+			setTimeout(() => {
+				setSuccessMsg('') // Clear success message
+				navigate('/')
+			}, 3000)
 		} catch (err) {
 			setError(err.response.data)
 		}
@@ -65,66 +107,73 @@ const Login = () => {
 					<div className='w-lg-500px p-10'>
 						<form className='form w-100' onSubmit={handleSubmit}>
 							<div className='text-center'>
-								<h2 className='text-gray-800 fs-2qx fw-bold'>Sign In</h2>
+								<h2 className='text-gray-800 fs-2qx fw-bold'>Reset Email</h2>
 							</div>
 							{/* <!--begin::Separator--> */}
 							<div className='separator my-14'></div>
 							{/* <!--end::Separator--> */}
 							{/* <!--begin::Input group=--> */}
-							<div className='d-flex flex-column mb-3 fv-row'>
+							<div className='d-flex flex-column mb-10 fv-row'>
 								{/* <!--begin::Label--> */}
 								<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-									<span>Enter your email</span>
+									<span>Enter your phone number that you used to register</span>
 								</label>
 								{/* <!--end::Label--> */}
 								<input
 									required
-									type='email'
-									placeholder='Enter email'
-									name='email'
-									onChange={handleChange}
-									className='form-control bg-transparent'
-								/>
-							</div>
-							{/* <!--end::Input group=--> */}
-							{/* <!--begin::Wrapper--> */}
-							<div className='d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10'>
-								<div></div>
-								{/* <!--begin::Link--> */}
-								<Link className='link-primary' to='/forgot-email'>
-									Forgot email?
-								</Link>
-								{/* <!--end::Link--> */}
-							</div>
-							{/* <!--end::Wrapper--> */}
-							{/* <!--begin::Input group=--> */}
-							<div className='d-flex flex-column mb-3 fv-row'>
-								{/* <!--begin::Label--> */}
-								<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-									<span>Enter your password</span>
-								</label>
-								{/* <!--end::Label--> */}
-								<input
-									required
-									type='password'
-									placeholder='Enter password'
-									name='password'
+									type='tel'
+									placeholder='Enter phone number'
+									name='number'
 									onChange={handleChange}
 									autoComplete='off'
 									className='form-control bg-transparent'
 								/>
 							</div>
 							{/* <!--end::Input group=--> */}
-							{/* <!--begin::Wrapper--> */}
-							<div className='d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10'>
-								<div></div>
-								{/* <!--begin::Link--> */}
-								<Link className='link-primary' to='/reset-password'>
-									Forgot password?
-								</Link>
-								{/* <!--end::Link--> */}
+							{/* <!--begin::Input group=--> */}
+							<div className='d-flex flex-column mb-10 fv-row'>
+								{/* <!--begin::Label--> */}
+								<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+									<span>Enter new email</span>
+								</label>
+								{/* <!--end::Label--> */}
+								<input
+									required
+									type='email'
+									placeholder='New email'
+									name='email'
+									onChange={handleChange}
+									autoComplete='off'
+									className='form-control bg-transparent'
+									pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+									onCopy={handleCopy}
+									onCut={handleCut}
+									onPaste={handlePaste}
+								/>
 							</div>
-							{/* <!--end::Wrapper--> */}
+							{/* <!--end::Input group=--> */}
+							{/* <!--begin::Input group=--> */}
+							<div className='d-flex flex-column mb-10 fv-row'>
+								{/* <!--begin::Label--> */}
+								<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+									<span>Retype to confirm your new email</span>
+								</label>
+								{/* <!--end::Label--> */}
+								<input
+									required
+									type='email'
+									name='confirm'
+									placeholder='Confirm new email'
+									onChange={handleChange}
+									autoComplete='off'
+									className='form-control bg-transparent'
+									pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+									onCopy={handleCopy}
+									onCut={handleCut}
+									onPaste={handlePaste}
+								/>
+							</div>
+							{/* <!--end::Input group=--> */}
 							{/* <!--begin::Submit button--> */}
 							<div className='d-grid mb-10'>
 								<button
@@ -132,22 +181,24 @@ const Login = () => {
 									className='btn btn-primary'
 									onClick={handleSubmit}
 								>
-									Login
+									Reset
 								</button>
 							</div>
 							{/* <!--end::Submit button--> */}
 							{err && <p className='text-center text-danger'>{err}</p>}
+							{successMsg && (
+								<p className='text-center text-success'>{successMsg}</p>
+							)}
 							{/* <!--begin::Sign up--> */}
 							<div className='text-gray-500 text-center fw-semibold fs-6'>
-								Not a Member yet?{' '}
-								<Link className='link-primary' to='/role'>
-									Register here
+								<Link className='link-primary' to='/'>
+									Click here to login
 								</Link>
 							</div>
 							{/* <!--end::Sign up--> */}
 						</form>
 					</div>
-					<div className='w-lg-500px d-flex flex-stack px-10 mx-auto'>
+					<div className='d-flex flex-stack'>
 						<p className='text-gray-500 text-center fw-semibold fs-6'>
 							By signing in and signing up, you already agreed to our terms and
 							conditions.
@@ -159,4 +210,4 @@ const Login = () => {
 	)
 }
 
-export default Login
+export default ForgotEmail

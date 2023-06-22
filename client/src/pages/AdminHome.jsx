@@ -170,7 +170,7 @@ const AdminHome = () => {
 								<div className='card-body'>
 									{currentAdmin ? (
 										<>
-											<div className='card-px text-center pt-15 pb-15'>
+											<div className='text-center pt-15 pb-15'>
 												<h2 className='text-gray-400 fs-4 fw-semibold py-7'>
 													Hello <MdCelebration />
 												</h2>

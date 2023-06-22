@@ -13,7 +13,9 @@ const Parent = () => {
 		address: '',
 		salary: '',
 		email: '',
+		confirm: '',
 		password: '',
+		confirmPassword: '',
 	})
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
@@ -23,10 +25,58 @@ const Parent = () => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 	}
 
+	const handleEmail = (e) => {
+		const { name, value } = e.target
+		setInputs((prevInputs) => {
+			const updatedInputs = { ...prevInputs, [name]: value }
+			const { email, confirm } = updatedInputs
+
+			if (name === 'email' || name === 'confirm') {
+				if (email && confirm && email !== confirm) {
+					setError('Both emails must be the same')
+				} else {
+					setError('')
+				}
+			}
+
+			return updatedInputs
+		})
+	}
+
+	const handlePassword = (e) => {
+		const { name, value } = e.target
+		setInputs((prevInputs) => {
+			const updatedPassInputs = { ...prevInputs, [name]: value }
+			const { password, confirmPassword } = updatedPassInputs
+
+			if (name === 'password' || name === 'confirmPassword') {
+				if (password && confirmPassword && password !== confirmPassword) {
+					setError('Both passwords must be the same')
+				} else {
+					setError('')
+				}
+			}
+
+			return updatedPassInputs
+		})
+	}
+
+	const handleCopy = (event) => {
+		event.preventDefault()
+	}
+
+	const handleCut = (event) => {
+		event.preventDefault()
+	}
+
+	const handlePaste = (event) => {
+		event.preventDefault()
+	}
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		if (!Object.values(inputs).every((value) => value)) {
-			setError('Form cannot be empty')
+			setError('Please enter all details in the form')
 			return
 		}
 		if (
@@ -37,6 +87,14 @@ const Parent = () => {
 		}
 		if (!/^(?!0123456789)\d{10,11}$/.test(inputs.number)) {
 			setError('Invalid phone number')
+			return
+		}
+		if (inputs.email !== inputs.confirm) {
+			setError('Both emails must be the same')
+			return
+		}
+		if (inputs.password !== inputs.confirmPassword) {
+			setError('Both passwords must be the same')
 			return
 		}
 		try {
@@ -62,8 +120,8 @@ const Parent = () => {
 				style={{ backgroundImage: `url(${Reg})` }}
 			>
 				<div className='d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100'>
-					<a href='https://lms.aster.edu.my/' class='mb-0 mb-lg-12'>
-						<img alt='Logo' src={Logo} class='h-80px h-lg-100px' />
+					<a href='https://lms.aster.edu.my/' className='mb-0 mb-lg-12'>
+						<img alt='Logo' src={Logo} className='h-80px h-lg-100px' />
 					</a>
 					<img
 						className='d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20'
@@ -198,11 +256,37 @@ const Parent = () => {
 										required
 										pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
 										className='form-control bg-transparent'
+										onCopy={handleCopy}
+										onCut={handleCut}
+										onPaste={handlePaste}
+										autoComplete='off'
 									/>
 								</div>
 								{/* <!--end::Input group=--> */}
 								{/* <!--begin::Input group=--> */}
-								<div className='d-flex flex-column fv-row'>
+								<div className='d-flex flex-column mb-5 fv-row'>
+									{/* <!--begin::Label--> */}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<span>Retype your email to confirm</span>
+									</label>
+									{/* <!--end::Label--> */}
+									<input
+										name='confirm'
+										onChange={handleEmail}
+										type={'email'}
+										placeholder={'Retype email'}
+										required
+										pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+										className='form-control bg-transparent'
+										onCopy={handleCopy}
+										onCut={handleCut}
+										onPaste={handlePaste}
+										autoComplete='off'
+									/>
+								</div>
+								{/* <!--end::Input group=--> */}
+								{/* <!--begin::Input group=--> */}
+								<div className='d-flex flex-column mb-5 fv-row'>
 									{/* <!--begin::Label--> */}
 									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 										<span>Enter your password</span>
@@ -210,11 +294,34 @@ const Parent = () => {
 									{/* <!--end::Label--> */}
 									<input
 										name={'password'}
-										onChange={handleChange}
+										onChange={handlePassword}
 										type={'password'}
 										placeholder={'Enter password'}
 										required
 										className='form-control bg-transparent'
+										onCopy={handleCopy}
+										onCut={handleCut}
+										onPaste={handlePaste}
+									/>
+								</div>
+								{/* <!--end::Input group=--> */}
+								{/* <!--begin::Input group=--> */}
+								<div className='d-flex flex-column fv-row'>
+									{/* <!--begin::Label--> */}
+									<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+										<span>Retype your password to confirm</span>
+									</label>
+									{/* <!--end::Label--> */}
+									<input
+										name={'confirmPassword'}
+										onChange={handlePassword}
+										type={'password'}
+										placeholder={'Retype password'}
+										required
+										className='form-control bg-transparent'
+										onCopy={handleCopy}
+										onCut={handleCut}
+										onPaste={handlePaste}
 									/>
 								</div>
 								{/* <!--end::Input group=--> */}
@@ -230,8 +337,10 @@ const Parent = () => {
 								</button>
 							</div>
 							{/* <!--end::Submit button--> */}
-							{err && <p className='text-danger'>{err}</p>}
-							{successMsg && <p className='text-success'>{successMsg}</p>}
+							{err && <p className='text-center text-danger'>{err}</p>}
+							{successMsg && (
+								<p className='text-center text-success'>{successMsg}</p>
+							)}
 							{/* <!--begin::Sign in--> */}
 							<div className='text-gray-500 text-center fw-semibold fs-6 mb-3'>
 								Not a parent?{' '}

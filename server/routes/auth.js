@@ -8,6 +8,7 @@ import {
 	admins,
 	adminlogin,
 	reset,
+	forgot,
 } from '../controllers/auth.js'
 
 const router = express.Router()
@@ -20,5 +21,5 @@ router.post('/admin-login', adminlogin)
 router.post('/login', login)
 router.put('/reset/:email', reset)
 router.post('/logout', logout)
-
+router.put('/forgot/:number', forgot)
 export default router

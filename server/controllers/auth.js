@@ -32,29 +32,40 @@ export const register = (req, res) => {
 					if (err) return res.status(500).json(err)
 					if (data.length) return res.status(409).json('Cannot use this email!')
 
-					//Hash the password and create a user
-					const salt = bcrypt.genSaltSync(10)
-					const hash = bcrypt.hashSync(req.body.password, salt)
+					// Check if the number exists
+					const q5 = 'SELECT * FROM students WHERE studentNumber = ?'
 
-					const q =
-						'INSERT INTO students(`studentName`,`studentEmail`,`studentNumber`, `studentBirth`, `studentAddr`, `studentSch`, `studentLevel`, `studentGrade`, `studentPass`, `studentPar`, `studentParNum`) VALUES (?)'
-					const values = [
-						req.body.name,
-						req.body.email,
-						req.body.number,
-						req.body.birthday,
-						req.body.address,
-						req.body.school,
-						req.body.level,
-						req.body.grade,
-						hash,
-						req.body.parName,
-						req.body.parNum,
-					]
-
-					db.query(q, [values], (err, data) => {
+					db.query(q5, [req.body.number], (err, data) => {
 						if (err) return res.status(500).json(err)
-						return res.status(200).json('User has been created.')
+						if (data.length)
+							return res
+								.status(409)
+								.json('User with the same phone number exists!')
+
+						//Hash the password and create a user
+						const salt = bcrypt.genSaltSync(10)
+						const hash = bcrypt.hashSync(req.body.password, salt)
+
+						const q =
+							'INSERT INTO students(`studentName`,`studentEmail`,`studentNumber`, `studentBirth`, `studentAddr`, `studentSch`, `studentLevel`, `studentGrade`, `studentPass`, `studentPar`, `studentParNum`) VALUES (?)'
+						const values = [
+							req.body.name,
+							req.body.email,
+							req.body.number,
+							req.body.birthday,
+							req.body.address,
+							req.body.school,
+							req.body.level,
+							req.body.grade,
+							hash,
+							req.body.parName,
+							req.body.parNum,
+						]
+
+						db.query(q, [values], (err, data) => {
+							if (err) return res.status(500).json(err)
+							return res.status(200).json('User has been created.')
+						})
 					})
 				})
 			})
@@ -92,26 +103,37 @@ export const parent = (req, res) => {
 					if (err) return res.status(500).json(err)
 					if (data.length) return res.status(409).json('Cannot use this email!')
 
-					//Hash the password and create a user
-					const salt = bcrypt.genSaltSync(10)
-					const hash = bcrypt.hashSync(req.body.password, salt)
+					// Check if the number exists
+					const q5 = 'SELECT * FROM parents WHERE parentNumber = ?'
 
-					const q =
-						'INSERT INTO parents (`parentName`, `parentEmail`, `parentNumber`, `parentJob`, `parentSalary`, `parentAddr`, `parentPfp`, `parentPass`) VALUES (?)'
-					const values = [
-						req.body.name,
-						req.body.email,
-						req.body.number,
-						req.body.job,
-						req.body.salary,
-						req.body.address,
-						req.body.pfp,
-						hash,
-					]
-
-					db.query(q, [values], (err, data) => {
+					db.query(q5, [req.body.number], (err, data) => {
 						if (err) return res.status(500).json(err)
-						return res.status(200).json('User has been created.')
+						if (data.length)
+							return res
+								.status(409)
+								.json('User with the same phone number exists!')
+
+						//Hash the password and create a user
+						const salt = bcrypt.genSaltSync(10)
+						const hash = bcrypt.hashSync(req.body.password, salt)
+
+						const q =
+							'INSERT INTO parents (`parentName`, `parentEmail`, `parentNumber`, `parentJob`, `parentSalary`, `parentAddr`, `parentPfp`, `parentPass`) VALUES (?)'
+						const values = [
+							req.body.name,
+							req.body.email,
+							req.body.number,
+							req.body.job,
+							req.body.salary,
+							req.body.address,
+							req.body.pfp,
+							hash,
+						]
+
+						db.query(q, [values], (err, data) => {
+							if (err) return res.status(500).json(err)
+							return res.status(200).json('User has been created.')
+						})
 					})
 				})
 			})
@@ -149,26 +171,37 @@ export const teacher = (req, res) => {
 					if (err) return res.status(500).json(err)
 					if (data.length) return res.status(409).json('Cannot use this email!')
 
-					//Hash the password and create a user
-					const salt = bcrypt.genSaltSync(10)
-					const hash = bcrypt.hashSync(req.body.password, salt)
+					// Check if the number exists
+					const q5 = 'SELECT * FROM teachers WHERE teacherNumber = ?'
 
-					const q =
-						'INSERT INTO teachers (`teacherName`, `teacherEmail`, `teacherNumber`, `teacherSch`, `teacherSalary`, `teacherAddr`, `teacherPfp`, `teacherPass`) VALUES (?)'
-					const values = [
-						req.body.name,
-						req.body.email,
-						req.body.number,
-						req.body.school,
-						req.body.salary,
-						req.body.address,
-						req.body.pfp,
-						hash,
-					]
-
-					db.query(q, [values], (err, data) => {
+					db.query(q5, [req.body.number], (err, data) => {
 						if (err) return res.status(500).json(err)
-						return res.status(200).json('User has been created.')
+						if (data.length)
+							return res
+								.status(409)
+								.json('User with the same phone number exists!')
+
+						//Hash the password and create a user
+						const salt = bcrypt.genSaltSync(10)
+						const hash = bcrypt.hashSync(req.body.password, salt)
+
+						const q =
+							'INSERT INTO teachers (`teacherName`, `teacherEmail`, `teacherNumber`, `teacherSch`, `teacherSalary`, `teacherAddr`, `teacherPfp`, `teacherPass`) VALUES (?)'
+						const values = [
+							req.body.name,
+							req.body.email,
+							req.body.number,
+							req.body.school,
+							req.body.salary,
+							req.body.address,
+							req.body.pfp,
+							hash,
+						]
+
+						db.query(q, [values], (err, data) => {
+							if (err) return res.status(500).json(err)
+							return res.status(200).json('User has been created.')
+						})
 					})
 				})
 			})
@@ -242,7 +275,7 @@ export const login = (req, res) => {
 				data[0].studentPass
 			)
 			if (!isPasswordCorrect) {
-				return res.status(400).json('Wrong email or password!')
+				return res.status(400).json('Wrong password!')
 			}
 			const token = jwt.sign({ id: data[0].id, type: 'student' }, 'jwtkey')
 			const { studentPass, ...other } = data[0]
@@ -263,7 +296,7 @@ export const login = (req, res) => {
 						data[0].parentPass
 					)
 					if (!isPasswordCorrect) {
-						return res.status(400).json('Wrong email or password!')
+						return res.status(400).json('Wrong password!')
 					}
 					const token = jwt.sign({ id: data[0].id, type: 'parent' }, 'jwtkey')
 					const { parentPass, ...other } = data[0]
@@ -284,7 +317,7 @@ export const login = (req, res) => {
 								data[0].teacherPass
 							)
 							if (!isPasswordCorrect) {
-								return res.status(400).json('Wrong email or password!')
+								return res.status(400).json('Wrong password!')
 							}
 							const token = jwt.sign(
 								{ id: data[0].id, type: 'teacher' },
@@ -321,7 +354,7 @@ export const adminlogin = (req, res) => {
 					data[0].adminPass
 				)
 				if (!isPasswordCorrect) {
-					return res.status(400).json('Wrong email or password!')
+					return res.status(400).json('Wrong password!')
 				}
 				const token = jwt.sign({ id: data[0].id, type: 'admin' }, 'jwtkey')
 				const { adminPass, ...other } = data[0]
@@ -425,6 +458,108 @@ export const reset = (req, res) => {
 					} // If the user is not found in any table, return an error message
 					return res.status(404).json('User not found.')
 				})
+			})
+		})
+	})
+}
+
+//reset password
+export const forgot = (req, res) => {
+	const { number } = req.params // Get the user number from the request parameters
+	const email = req.body.email
+
+	// Check if the user exists in the students table
+	const q1 = 'SELECT * FROM students WHERE studentNumber = ?'
+	db.query(q1, [number], (err, data) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		if (data.length) {
+			// If the user is found in the students table
+			const student = data[0]
+			if (student.studentEmail === email) {
+				// If the entered email is the same as the old email
+				return res
+					.status(400)
+					.json(
+						'You entered your old email. Login to your account using the email, or you can reset your password if you forgot it.'
+					)
+			}
+
+			// Update the student's email
+			const q = 'UPDATE students SET studentEmail = ? WHERE studentNumber = ?'
+			db.query(q, [email, number], (err, data) => {
+				if (err) {
+					return res.status(500).json(err)
+				}
+				return res.status(200).json('Student email updated.')
+			})
+			return
+		}
+
+		// If the user is not found in the students table, check the parents table
+		const q2 = 'SELECT * FROM parents WHERE parentNumber = ?'
+		db.query(q2, [number], (err, data) => {
+			if (err) {
+				return res.status(500).json(err)
+			}
+			if (data.length) {
+				// If the user is found in the parents table
+				const parent = data[0]
+				if (parent.parentEmail === email) {
+					// If the entered email is the same as the old email
+					return res
+						.status(400)
+						.json(
+							'You entered your old email. Login to your account using the email, or you can reset your password if you forgot it.'
+						)
+				}
+
+				// Update the parent's email
+				const q = 'UPDATE parents SET parentEmail = ? WHERE parentNumber = ?'
+				db.query(q, [email, number], (err, data) => {
+					if (err) {
+						return res.status(500).json(err)
+					}
+					return res.status(200).json('Parent email updated.')
+				})
+				return
+			}
+
+			// If the user is not found in the parents table, check the teachers table
+			const q3 = 'SELECT * FROM teachers WHERE teacherNumber = ?'
+			db.query(q3, [number], (err, data) => {
+				if (err) {
+					return res.status(500).json(err)
+				}
+				if (data.length) {
+					// If the user is found in the teachers table
+					const teacher = data[0]
+					if (teacher.teacherEmail === email) {
+						// If the entered email is the same as the old email
+						return res
+							.status(400)
+							.json(
+								'You entered your old email. Login to your account using the email, or you can reset your password if you forgot it.'
+							)
+					}
+
+					// Update the teacher's email
+					const q =
+						'UPDATE teachers SET teacherEmail = ? WHERE teacherNumber = ?'
+					db.query(q, [email, number], (err, data) => {
+						if (err) {
+							return res.status(500).json(err)
+						}
+						return res.status(200).json('Teacher email updated.')
+					})
+					return
+				}
+
+				// If the user is not found in any of the tables, return an error message
+				return res
+					.status(409)
+					.json('User with the phone number you entered is not found!')
 			})
 		})
 	})

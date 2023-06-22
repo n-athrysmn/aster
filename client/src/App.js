@@ -29,6 +29,7 @@ import UserEmail from './pages/UserEmail'
 import Aside from './layout/Aside'
 import { useEffect, useState } from 'react'
 import AsideAdmin from './layout/AsideAdmin'
+import ForgotEmail from './pages/ForgotEmail'
 
 const Layout = () => {
 	const [isAsideVisible, setIsAsideVisible] = useState(false)
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
 	{
 		path: '/reset-password',
 		element: <ResetPassword />,
+	},
+	{
+		path: '/forgot-email',
+		element: <ForgotEmail />,
 	},
 	{
 		path: '/',

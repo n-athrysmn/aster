@@ -46,11 +46,11 @@ const UserEmail = () => {
 		e.preventDefault()
 		try {
 			let endpoint = ''
-			if (user.studentEmail !== null) {
+			if (user.studentEmail !== '') {
 				endpoint = 'student-edit'
-			} else if (user.parentEmail !== null) {
+			} else if (user.parentEmail !== '') {
 				endpoint = 'parent-edit'
-			} else if (user.teacherEmail !== null) {
+			} else if (user.teacherEmail !== '') {
 				endpoint = 'teacher-edit'
 			}
 
@@ -107,7 +107,7 @@ const UserEmail = () => {
 								<div className='row mb-6'>
 									{/*begin::Label*/}
 									<label className='col-lg-4 col-form-label fw-semibold fs-6'>
-										Email
+										{isEditing ? 'Enter new email' : 'Current email'}
 									</label>
 									{/*end::Label*/}
 									{/*begin::Col*/}
@@ -156,10 +156,10 @@ const UserEmail = () => {
 									{/*end::Col*/}
 								</div>
 								{/*end::Input group*/}
+								{err && <p className='text-danger'>{err}</p>}
+								{successMsg && <p className='text-success'>{successMsg}</p>}
 							</div>
 						</form>
-						{err && <p className='text-danger'>{err}</p>}
-						{successMsg && <p className='text-success'>{successMsg}</p>}
 						<div className='card-footer d-flex justify-content-end py-6 px-9'>
 							{isEditing ? (
 								<>
