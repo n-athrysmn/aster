@@ -9,18 +9,49 @@ const ResetPassword = () => {
 	const [inputs, setInputs] = useState({
 		email: '',
 		password: '',
+		confirmPassword: '',
 	})
 	const [err, setError] = useState(null)
 	const [successMsg, setSuccessMsg] = useState('')
 
 	const handleChange = (e) => {
-		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+		const { name, value } = e.target
+		setInputs((prevInputs) => {
+			const updatedPassInputs = { ...prevInputs, [name]: value }
+			const { password, confirmPassword } = updatedPassInputs
+
+			if (name === 'password' || name === 'confirmPassword') {
+				if (password && confirmPassword && password !== confirmPassword) {
+					setError('Both passwords must be the same')
+				} else {
+					setError('')
+				}
+			}
+
+			return updatedPassInputs
+		})
+	}
+
+	const handleCopy = (event) => {
+		event.preventDefault()
+	}
+
+	const handleCut = (event) => {
+		event.preventDefault()
+	}
+
+	const handlePaste = (event) => {
+		event.preventDefault()
 	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		if (!Object.values(inputs).every((value) => value)) {
 			setError('Please enter all details in the form')
+			return
+		}
+		if (inputs.password !== inputs.confirmPassword) {
+			setError('Both passwords must be the same')
 			return
 		}
 		try {
@@ -98,13 +129,35 @@ const ResetPassword = () => {
 								</label>
 								{/* <!--end::Label--> */}
 								<input
-									required
-									type='password'
-									placeholder='Enter new password'
-									name='password'
+									name={'password'}
 									onChange={handleChange}
-									autoComplete='off'
+									type={'password'}
+									placeholder={'Enter password'}
+									required
 									className='form-control bg-transparent'
+									onCopy={handleCopy}
+									onCut={handleCut}
+									onPaste={handlePaste}
+								/>
+							</div>
+							{/* <!--end::Input group=--> */}
+							{/* <!--begin::Input group=--> */}
+							<div className='d-flex flex-column mb-10 fv-row'>
+								{/* <!--begin::Label--> */}
+								<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+									<span>Retype your password to confirm</span>
+								</label>
+								{/* <!--end::Label--> */}
+								<input
+									name={'confirmPassword'}
+									onChange={handleChange}
+									type={'password'}
+									placeholder={'Retype password'}
+									required
+									className='form-control bg-transparent'
+									onCopy={handleCopy}
+									onCut={handleCut}
+									onPaste={handlePaste}
 								/>
 							</div>
 							{/* <!--end::Input group=--> */}

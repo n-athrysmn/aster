@@ -383,11 +383,11 @@ const Home = () => {
 			),
 			content: (
 				<div className='card card-flush text-center'>
-					<div className='card-body'>
+					<div className='card-body row'>
 						{Array.isArray(videos) && videos.length > 0 ? (
 							videos.map((video) => (
-								<div className='mb20' key={video.id}>
-									<div className='mb20'>
+								<div className='mb-10 col-4' key={video.id}>
+									<div className='mb-5'>
 										<iframe
 											title={video.title}
 											className='embed-responsive-item rounded h-300px w-100'
@@ -396,8 +396,8 @@ const Home = () => {
 										/>
 									</div>
 									<div className='vid-links'>
-										<Link to={video.link} className='link'>
-											<h3>
+										<Link to={video.link}>
+											<h3 className='text-hover-primary fw-bold'>
 												{video.title.length > 40
 													? `${video.title.substring(0, 30)}...`
 													: video.title}

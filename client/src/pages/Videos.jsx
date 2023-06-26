@@ -205,7 +205,7 @@ const Videos = () => {
 										<input
 											type={'text'}
 											onChange={handleChange}
-											name='vidTitle'
+											name='title'
 											value={inputs.title}
 											className='form-control form-control-lg form-control-solid'
 										/>
@@ -219,9 +219,9 @@ const Videos = () => {
 										</label>
 										{/*end::Label*/}
 										<input
-											type={'url'}
+											type={'text'}
 											onChange={handleChange}
-											name='vidUrl'
+											name='link'
 											value={inputs.link}
 											className='form-control form-control-lg form-control-solid'
 										/>
@@ -280,7 +280,7 @@ const Videos = () => {
 										<input
 											type={'text'}
 											onChange={handleChange}
-											name='vidTitle'
+											name='title'
 											value={inputs.title}
 											disabled
 											className='form-control form-control-lg form-control-solid'
@@ -297,7 +297,7 @@ const Videos = () => {
 										<input
 											type={'text'}
 											onChange={handleChange}
-											name='vidUrl'
+											name='link'
 											value={inputs.link}
 											disabled
 											className='form-control form-control-lg form-control-solid'

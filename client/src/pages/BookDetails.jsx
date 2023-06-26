@@ -301,7 +301,7 @@ const BookDetails = () => {
 										<input
 											type={'text'}
 											onChange={handleChange}
-											name='vidTitle'
+											name='title'
 											value={inputs.title}
 											className='form-control form-control-lg form-control-solid'
 										/>
@@ -311,13 +311,13 @@ const BookDetails = () => {
 									<div className='d-flex flex-column mb-8 fv-row'>
 										{/*begin::Label*/}
 										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Video Title
+											Video URL
 										</label>
 										{/*end::Label*/}
 										<input
-											type={'url'}
+											type={'text'}
 											onChange={handleChange}
-											name='vidUrl'
+											name='link'
 											value={inputs.link}
 											className='form-control form-control-lg form-control-solid'
 										/>
@@ -387,7 +387,7 @@ const BookDetails = () => {
 									<div className='d-flex flex-column mb-8 fv-row'>
 										{/*begin::Label*/}
 										<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
-											Video Title
+											Video URL
 										</label>
 										{/*end::Label*/}
 										<input
