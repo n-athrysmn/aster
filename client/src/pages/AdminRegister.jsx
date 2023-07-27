@@ -162,8 +162,10 @@ const AdminRegister = () => {
 								</button>
 							</div>
 							{/* <!--end::Submit button--> */}
-							{err && <p className='text-danger'>{err}</p>}
-							{successMsg && <p className='text-success'>{successMsg}</p>}
+							{err && <p className='text-center text-danger'>{err}</p>}
+							{successMsg && (
+								<p className='text-center text-success'>{successMsg}</p>
+							)}
 							{/* <!--begin::Sign in--> */}
 							<div className='text-gray-500 text-center fw-semibold fs-6'>
 								Already registered?{' '}

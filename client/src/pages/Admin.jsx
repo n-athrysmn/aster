@@ -16,6 +16,7 @@ const AdminLogin = () => {
 	const navigate = useNavigate()
 
 	const { admin } = useContext(AuthContext)
+	const [isLoading, setIsLoading] = useState(false)
 
 	const handleChange = (e) => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -23,18 +24,23 @@ const AdminLogin = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-
+		setIsLoading(true)
 		if (!inputs.email || !inputs.password) {
 			setError('Please enter both email and password')
 			return
 		}
 		try {
 			await admin(inputs)
-			navigate('/admin-dashboard')
+			setTimeout(() => {
+				navigate('/admin-dashboard')
+				setIsLoading(false)
+			}, 3000)
 		} catch (err) {
 			setError(err.response.data)
+			setIsLoading(false)
 		}
 	}
+
 	return (
 		<div className='d-flex flex-column flex-lg-row flex-column-fluid'>
 			<div
@@ -120,8 +126,9 @@ const AdminLogin = () => {
 									type='submit'
 									className='btn btn-primary'
 									onClick={handleSubmit}
+									disabled={isLoading}
 								>
-									Login
+									{isLoading ? 'Loading...' : 'Login'}
 								</button>
 							</div>
 							{/* <!--end::Submit button--> */}

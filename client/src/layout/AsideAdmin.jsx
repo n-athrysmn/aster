@@ -8,6 +8,7 @@ import {
 	MdVideoSettings,
 } from 'react-icons/md'
 import { FaBullhorn, FaUserCog, FaUsers } from 'react-icons/fa'
+import SuperAdmin from './SuperAdmin'
 
 const AsideAdmin = ({ isAsideVisible }) => {
 	const location = useLocation()
@@ -218,6 +219,7 @@ const AsideAdmin = ({ isAsideVisible }) => {
 							{/*end:Menu link*/}
 						</div>
 						{/*end:Menu item*/}
+						<SuperAdmin />
 						{/*begin:Menu item*/}
 						<div
 							className={

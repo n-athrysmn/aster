@@ -30,6 +30,7 @@ import Aside from './layout/Aside'
 import { useEffect, useState } from 'react'
 import AsideAdmin from './layout/AsideAdmin'
 import ForgotEmail from './pages/ForgotEmail'
+import ManageAdmins from './pages/ManageAdmin'
 
 const Layout = () => {
 	const [isAsideVisible, setIsAsideVisible] = useState(false)
@@ -209,6 +210,10 @@ const router = createBrowserRouter([
 			{
 				path: '/videos',
 				element: <Videos />,
+			},
+			{
+				path: '/manage-admins',
+				element: <ManageAdmins />,
 			},
 		],
 	},

@@ -36,12 +36,22 @@ const Footer = () => {
 					</li>
 					<li className='menu-item'>
 						<a
-							href='https://wa.me/60192549717'
+							href='https://aster.edu.my/tutors/'
 							target='_blank'
 							className='menu-link px-2'
 							rel='noreferrer'
 						>
-							Support
+							Tutors
+						</a>
+					</li>
+					<li className='menu-item'>
+						<a
+							href='https://aster.edu.my/reviews/'
+							target='_blank'
+							className='menu-link px-2'
+							rel='noreferrer'
+						>
+							Reviews
 						</a>
 					</li>
 				</ul>

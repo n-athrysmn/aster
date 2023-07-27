@@ -25,6 +25,8 @@ const AdminHome = () => {
 	const id = currentAdmin?.id
 	const [admin, setAdmin] = useState([])
 
+	const navigate = useNavigate()
+
 	useEffect(() => {
 		const fetchAdmin = async () => {
 			try {
@@ -150,11 +152,11 @@ const AdminHome = () => {
 		}
 	}
 
-	const navigate = useNavigate()
-
-	if (!isLoggedIn || !currentAdmin) {
-		return navigate('/admin')
-	}
+	useEffect(() => {
+		if (!isLoggedIn || !currentAdmin) {
+			navigate('/admin')
+		}
+	}, [isLoggedIn, currentAdmin, navigate])
 
 	return (
 		<>

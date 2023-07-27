@@ -318,6 +318,7 @@ export const adminEdit = (req, res) => {
 			adminName: req.body.adminName || admin.adminName,
 			adminEmail: req.body.adminEmail || admin.adminEmail,
 			staffId: req.body.staffId || admin.staffId,
+			status: req.body.status || admin.status,
 		}
 
 		const updatedFields = []
@@ -335,6 +336,10 @@ export const adminEdit = (req, res) => {
 		if (newAdmin.staffId !== admin.staffId) {
 			updatedFields.push('staffId = ?')
 			values.push(newAdmin.staffId)
+		}
+		if (newAdmin.status !== admin.status) {
+			updatedFields.push('status = ?')
+			values.push(newAdmin.status)
 		}
 
 		if (updatedFields.length === 0) {
@@ -379,5 +384,33 @@ export const user = (req, res) => {
 				return res.status(200).json(userData)
 			})
 		})
+	})
+}
+
+//get admin list
+export const admins = (req, res) => {
+	const q = 'SELECT * FROM admins'
+
+	db.query(q, (err, data) => {
+		if (err) return res.status(500).json(err)
+		return res.status(200).json(data)
+	})
+}
+
+//delete admin list
+export const deleteAdmin = (req, res) => {
+	const { id } = req.params // Get the admin id from the request parameters
+
+	const q = 'DELETE FROM admins WHERE id = ?'
+
+	db.query(q, [id], (err, result) => {
+		if (err) {
+			console.error(err)
+			return res.status(500).json({ message: 'Error deleting admin' })
+		}
+		if (result.affectedRows === 0) {
+			return res.status(404).json({ message: 'Admin not found' })
+		}
+		return res.status(200).json({ message: 'Admin deleted successfully' })
 	})
 }

@@ -16,6 +16,7 @@ const Login = () => {
 	const navigate = useNavigate()
 
 	const { login } = useContext(AuthContext)
+	const [isLoading, setIsLoading] = useState(false)
 
 	const handleChange = (e) => {
 		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -23,16 +24,20 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-
+		setIsLoading(true)
 		if (!inputs.email || !inputs.password) {
 			setError('Please enter both email and password')
 			return
 		}
 		try {
 			await login(inputs)
-			navigate('/dashboard')
+			setTimeout(() => {
+				navigate('/dashboard')
+				setIsLoading(false)
+			}, 3000)
 		} catch (err) {
 			setError(err.response.data)
+			setIsLoading(false)
 		}
 	}
 	return (
@@ -131,8 +136,9 @@ const Login = () => {
 									type='submit'
 									className='btn btn-primary'
 									onClick={handleSubmit}
+									disabled={isLoading}
 								>
-									Login
+									{isLoading ? 'Loading...' : 'Login'}
 								</button>
 							</div>
 							{/* <!--end::Submit button--> */}

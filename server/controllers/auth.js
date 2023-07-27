@@ -245,8 +245,15 @@ export const admins = (req, res) => {
 					const hash = bcrypt.hashSync(req.body.password, salt)
 
 					const q =
-						'INSERT INTO admins (`adminName`, `adminEmail`, `staffId`, `adminPass`) VALUES (?)'
-					const values = [req.body.name, req.body.email, req.body.staff, hash]
+						'INSERT INTO admins (`adminName`, `adminEmail`, `staffId`, `adminPass`, `status`, `type`) VALUES (?)'
+					const values = [
+						req.body.name,
+						req.body.email,
+						req.body.staff,
+						hash,
+						0,
+						'Admin',
+					]
 
 					db.query(q, [values], (err, data) => {
 						if (err) return res.status(500).json(err)
@@ -342,12 +349,20 @@ export const login = (req, res) => {
 
 //admin login
 export const adminlogin = (req, res) => {
-	//CHECK USER
+	// CHECK USER
 	const q = 'SELECT * FROM admins WHERE adminEmail = ?'
 
 	db.query(q, [req.body.email], (err, data) => {
 		if (err) return res.status(500).json(err)
 		if (data.length > 0) {
+			if (data[0].status !== 1) {
+				return res
+					.status(401)
+					.json(
+						'Unauthorized User! Please contact the management if you think this is a mistake.'
+					)
+			}
+
 			try {
 				const isPasswordCorrect = bcrypt.compareSync(
 					req.body.password,

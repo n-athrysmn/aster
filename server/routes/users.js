@@ -2,6 +2,8 @@ import express from 'express'
 import {
 	admin,
 	adminEdit,
+	admins,
+	deleteAdmin,
 	getParent,
 	getStudent,
 	getTeacher,
@@ -30,5 +32,7 @@ router.get('/user/:email', user)
 //admin side
 router.get('/admin/:id', admin)
 router.put('/admin-edit/:id', adminEdit)
+router.get('/admins', admins)
+router.delete('/delete-admin/:id', deleteAdmin)
 
 export default router
