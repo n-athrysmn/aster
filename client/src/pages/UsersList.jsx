@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CSVLink } from 'react-csv'
 import {
 	FaChalkboardTeacher,
@@ -7,14 +7,11 @@ import {
 	FaUserGraduate,
 	FaUserTie,
 } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
 import Toolbar from '../layout/Toolbar'
 
 const UsersList = () => {
 	const pageTitle = 'Users List'
 	const pageDescription = 'Manage list of users'
-	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [showStudents, setShowStudents] = useState(true)
 	const [showParents, setShowParents] = useState(false)
 	const [showTeachers, setShowTeachers] = useState(false)
@@ -100,12 +97,6 @@ const UsersList = () => {
 		setShowParents(false)
 		setShowTeachers(true)
 		setActiveBtn('teachers')
-	}
-
-	const navigate = useNavigate()
-
-	if (!isLoggedIn || !currentAdmin) {
-		return navigate('/admin')
 	}
 
 	return (

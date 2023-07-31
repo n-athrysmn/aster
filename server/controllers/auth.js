@@ -216,6 +216,7 @@ export const admins = (req, res) => {
 	const q2 = 'SELECT * FROM parents WHERE parentEmail = ?'
 	const q3 = 'SELECT * FROM teachers WHERE teacherEmail = ?'
 	const q4 = 'SELECT * FROM admins WHERE adminEmail = ?'
+	const q5 = 'SELECT * FROM admins WHERE staffId = ?'
 
 	db.query(q1, [req.body.email], (err, data) => {
 		if (err) return res.status(500).json(err)
@@ -234,30 +235,38 @@ export const admins = (req, res) => {
 				if (data.length)
 					return res.status(409).json('The email is used by a teacher!')
 
-				// If the email is not found in the 'teachers' table, check the 'admins' table
 				db.query(q4, [req.body.email], (err, data) => {
 					if (err) return res.status(500).json(err)
-					if (data.length)
+					if (data.length) {
 						return res.status(409).json('The email is used by another admin!')
+					}
 
-					//Hash the password and create a user
-					const salt = bcrypt.genSaltSync(10)
-					const hash = bcrypt.hashSync(req.body.password, salt)
-
-					const q =
-						'INSERT INTO admins (`adminName`, `adminEmail`, `staffId`, `adminPass`, `status`, `type`) VALUES (?)'
-					const values = [
-						req.body.name,
-						req.body.email,
-						req.body.staff,
-						hash,
-						0,
-						'Admin',
-					]
-
-					db.query(q, [values], (err, data) => {
+					// If the email is not found in the 'admins' table, check the 'admins' table for the staffId
+					db.query(q5, [req.body.staff], (err, data) => {
 						if (err) return res.status(500).json(err)
-						return res.status(200).json('User has been created.')
+						if (data.length) {
+							return res.status(409).json('Staff ID is registered!')
+						}
+
+						//Hash the password and create a user
+						const salt = bcrypt.genSaltSync(10)
+						const hash = bcrypt.hashSync(req.body.password, salt)
+
+						const q =
+							'INSERT INTO admins (`adminName`, `adminEmail`, `staffId`, `adminPass`, `status`, `type`) VALUES (?)'
+						const values = [
+							req.body.name,
+							req.body.email,
+							req.body.staff,
+							hash,
+							0,
+							'Admin',
+						]
+
+						db.query(q, [values], (err, data) => {
+							if (err) return res.status(500).json(err)
+							return res.status(200).json('User has been created.')
+						})
 					})
 				})
 			})

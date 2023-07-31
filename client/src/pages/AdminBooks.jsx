@@ -1,14 +1,12 @@
 import axios from 'axios'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
+import { Link } from 'react-router-dom'
 import Toolbar from '../layout/Toolbar'
 
 const AdminBook = () => {
 	const pageTitle = 'Books Management'
 	const pageDescription = 'List of Books'
-	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [books, setBooks] = useState([])
 
 	useEffect(() => {
@@ -123,12 +121,6 @@ const AdminBook = () => {
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
 		}
-	}
-
-	const navigate = useNavigate()
-
-	if (!isLoggedIn || !currentAdmin) {
-		return navigate('/admin')
 	}
 
 	return (

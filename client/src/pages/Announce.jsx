@@ -1,14 +1,11 @@
 import axios from 'axios'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
-import { AuthContext } from '../context/authContext'
-import { useNavigate } from 'react-router-dom'
 import Toolbar from '../layout/Toolbar'
 
 const Announce = () => {
 	const pageTitle = 'Announcements Management'
 	const pageDescription = 'List of Announcements'
-	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [announcements, setAnnouncements] = useState([])
 
 	useEffect(() => {
@@ -95,12 +92,6 @@ const Announce = () => {
 		} catch (err) {
 			setError(`Error: ${err.response.data}`)
 		}
-	}
-
-	const navigate = useNavigate()
-
-	if (!isLoggedIn || !currentAdmin) {
-		return navigate('/admin')
 	}
 
 	return (

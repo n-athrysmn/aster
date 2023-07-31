@@ -27,6 +27,12 @@ const AdminRegister = () => {
 			setError('Please enter all details in the form')
 			return
 		}
+		if (
+			!inputs.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i)
+		) {
+			setError('Please enter a valid email address')
+			return
+		}
 		try {
 			await axios.post(
 				`${process.env.REACT_APP_API_URL}/auth/admin-register`,
@@ -128,7 +134,6 @@ const AdminRegister = () => {
 										type={'email'}
 										placeholder={'Enter email'}
 										required
-										pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
 										className='form-control bg-transparent'
 									/>
 								</div>

@@ -1,6 +1,11 @@
 import './style.bundle.css'
 import './style.scss'
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+import {
+	createBrowserRouter,
+	RouterProvider,
+	Outlet,
+	useNavigate,
+} from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Login from './pages/Login'
@@ -27,12 +32,18 @@ import ResetEmail from './pages/EmailReset'
 import Videos from './pages/Videos'
 import UserEmail from './pages/UserEmail'
 import Aside from './layout/Aside'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import AsideAdmin from './layout/AsideAdmin'
 import ForgotEmail from './pages/ForgotEmail'
 import ManageAdmins from './pages/ManageAdmin'
+import { AuthContext } from './context/authContext'
+import error401 from '../src/assets/error-401.svg'
+import Reg from '../src/assets/bg10-dark.jpeg'
 
 const Layout = () => {
+	const { currentUser, isLoggedIn } = useContext(AuthContext)
+	const navigate = useNavigate()
+
 	const [isAsideVisible, setIsAsideVisible] = useState(false)
 
 	const toggleAside = () => {
@@ -52,6 +63,47 @@ const Layout = () => {
 			document.removeEventListener('mousedown', handleClickOutside)
 		}
 	}, [isAsideVisible])
+
+	if (!isLoggedIn || (isLoggedIn && currentUser === null)) {
+		return (
+			<div
+				className='d-flex flex-column flex-center flex-column-fluid'
+				style={{ backgroundImage: `url(${Reg})` }}
+			>
+				{/*begin::Content*/}
+				<div className='d-flex flex-column flex-center text-center p-10'>
+					{/*begin::Wrapper*/}
+					<div className='card card-flush w-lg-650px'>
+						<div className='card-body'>
+							{/*begin::Title*/}
+							<h1 className='fw-bolder fs-2hx text-gray-900 mb-4'>
+								You are not logged in
+							</h1>
+							{/*end::Title*/}
+							{/*begin::Text*/}
+							<div className='fw-semibold fs-6 text-gray-500 mb-7'>
+								Please log in to view this page.
+							</div>
+							{/*end::Text*/}
+							{/*begin::Illustration & login*/}
+							<div className='mb-0'>
+								<img alt='Logo' src={error401} className='h-50' />
+								<button
+									className='btn btn-primary'
+									onClick={() => navigate('/')}
+								>
+									Log In
+								</button>
+							</div>
+							{/*end::Illustration & login*/}
+						</div>
+					</div>
+					{/*end::Wrapper*/}
+				</div>
+				{/* {/*end::Content*/}
+			</div>
+		)
+	}
 
 	return (
 		<div className='page d-flex flex-row flex-column-fluid'>
@@ -74,6 +126,9 @@ const Layout = () => {
 export { Layout }
 
 const AdminLayout = () => {
+	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
+	const navigate = useNavigate()
+
 	const [isAsideVisible, setIsAsideVisible] = useState(false)
 
 	const toggleAside = () => {
@@ -93,6 +148,47 @@ const AdminLayout = () => {
 			document.removeEventListener('mousedown', handleClickOutside)
 		}
 	}, [isAsideVisible])
+
+	if (!isLoggedIn || (isLoggedIn && currentAdmin === null)) {
+		return (
+			<div
+				className='d-flex flex-column flex-center flex-column-fluid'
+				style={{ backgroundImage: `url(${Reg})` }}
+			>
+				{/*begin::Content*/}
+				<div className='d-flex flex-column flex-center text-center p-10'>
+					{/*begin::Wrapper*/}
+					<div className='card card-flush w-lg-650px'>
+						<div className='card-body'>
+							{/*begin::Title*/}
+							<h1 className='fw-bolder fs-2hx text-gray-900 mb-4'>
+								You are not logged in
+							</h1>
+							{/*end::Title*/}
+							{/*begin::Text*/}
+							<div className='fw-semibold fs-6 text-gray-500 mb-7'>
+								Please log in to view this page.
+							</div>
+							{/*end::Text*/}
+							{/*begin::Illustration & login*/}
+							<div className='mb-0'>
+								<img alt='Logo' src={error401} className='h-50' />
+								<button
+									className='btn btn-primary'
+									onClick={() => navigate('/admin')}
+								>
+									Log In
+								</button>
+							</div>
+							{/*end::Illustration & login*/}
+						</div>
+					</div>
+					{/*end::Wrapper*/}
+				</div>
+				{/* {/*end::Content*/}
+			</div>
+		)
+	}
 
 	return (
 		<div className='page d-flex flex-row flex-column-fluid'>

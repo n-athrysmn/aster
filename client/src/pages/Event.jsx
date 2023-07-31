@@ -1,14 +1,11 @@
 import axios from 'axios'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
 import Toolbar from '../layout/Toolbar'
 
 const Event = () => {
 	const pageTitle = 'Events Management'
 	const pageDescription = 'List of Events'
-	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
 	const [events, setEvents] = useState([])
 
 	useEffect(() => {
@@ -88,12 +85,6 @@ const Event = () => {
 				window.location.reload()
 			}, 3000)
 		}
-	}
-
-	const navigate = useNavigate()
-
-	if (!isLoggedIn || !currentAdmin) {
-		return navigate('/admin')
 	}
 
 	return (

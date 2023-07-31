@@ -8,7 +8,7 @@ import Toolbar from '../layout/Toolbar'
 const ManageAdmins = () => {
 	const pageTitle = 'Manage Admin'
 	const pageDescription = 'List of Admins'
-	const { currentAdmin, isLoggedIn } = useContext(AuthContext)
+	const { currentAdmin } = useContext(AuthContext)
 	const [admins, setAdmins] = useState([])
 
 	useEffect(() => {
@@ -96,10 +96,6 @@ const ManageAdmins = () => {
 	}
 
 	const navigate = useNavigate()
-
-	if (!isLoggedIn || !currentAdmin) {
-		return navigate('/admin')
-	}
 	if (currentAdmin.type !== 'Super Admin') {
 		return navigate('/admin')
 	}
