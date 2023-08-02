@@ -33,6 +33,6 @@ router.get('/get-videos', getVids)
 router.get('/getPdf/:bookIsbn', getPdf)
 router.get('/getAll', getAll)
 router.get('/getAllOwned', getAllBooks)
-router.delete('/remove/:isbn', removeBook)
+router.delete('/remove/:id', removeBook)
 
 export default router

@@ -146,6 +146,7 @@ const Home = () => {
 
 	const [inputs, setInputs] = useState({
 		isbn: selectedBook?.isbn || '',
+		id: selectedBook?.id || '',
 		studentId: '',
 		parentId: '',
 		teacherId: '',
@@ -156,6 +157,7 @@ const Home = () => {
 			setInputs((prevInputs) => ({
 				...prevInputs,
 				isbn: selectedBook.isbn,
+				id: selectedBook.id,
 			}))
 		}
 	}, [selectedBook])
@@ -183,7 +185,7 @@ const Home = () => {
 		e.preventDefault()
 		try {
 			await axios.delete(
-				`${process.env.REACT_APP_API_URL}/books/remove/${inputs.isbn}`,
+				`${process.env.REACT_APP_API_URL}/books/remove/${inputs.id}`,
 				{ data: inputs } // Pass the inputs object as the request body
 			)
 			setSuccessMsg('Your book has been removed successfully!')
@@ -542,7 +544,7 @@ const Home = () => {
 										</div>
 										{/* <!--end::Input group--> */}
 										{/* <!--begin::Input group--> */}
-										<div className='d-flex flex-column fv-row'>
+										<div className='d-flex flex-column mb-8 fv-row'>
 											{/* <!--begin::Label--> */}
 											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
 												<span>Book ISBN</span>
@@ -556,6 +558,23 @@ const Home = () => {
 												disabled
 											/>
 										</div>
+										{/* <!--end::Input group--> */}
+										{/* <!--begin::Input group--> */}
+										<div className='d-flex flex-column fv-row'>
+											{/* <!--begin::Label--> */}
+											<label className='d-flex align-items-center fs-6 fw-semibold mb-2'>
+												<span>Owned Book ID</span>
+											</label>
+											{/* <!--end::Label--> */}
+											<input
+												type='text'
+												className='form-control form-control-solid'
+												value={inputs.id}
+												name='id'
+												disabled
+											/>
+										</div>
+										{/* <!--end::Input group--> */}
 										{err && <p className='text-danger'>{err}</p>}
 										{successMsg && <p className='text-success'>{successMsg}</p>}
 									</div>

@@ -47,6 +47,10 @@ function BookModal({ setBooks }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		if (!inputs.isbn) {
+			setError('Please enter a valid ISBN Number')
+			return
+		}
 		try {
 			await axios.post(
 				`${process.env.REACT_APP_API_URL}/books/add-book`,
@@ -61,6 +65,7 @@ function BookModal({ setBooks }) {
 			setError(`Error: ${err.response.data}`)
 		}
 	}
+
 	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {

@@ -39,6 +39,7 @@ import ManageAdmins from './pages/ManageAdmin'
 import { AuthContext } from './context/authContext'
 import error401 from '../src/assets/error-401.svg'
 import Reg from '../src/assets/bg10-dark.jpeg'
+import NotFound from './errors/Error404'
 
 const Layout = () => {
 	const { currentUser, isLoggedIn } = useContext(AuthContext)
@@ -244,6 +245,10 @@ const router = createBrowserRouter([
 	{
 		path: '/forgot-email',
 		element: <ForgotEmail />,
+	},
+	{
+		path: '*',
+		element: <NotFound />,
 	},
 	{
 		path: '/',

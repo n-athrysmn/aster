@@ -9,7 +9,7 @@ export const ownedBooks = (req, res) => {
 
 	if (userId) {
 		// Use the userId from the request parameters instead of currentUser
-		q = `SELECT books.*, ownedbooks.* FROM ownedbooks JOIN books ON ownedbooks.isbn = books.isbn WHERE ownedbooks.studentId = ? OR ownedbooks.parentId = ? OR ownedbooks.teacherId = ? ORDER BY books.id ASC`
+		q = `SELECT books.name, books.isbn, books.desc, books.pdf, books.img, ownedbooks.* FROM ownedbooks JOIN books ON ownedbooks.isbn = books.isbn WHERE ownedbooks.studentId = ? OR ownedbooks.parentId = ? OR ownedbooks.teacherId = ? ORDER BY books.id ASC`
 		values = [userId, userId, userId]
 	}
 
@@ -74,11 +74,11 @@ export const addBooks = (req, res) => {
 
 //add more books - user dashboard
 export const removeBook = (req, res) => {
-	const { isbn, studentId, teacherId, parentId } = req.body
+	const { id, studentId, teacherId, parentId } = req.body
 
 	const query =
-		'DELETE FROM ownedbooks WHERE isbn = ? AND (`studentId` = ? OR `teacherId` = ? OR `parentId` = ?)'
-	const values = [isbn, studentId, teacherId, parentId]
+		'DELETE FROM ownedbooks WHERE id = ? AND (`studentId` = ? OR `teacherId` = ? OR `parentId` = ?)'
+	const values = [id, studentId, teacherId, parentId]
 
 	db.query(query, values, (err, result) => {
 		if (err) {
